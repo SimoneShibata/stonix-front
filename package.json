@@ -1,24 +1,42 @@
 {
   "name": "stonix-front",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "license": "MIT",
   "scripts": {
-    "build": "gulp",
-    "start": "gulp dev"
+    "start": "tsc && concurrently \"npm run scss\" \"npm run tsc:w\" \"npm run lite\" ",
+    "lite": "lite-server",
+    "postinstall": "typings install",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings",
+    "scss": "node-sass --watch app/**/*.scss -o app/styles/"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.2",
-    "traceur": "0.0.102",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "^0.33.3",
-    "rxjs": "5.0.0-beta.0",
-    "zone.js": "0.5.10",
+    "angular2": "2.0.0-beta.17",
+    "es6-shim": "^0.35.0",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "0.6.12",
     "reflect-metadata": "0.1.2",
-    "systemjs": "0.19.6"
+    "systemjs": "0.19.27",
+    "@angular2-material/core": "v2.0.0-alpha.3",
+    "@angular2-material/button": "v2.0.0-alpha.3",
+    "@angular2-material/card": "v2.0.0-alpha.3",
+    "@angular2-material/checkbox": "v2.0.0-alpha.3",
+    "@angular2-material/input": "v2.0.0-alpha.3",
+    "@angular2-material/list": "v2.0.0-alpha.3",
+    "@angular2-material/progress-bar": "v2.0.0-alpha.3",
+    "@angular2-material/progress-circle": "v2.0.0-alpha.3",
+    "@angular2-material/radio": "v2.0.0-alpha.3",
+    "@angular2-material/sidenav": "v2.0.0-alpha.3",
+    "@angular2-material/toolbar": "v2.0.0-alpha.3"
   },
   "devDependencies": {
-    "gulp": "3.9.0",
-    "gulp-rename": "1.2.2",
-    "gulp-traceur": "0.17.2",
-    "gulp-webserver": "0.9.1"
+    "gulp": "*",
+    "node-sass": "*",
+    "gulp-inject": "*",
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1"
   }
 }
