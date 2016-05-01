@@ -1,6 +1,7 @@
 import {Component} from "angular2/core";
 import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 import {LoginComponent} from "../component.login/component.login";
+import {RoutesConstants} from "../constants.routes/constants.routes";
 
 @Component({
   selector: 'app',
@@ -10,6 +11,6 @@ import {LoginComponent} from "../component.login/component.login";
     LoginComponent
   ]
 })
-@RouteConfig([])
+@RouteConfig(RoutesConstants.all)
 export class AppComponent {
 }

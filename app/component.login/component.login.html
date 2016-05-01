@@ -1,2 +1,11 @@
-<h1>login</h1>
-<button md-button>flat</button>
+<md-card>
+  <div layout="row">
+    <md-input [(ngModel)]="user._email" type="string" placeholder="email"></md-input>
+  </div>
+  <div layout="row">
+    <md-input [(ngModel)]="user._password" type="password" placeholder="senha"></md-input>
+  </div>
+  <div layout="row">
+    <button md-raised-button (click)="login()">entrar</button>
+  </div>
+</md-card>
