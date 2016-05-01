@@ -9,7 +9,9 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
-    "scss": "node-sass --watch app/**/*.scss -o app/styles/"
+    "scss": "concurrently \"npm run scss:install\" \"npm run scss:watch\"",
+    "scss:install": "node-sass --recursive app/ -o app/styles/",
+    "scss:watch": "node-sass --watch --recursive app/ -o app/styles/"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.17",
