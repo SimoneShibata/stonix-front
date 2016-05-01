@@ -15,14 +15,13 @@ export class LoginComponent {
   private router:Router;
   private user:User = new User();
 
-  constructor(router:Router) {
-    this.router = router;
+  constructor(private router:Router) {
   }
 
   login() {
     // FIXME dummy login
     if (this.user.email != 'adm' || this.user.password != 'adm')
       console.error('user/password invalid!');
-    this.router.navigate(['App']);
+    this.router.navigate(['Question']);
   }
 }
