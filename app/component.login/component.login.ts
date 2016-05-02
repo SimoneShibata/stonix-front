@@ -12,7 +12,6 @@ import {User} from "../model.user/model.user";
   directives: [MdButton, MdInput, MdCard]
 })
 export class LoginComponent {
-  private router:Router;
   private user:User = new User();
 
   constructor(private router:Router) {
