@@ -1,0 +1,11 @@
+<md-card>
+  <div layout="row">
+    <md-input [(ngModel)]="question.title" type="string" placeholder="Pergunta"></md-input>
+  </div>
+  <div layout="row">
+    <md-input [(ngModel)]="question.description" type="string" placeholder="Descrição"></md-input>
+  </div>
+  <div layout="row">
+    <button md-raised-button (click)="save()">Criar</button>
+  </div>
+</md-card>

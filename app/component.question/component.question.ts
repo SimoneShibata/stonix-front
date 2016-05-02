@@ -3,31 +3,27 @@ import {Router} from "angular2/router";
 import {MdButton} from "@angular2-material/button/button";
 import {MdInput} from "@angular2-material/input/input";
 import {MdCard} from "@angular2-material/card/card";
-import {User} from "../model.user/model.user";
+import {Question} from "../model.question/model.question";
 import {HttpService} from "../service.http/service.http";
 
 @Component({
-  selector: 'login',
-  templateUrl: './app/component.login/component.login.html',
-  styleUrls: ['./app/styles/component.login/component.login.css'],
+  selector: 'question',
+  templateUrl: './app/component.question/component.question.html',
+  styleUrls: ['./app/styles/component.question/component.question.css'],
   directives: [MdButton, MdInput, MdCard],
   providers: [HttpService]
 })
-export class LoginComponent {
-  private user:User = new User();
+export class QuestionComponent {
+  private question:Question = new Question();
 
   constructor(private router:Router, private http:HttpService) {
   }
 
-  login() {
-    // FIXME dummy login
-    this.http.get('',
+  save() {
+    this.http.post('questions', this.question,
       (response) => {
         console.log(response);
+        this.router.navigate(['QuestionList']);
       });
-
-    if (this.user.email != 'adm' || this.user.password != 'adm')
-      console.error('user/password invalid!');
-    this.router.navigate(['QuestionList']);
   }
 }
