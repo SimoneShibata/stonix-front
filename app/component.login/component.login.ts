@@ -21,14 +21,13 @@ export class LoginComponent {
 
   login() {
     // FIXME dummy login
-
-    this.http.get('http://www.mocky.io/v2/572691d310000085266dd69b',
+    this.http.get('',
       (response) => {
         console.log(response);
       });
 
     if (this.user.email != 'adm' || this.user.password != 'adm')
       console.error('user/password invalid!');
-    this.router.navigate(['Question']);
+    this.router.navigate(['QuestionList']);
   }
 }

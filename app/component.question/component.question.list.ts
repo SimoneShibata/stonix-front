@@ -7,23 +7,24 @@ import {Question} from "../model.question/model.question";
 import {HttpService} from "../service.http/service.http";
 
 @Component({
-  selector: 'question',
-  templateUrl: './app/component.question/component.question.html',
+  selector: 'question-list',
+  templateUrl: './app/component.question/component.question.list.html',
   styleUrls: ['./app/styles/component.question/component.question.css'],
   directives: [MdButton, MdInput, MdCard],
   providers: [HttpService]
 })
-export class QuestionComponent {
-  private question:Question = new Question();
+export class QuestionListComponent {
+  private questions:Question[];
 
   constructor(private router:Router, private http:HttpService) {
+    this.getAll();
   }
 
-  save() {
-    this.http.post('questions', this.question,
+  getAll() {
+    this.http.get('questions',
       (response) => {
-        console.log(response);
-        this.router.navigate(['QuestionList']);
+        this.questions = response.body;
+        console.log(this.questions);
       });
   }
 }
