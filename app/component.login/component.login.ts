@@ -29,6 +29,6 @@ export class LoginComponent {
 
     if (this.user.email != 'adm' || this.user.password != 'adm')
       console.error('user/password invalid!');
-    this.router.navigate(['App']);
+    this.router.navigate(['Question']);
   }
 }
