@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.menuBtn {
+    background-color: transparent;
+    border: none;
+    margin-left: 16px;
+}
+md-list .md-button {
+    color: inherit;
+    text-align: left;
+    width: 100%;
+}
+
+/* Using Data-URI converted from svg until <md-icon> becomes available 
+https://github.com/google/material-design-icons
+*/
+.menuBtn {
+    background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI0IDI0IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGcgaWQ9IkhlYWRlciI+CiAgICA8Zz4KICAgICAgICA8cmVjdCB4PSItNjE4IiB5PSItMjIzMiIgZmlsbD0ibm9uZSIgd2lkdGg9IjE0MDAiIGhlaWdodD0iMzYwMCIvPgogICAgPC9nPgo8L2c+CjxnIGlkPSJMYWJlbCI+CjwvZz4KPGcgaWQ9Ikljb24iPgogICAgPGc+CiAgICAgICAgPHJlY3QgZmlsbD0ibm9uZSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ii8+CiAgICAgICAgPHBhdGggZD0iTTMsMThoMTh2LTJIM1YxOHogTTMsMTNoMTh2LTJIM1YxM3ogTTMsNnYyaDE4VjZIM3oiIHN0eWxlPSJmaWxsOiNmM2YzZjM7Ii8+CiAgICA8L2c+CjwvZz4KPGcgaWQ9IkdyaWQiIGRpc3BsYXk9Im5vbmUiPgogICAgPGcgZGlzcGxheT0iaW5saW5lIj4KICAgIDwvZz4KPC9nPgo8L3N2Zz4=) no-repeat  center center;
+}
+
+@font-face {
+    font-family:"icomoon";
+    src:url("https://cdn.rawgit.com/angular/material/master/docs/app/fonts/icomoon.eot");
+    font-weight:normal;
+    font-style:normal;
+}
+@font-face {
+    font-family: 'icomoon';
+    src:url('https://rawgit.com/angular/material/master/docs/app/fonts/icomoon.eot?-cmq1um');
+    src:url('https://cdn.rawgit.com/angular/material/master/docs/app/fonts/icomoon.eot?#iefix-cmq1um') format('embedded-opentype'),
+    url('https://cdn.rawgit.com/angular/material/master/docs/app/fonts/icomoon.woff?-cmq1um') format('woff'),
+    url('https://cdn.rawgit.com/angular/material/master/docs/app/fonts/icomoon.ttf?-cmq1um') format('truetype'),
+    url('https://cdn.rawgit.com/angular/material/master/docs/app/fonts/icomoon.svg?-cmq1um#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/* -------------------- */
+.logo {
+    background-color: #751612;
+    text-align: center;
+}
+#logo {
+    width: 110px;
+    margin: 20px;
+}
+.photoUser {
+    width: 130px;
+    border: 5px solid #c4c4c4;
+    border-radius: 3px;
+    margin: 30px 20px;
+}
+.titleInfo {
+    font-size: 12px;
+    margin: 0;
+}
+.descInfo {
+    font-size: 23px;
+    font-weight: bold;
+    margin: 0;
+}
+.infos {
+    margin: 30px 30px; 
+    text-align: center;
+}
+.userInfo {
+    margin-left: 20px; 
+}
+#nameUser {
+    font-weight: bold;
+    font-size: 20px;
+}
+#xp {
+    margin: 10px 0px 30px 0;
+    font-size: 10px;
+    color: #696969;
+}
+#xp span {
+    font-weight: bold;
+    color: #6d6d6d;
+    font-size: 14px;
+}
+.margin-fa {
+    margin-right: 20px;
+}
+#footer {
+    font-size: 10px;
+    text-align: center;
+    margin: 5px 0;
+}
+.page {
+    background-color: #ededed; 
+    height: 100%;
+}
+.content {
+    margin: 30px;
+}
+.userQuestion {
+    width: 58px;
+}
+.fa-gray {
+    color: #6d6d6d;
+}
+.actionQuestion {
+    text-decoration: none;
+    color: #6d6d6d;
+    margin-right: 10px;
+}
+.descQuestion {
+    padding-left: 15px;
+}
+
+.fa-search {
+    margin: 20px 15px;
+}
+.float-right {
+    float: right;
+}
+.searchQuestion {
+    font-size: 14px;
+    color: #fff;
+    width: 200px;
+}
+
+
+.tabsdemoDynamicHeight md-content {
+    background-color: transparent !important; 
+}
+.tabsdemoDynamicHeight md-content md-tabs {
+    background: #ededed;
+}
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+    background: white; 
+}
+.tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0; 
+}
+
+@media only screen and (max-width: 768px) {
+    .content {
+        margin: 10px;
+    }
+    .searchQuestion {
+        font-size: 14px;
+        color: #fff;
+        width: 150px;
+    }
+}

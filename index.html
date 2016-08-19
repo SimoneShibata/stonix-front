@@ -1,0 +1,89 @@
+<html ng-app="app">
+<head>
+    <title>Stonix Hero</title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="css/css.css">
+    <meta name="viewport" content="initial-scale=1" />
+    <meta charset="utf-8"/>
+</head>
+
+<body layout="column" ng-controller="AppController">
+
+    <div flex layout="row">
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
+            <div class="logo">
+                <img id="logo" src="./img/logo.png"/>
+            </div>
+
+            <div layout="row">
+                <div layout="column">
+                    <div>
+                        <img src="./img/user.jpg" class="photoUser"/>
+                    </div>
+                    <div class="userInfo">
+                        <p id="nameUser">{{ user.name }}</p>
+                        <md-progress-linear md-mode="determinate" value="15" class="md-accent"></md-progress-linear>
+                        <p id="xp"><span>LVL 20</span> | 150/1000 XP</p>
+                    </div>
+                </div>
+                <div layout="column" class="infos">
+                    <div>
+                        <p class="titleInfo">Pontuação</p>
+                        <p class="descInfo">{{ user.points }}</p>
+                    </div>
+                    <div >
+                        <p class="titleInfo">Ranking</p>
+                        <p class="descInfo">{{ user.rank }}°</p>
+                    </div>
+                    <div >
+                        <p class="titleInfo">Moedas</p>
+                        <p class="descInfo">{{ user.coins }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <md-divider ></md-divider>
+            <md-list>
+                <md-list-item ng-click="navigateTo('/questions')">
+                    <i class="fa fa-question-circle margin-fa" aria-hidden="true"></i><p>Fórum</p>
+                </md-list-item>
+                <md-list-item ng-click="navigateTo('/salas')">
+                    <i class="fa fa-graduation-cap margin-fa" aria-hidden="true"></i><p>Sala de aula</p>
+                </md-list-item>
+                <md-list-item ng-click="navigateTo('/jogo')">
+                    <i class="fa fa-gamepad margin-fa" aria-hidden="true"></i><p>Jogo</p>
+                </md-list-item>
+                <md-list-item ng-click="navigateTo('/ranking')">
+                    <i class="fa fa-trophy margin-fa" aria-hidden="true"></i><p>Ranking</p>
+                </md-list-item>
+                <md-list-item ng-click="navigateTo('/perfil')">
+                    <i class="fa fa-question-circle margin-fa" aria-hidden="true"></i><p>Perfil</p>
+                </md-list-item>
+
+            </md-list>
+            <md-divider ></md-divider>
+            <p id="footer">Desenvolvido por OldOwl com ♥</p>
+        </md-sidenav>
+
+        <md-content flex id="content">
+            <div ng-view></div>
+        </md-content>   
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.js"></script>  
+
+        <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-resource.min.js"></script> 
+        
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/controllers/controllers.js"></script>
+
+
+    </body>
+    </html>

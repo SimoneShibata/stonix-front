@@ -1,0 +1,67 @@
+
+<div class="page">
+    <md-toolbar layout="row">
+        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+        <h3 class="md-toolbar-tools">
+            <i class="fa fa-arrow-left margin-fa" aria-hidden="true" ng-click="navigateTo('/questions')"></i>
+            {{pageTitle}}
+        </h3>
+
+        <md-input-container md-theme="input" flex>
+            <input class="searchQuestion" aria-label="Buscar pergunta">
+          </md-input-container>
+        <i class="fa fa-search" aria-hidden="true"></i>
+    </md-input-container>
+</md-toolbar>
+
+<div class="content">
+
+    <md-card>
+        <md-card-content>
+            <div layout="row">
+                <div layout="column">
+                    <img src="{{ user.image }}" class="userQuestion"/>
+                    {{ user.rank }}°     
+                </div>
+                <div layout="column" class="descQuestion">
+                    {{ question.title }}
+                </div>
+            </div>
+        </md-card-content>
+        <md-divider></md-divider>
+        <md-card-footer>
+            <a href="#" class="actionQuestion">
+                <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
+                {{ question.likes }} gostei
+            </a>
+            <a href="#" class="actionQuestion">
+                <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
+                {{ question.numberAnswers}} respostas
+            </a>
+            <a href="#" class="actionQuestion">
+                <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
+                {{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+            </a>
+        </md-card-footer>
+        <md-divider></md-divider>
+        <md-card-content>
+            <p>
+            {{ question.description }}
+            </p>
+            <div layout="row" class="float-right">
+
+                <md-button class="md-raised md-primary" ng-click="deleteQuestion()">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    delete
+                </md-button>
+                <md-button class="md-raised md-accent" ng-click="navigateTo('/questions/edit/' + question.id)">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                    editar
+                </md-button>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>
+</div>
