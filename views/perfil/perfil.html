@@ -1,6 +1,92 @@
-<md-toolbar layout="row">
-  	<md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
-    	<md-icon md-svg-icon="menu"></md-icon>
-  	</md-button>
-	<h3 class="md-toolbar-tools">{{pageTitle}}</h3>
-</md-toolbar>
+<div class="page">
+	<md-toolbar layout="row">
+		<md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+			<md-icon md-svg-icon="menu"></md-icon>
+		</md-button>
+		<h3 class="md-toolbar-tools">{{pageTitle}}</h3>
+	</md-toolbar>
+	<div class="content">
+		<div layout="row">
+			<div layout="column">
+				<div>
+                    <img src="{{ user.image }}" class="photoUser-perfil"/>
+                </div>
+			</div>
+			<div layout="column" flex>
+				<md-card>
+					<md-card-content>
+						<span class="md-headline">Informações</span>
+					</md-card-content>
+					<md-divider></md-divider>
+					<md-card-content>
+						<div layout="row">
+							<div layout="column">
+								<p>Nome: </p>
+								<p>E-mail: </p>
+								<p>Data de nascimento: </p>		
+							</div>
+							<div layout="column" flex>
+								<p><span style="font-weight:bold;">{{ user.name }}</span></p>
+								<p><span style="font-weight:bold;">{{ user.email }}</span></p>
+								<p><span style="font-weight:bold;">{{ user.dataNasc }}</span></p>
+							</div>
+							<div layout="column">
+								<a href=""><i class="fa fa-key fa-gray" aria-hidden="true"></i> Alterar senha</a>
+								<p><span style="font-weight:bold;">{{ user.password }}</span></p>
+							</div>
+						</div>
+						
+					</md-card-content>
+				</md-card>
+			</div>
+			
+		</div>
+		<div layout="row" >
+			<div layout="column" flex>
+				<md-card>
+					<md-card-content>
+						<span class="md-headline">Indicadores </span>
+					</md-card-content>
+					<md-divider></md-divider>
+					<md-card-content>
+						<div layout="row">
+							<div layout="column" flex>
+								<p>Perguntas: </p>
+								<p>Respostas: </p>
+								<p>Melhores perguntas: </p>		
+							</div>
+							<div layout="column" flex>
+								<p><span style="font-weight:bold;">{{ user.qtdPerguntas }}</span></p>
+								<p><span style="font-weight:bold;">{{ user.qtdRespostas }}</span></p>
+								<p><span style="font-weight:bold;">{{ user.qtdMelhoresPerguntas }}</span></p>
+							</div>
+							<div layout="column" flex>
+								<p>Participação de salas: </p>
+								<p>Aluno de Ouro: </p>
+								<p>Aluno de Prata: </p>	
+								<p>Aluno de Bronze: </p>		
+							</div>
+							<div layout="column" flex>
+								<p><span style="font-weight:bold;">{{ user.qtdSalas }}</span></p>
+								<p><span style="font-weight:bold;">{{ user.ouro }}</span></p>
+								<p><span style="font-weight:bold;">{{ user.prata }}</span></p>
+								<p><span style="font-weight:bold;">{{ user.bronze }}</span></p>
+							</div>
+							<div layout="column" flex>
+								<p>Pontuação geral: </p>
+								<p>Ranking geral: </p>
+								<p>Level: </p>		
+							</div>
+							<div layout="column" flex>
+								<p><span style="font-weight:bold;">{{ user.points }}</span></p>
+								<p><span style="font-weight:bold;">{{ user.rank }}°</span></p>
+								<p><span style="font-weight:bold;">{{ user.level }}</span></p>
+							</div>
+						</div>
+					</md-card-content>
+				</md-card>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

@@ -1,4 +1,3 @@
-
 <div class="page">
 	<md-toolbar layout="row">
 		<md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
@@ -97,7 +96,6 @@
 								<md-card-content>
 									<form name="questionForm">
 									<md-input-container>
-										
 										<label>Título da pergunta</label>
 										<input name="title" ng-model="question.title" required md-maxlength="250" minlength="5">
 										<div ng-messages="questionForm.title.$error" ng-show="questionForm.title.$dirty">
@@ -108,13 +106,27 @@
 										
 									</md-input-container>
 
+									<label>Descrição</label>
 									<md-input-container>
-										<label>Descrição</label>
+										<wysiwyg textarea-id="question" 
+											textarea-class="form-control"  
+											textarea-height="180px" 
+											textarea-name="textareaQuestion"
+											textarea-required 
+											ng-model="data.text" 
+											enable-bootstrap-title="true"
+											textarea-menu="menu"
+											disabled="disabled"
+
+											ng-model="question.description">
+								        </wysiwyg>
+										<!--
 										<textarea name="description" ng-model="question.description" required  minlength="10"></textarea>
 										<div ng-messages="questionForm.description.$error" ng-show="questionForm.description.$dirty">
 											<div ng-message="required">Ei! Este campo é obrigatório!</div>
 											<div ng-message="minlength">Ops! Este campo deve conter mais que 10 caracteres.</div>
 										</div>
+										-->
 									</md-input-container>
 									</form>
 								</md-card-content>

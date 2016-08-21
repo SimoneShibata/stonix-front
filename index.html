@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="css/css.css">
+
+    <!-- Text Editor -->
+     <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/texteditor.css">
+
     <meta name="viewport" content="initial-scale=1" />
     <meta charset="utf-8"/>
 </head>
@@ -13,18 +18,18 @@
     <div flex layout="row">
         <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
             <div class="logo">
-                <img id="logo" src="./img/logo.png"/>
+                <img id="logo" src="./img/logo.png"/ ng-click="navigateTo('/oldowl')">
             </div>
 
             <div layout="row">
                 <div layout="column">
                     <div>
-                        <img src="./img/user.jpg" class="photoUser"/>
+                        <img src="{{ user.image }}" class="photoUser"/>
                     </div>
                     <div class="userInfo">
                         <p id="nameUser">{{ user.name }}</p>
-                        <md-progress-linear md-mode="determinate" value="15" class="md-accent"></md-progress-linear>
-                        <p id="xp"><span>LVL 20</span> | 150/1000 XP</p>
+                        <md-progress-linear md-mode="determinate" value="{{ user.xp }}" class="md-accent"></md-progress-linear>
+                        <p id="xp"><span>LVL {{ user.level }}</span> | {{ user.xp }}/100 XP</p>
                     </div>
                 </div>
                 <div layout="column" class="infos">
@@ -60,9 +65,12 @@
                 <md-list-item ng-click="navigateTo('/perfil')">
                     <i class="fa fa-question-circle margin-fa" aria-hidden="true"></i><p>Perfil</p>
                 </md-list-item>
+                <md-list-item ng-click="navigateTo('/friends')">
+                    <i class="fa fa-users margin-fa" aria-hidden="true"></i><p>Amigos</p>
+                </md-list-item>
 
+                <md-divider ></md-divider>
             </md-list>
-            <md-divider ></md-divider>
             <p id="footer">Desenvolvido por OldOwl com ♥</p>
         </md-sidenav>
 
@@ -70,17 +78,22 @@
             <div ng-view></div>
         </md-content>   
 
+        <!-- Text Editor - Jquery -->
+        <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-        
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.js"></script>  
-
         <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
         <script type="text/javascript" src="js/angular/angular-resource.min.js"></script> 
         
+        <!-- Text Editor - BootStrap -->
+        <script data-require="bootstrap@*" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="./lib/bootstrap-colorpicker-module.js"></script>
+        <script src="./lib/angular-wysiwyg.js"></script>
+    
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/controllers/controllers.js"></script>
 

@@ -3,22 +3,57 @@ app.run(function($rootScope) {
         'id': 1,
         'name': 'José Almeida',
         'email': 'jose@almeida.com',
+        'dataNasc': '23/08/1990',
         'image': './img/user.jpg',
         'points': 1030,
         'rank': 10,
-        'coins': 35
+        'coins': 35,
+        'level': 20,
+        'xp': 15,
+        'qtdPerguntas': 0,
+        'qtdRespostas': 0,
+        'qtdMelhoresPerguntas': 0,
+        'qtdSalas':0,
+        'ouro': 0,
+        'prata': 0,
+        'bronze': 0
     };
 
-    // $rootScope.questions = [
-    //     {
-    //         'id':1,
-    //         'title':'Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui Pergunta titulo aqui ',
-    //         'description': 'Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aquiDescricao da pergunta aquiDescricaoDescricao da pergunta aqui Descricao da pergunta aqui Descricao da pergunta aqui ',
-    //         'likes': 12,
-    //         'lastUpdate': '10/06/2016',
-    //         'numberAnswers': 4
-    //     }
-    // ];
+    $rootScope.otherUsers = [
+        {
+            'id': 2,
+            'name': 'Marcelo Miranda',
+            'email': 'marcelo@miranda.com',
+            'image': './img/user2.jpg',
+            'points': 542,
+            'rank': 29,
+            'coins': 5,
+            'level': 11,
+            'xp': 120
+        },
+        {
+            'id': 3,
+            'name': 'Josefina Silva',
+            'email': 'josefina@silva.com',
+            'image': './img/user3.jpg',
+            'points': 2540,
+            'rank': 7,
+            'coins': 75,
+            'level': 23,
+            'xp': 30
+        },
+        {
+            'id': 4,
+            'name': 'Mariana Ribeiro',
+            'email': 'mariana@ribeiro.com',
+            'image': './img/user4.jpg',
+            'points': 500,
+            'rank': 38,
+            'coins': 5,
+            'level': 6,
+            'xp': 990
+        }
+    ];
 
     $rootScope.serviceBase = "http://localhost:9990/api/";
     $rootScope.uiBase = "http://localhost/stonix-front-end/#/";
@@ -51,19 +86,17 @@ app.controller('ForumController', function($scope, $http, $rootScope, $location)
 
 	$scope.pageTitle = "Fórum";
 
-    
-
 });
 
 app.controller('QuestionController', function($scope, $rootScope, $http, $routeParams, $location){
+
+    $scope.pageTitle = "Fórum";
 
     var config = {
             headers : {
                 'Content-Type': 'application/json;charset=utf-8;'
             }
         }
-
-    $scope.pageTitle = "Fórum";
 
     // GetAll - Lista questions
     $http.get($rootScope.serviceBase + "questions").then(function(response){
@@ -72,16 +105,18 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
 
     // Post - Cria question
     $scope.createQuestion = function() {
+        $scope.question.description = $scope.data.text;
         
-
         $http.post($rootScope.serviceBase + "questions/", $scope.question, this.config)
        .then(
             function(response){
                 $location.path(/questions/ + response.data.id);
                 $scope.question = {};
+                $rootScope.user.xp += 5;
+                $rootScope.user.points += 5;
             }, 
            function(response){
-             // failure callback
+                // failure callback
            }
         );
     };
@@ -119,12 +154,31 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
            }
         );
     };
-});
 
-app.controller('NewQuestionController', function($scope, $rootScope, $http){
+    // Text Editor
+    $scope.data = {
+        text: ''
+    }
+    $scope.disabled = false;
+    $scope.menu = [
+        ['bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript'],
+        [],
+        [],
+        ['font-size'],
+        ['font-color', 'hilite-color'],
+        ['remove-format'],
+        ['ordered-list', 'unordered-list'],
+        [],
+        ['code', 'quote'],
+        ['link', 'image'],
+        ['css-class']
+    ];
 
-    $scope.pageTitle = "Fórum | Nova Pergunta";
+    $scope.cssClasses = ['test1', 'test2'];
 
+    $scope.setDisabled = function() {
+        $scope.disabled = !$scope.disabled;
+    }
 });
 
 app.controller('SalasController', function($scope){
@@ -148,5 +202,11 @@ app.controller('RankingController', function($scope){
 app.controller('PerfilController', function($scope){
 
 	$scope.pageTitle = "Perfil";
+
+});
+
+app.controller('FriendsController', function($scope){
+
+    $scope.pageTitle = "Amigos";
 
 });

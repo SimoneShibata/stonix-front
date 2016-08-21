@@ -1,4 +1,10 @@
-var app = angular.module('app', ['ngRoute','ngMaterial', 'ngMessages']);
+var app = angular.module('app', ['ngRoute','ngMaterial', 'ngMessages', 'wysiwyg.module']);
+
+app.filter('to_trusted', ['$sce', function($sce){
+    return function(text) {
+        return $sce.trustAsHtml(text);
+    };
+}]);
 
 app.config(function($mdThemingProvider, $mdIconProvider, $routeProvider, $locationProvider){
 
@@ -10,6 +16,9 @@ app.config(function($mdThemingProvider, $mdIconProvider, $routeProvider, $locati
     .when('/cadastro', {
         controller: "CadastroController",
         templateUrl: "views/cadastro.html",
+    })
+    .when('/oldowl', {
+        templateUrl: "views/oldowl.html",
     })
 
     .when('/questions', {
@@ -43,6 +52,10 @@ app.config(function($mdThemingProvider, $mdIconProvider, $routeProvider, $locati
     .when('/perfil', {
         controller: "PerfilController",
         templateUrl: "views/perfil/perfil.html",
+    })
+
+    .when('/friends', {
+        templateUrl: "views/friends/friends.html",
     })
 
     .otherwise({
