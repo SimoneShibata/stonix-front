@@ -1,66 +1,70 @@
-var app = angular.module('app', ['ngRoute','ngMaterial', 'ngMessages', 'wysiwyg.module']);
+var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'wysiwyg.module']);
 
-app.filter('to_trusted', ['$sce', function($sce){
-    return function(text) {
+app.filter('to_trusted', ['$sce', function ($sce) {
+    return function (text) {
         return $sce.trustAsHtml(text);
     };
 }]);
 
-app.config(function($mdThemingProvider, $mdIconProvider, $routeProvider, $locationProvider){
+app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $locationProvider) {
 
-	$routeProvider
-	.when('/login', {
-        controller: "LoginController",
-        templateUrl: "views/login.html",
-    })
-    .when('/cadastro', {
-        controller: "CadastroController",
-        templateUrl: "views/cadastro.html",
-    })
-    .when('/oldowl', {
-        templateUrl: "views/oldowl.html",
-    })
+    $routeProvider
+        .when('/login', {
+            controller: "LoginController",
+            templateUrl: "views/login.html",
+        })
+        .when('/cadastro', {
+            controller: "CadastroController",
+            templateUrl: "views/cadastro.html",
+        })
+        .when('/oldowl', {
+            templateUrl: "views/oldowl.html",
+        })
+        .when('/questions/answers/:id', {
+            controller: "QuestionController",
+            templateUrl: "views/forum/question-answer.html",
+        })
+        .when('/questions', {
+            controller: "QuestionController",
+            templateUrl: "views/forum/questions-list.html",
+        })
+        .when('/questions/:id', {
+            controller: "QuestionController",
+            templateUrl: "views/forum/question.html",
+        })
+        .when('/questions/edit/:id', {
+            controller: "QuestionController",
+            templateUrl: "views/forum/question-edit.html",
+        })
 
-    .when('/questions', {
-        controller: "QuestionController",
-        templateUrl: "views/forum/questions-list.html",
-    })
-    .when('/questions/:id', {
-        controller: "QuestionController",
-        templateUrl: "views/forum/question.html",
-    })
-    .when('/questions/edit/:id', {
-        controller: "QuestionController",
-        templateUrl: "views/forum/question-edit.html",
-    })
 
-    .when('/salas', {
-        controller: "SalasController",
-        templateUrl: "views/salas/salas.html",
-    })
+        .when('/salas', {
+            controller: "SalasController",
+            templateUrl: "views/salas/salas.html",
+        })
 
-    .when('/jogo', {
-        controller: "JogoController",
-        templateUrl: "views/jogo/jogo.html",
-    })
+        .when('/jogo', {
+            controller: "JogoController",
+            templateUrl: "views/jogo/jogo.html",
+        })
 
-    .when('/ranking', {
-        controller: "RankingController",
-        templateUrl: "views/ranking/ranking.html",
-    })
+        .when('/ranking', {
+            controller: "RankingController",
+            templateUrl: "views/ranking/ranking.html",
+        })
 
-    .when('/perfil', {
-        controller: "PerfilController",
-        templateUrl: "views/perfil/perfil.html",
-    })
+        .when('/perfil', {
+            controller: "PerfilController",
+            templateUrl: "views/perfil/perfil.html",
+        })
 
-    .when('/friends', {
-        templateUrl: "views/friends/friends.html",
-    })
+        .when('/friends', {
+            templateUrl: "views/friends/friends.html",
+        })
 
-    .otherwise({
-        redirectTo: '/questions'
-    });
+        .otherwise({
+            redirectTo: '/questions'
+        });
 
 
     $mdIconProvider

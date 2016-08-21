@@ -20,8 +20,8 @@
 					<md-content>
 						<div class="content">
 
-							<md-card ng-click="navigateTo('/questions/' + question.id)" ng-repeat="question in questions">
-								<md-card-content>
+							<md-card ng-repeat="question in questions">
+								<md-card-content  ng-click="navigateTo('/questions/answers/' + question.id)">
 									<div layout="row">
 										<div layout="column">
 											<img src="{{ user.image }}" class="userQuestion"/>
