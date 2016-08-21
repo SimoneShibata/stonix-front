@@ -98,6 +98,13 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
             }
         }
 
+    $scope.getAllAnswers = function(){
+        $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
+            $scope.answers = response.data;
+            console.log($scope.answers);
+        });
+    }
+
     // GetAll - Lista questions
     $http.get($rootScope.serviceBase + "questions").then(function(response){
         $scope.questions = response.data;
@@ -154,10 +161,45 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
            }
         );
     };
+    
+    // Question Answer - responder
+    $scope.answer = {question:{}};
+    $scope.postAnswer = function(){
+
+        $scope.answer.question = $scope.question;
+
+        var configPost = {
+            headers: {
+                'Authorization': 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==',
+                'Accept': 'application/json;odata=verbose'
+            }
+        };
+        $http.post($rootScope.serviceBase + "answers/", $scope.answer, this.config)
+            .then(
+                function(response){
+                    $scope.answer.description = "";
+                    $scope.answers = $scope.getAllAnswers();
+                },
+                function(response){
+                    // failure callback
+                }
+            );
+    }
+    // Botao show input
+    $scope.toAnswer = function() {
+        $scope.hideButton = true;
+    }
+
+    // GetAll - Lista answers
+    $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
+        $scope.answers = response.data;
+        console.log($scope.answers);
+    });
 
     // Text Editor
     $scope.data = {
-        text: ''
+        text: '',
+        answer:''
     }
     $scope.disabled = false;
     $scope.menu = [

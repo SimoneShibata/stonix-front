@@ -61,4 +61,34 @@
         </md-card-content>
     </md-card>
 </div>
+    <div class="content">
+        <md-card ng-repeat="answer in answers">
+            <md-card-content>
+                <div layout="row">
+                    <div layout="column">
+                        <img src="{{ user.image }}" class="userQuestion"/>
+                        {{ user.rank }}°
+                    </div>
+                    <div layout="column" class="descQuestion">
+                        {{ answer.description }}
+                    </div>
+                </div>
+            </md-card-content>
+            <md-divider></md-divider>
+            <md-card-footer>
+                <a href="#" class="actionQuestion">
+                    <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
+                    {{ answer.likes }} gostei
+                </a>
+                <a href="#" class="actionQuestion">
+                    <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
+                    {{ answer.numberAnswers }} respostas
+                </a>
+                <a href="#" class="actionQuestion">
+                    <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
+                    {{ answer.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+                </a>
+            </md-card-footer>
+        </md-card>
+    </div>
 </div>
