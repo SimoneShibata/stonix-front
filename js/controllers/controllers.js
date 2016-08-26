@@ -196,14 +196,25 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
     $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
         $scope.answers = response.data;
     });
-    
+
+    // Aceitar Melhor Resposta
     $scope.acceptAnswer = function (answer) {
         $http.get($rootScope.serviceBase + '/answers/' + $routeParams.id + "/better/" + answer.id).then(function (response) {
             $scope.question.answered = true;
             $scope.answers = $scope.getAllAnswers();
         });
-    }
-    
+    };
+
+    $scope.niceQuestion = function (question) {
+        $http.get($rootScope.serviceBase + '/questions/nice/' + question.id).then(function (response) {
+            $http.get($rootScope.serviceBase + "questions").then(function(response){
+                $scope.questions = response.data;
+                $scope.question.nice++;
+            });
+        });
+    };
+
+
     // Text Editor
     $scope.data = {
         text: '',

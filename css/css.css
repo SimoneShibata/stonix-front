@@ -117,6 +117,7 @@ https://github.com/google/material-design-icons
     text-decoration: none;
     color: #6d6d6d;
     margin-right: 10px;
+    cursor: pointer;
 }
 .descQuestion {
     padding-left: 15px;
