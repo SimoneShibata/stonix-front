@@ -55,7 +55,7 @@ app.run(function($rootScope) {
         }
     ];
 
-    $rootScope.serviceBase = "http://localhost:9990/api/";
+    $rootScope.serviceBase = "http://localhost:9991/api/";
     $rootScope.uiBase = "http://localhost/stonix-front-end/#/";
 });
 
@@ -82,6 +82,8 @@ app.controller('LoginController', function($scope, $mdSidenav,$location){
     };
 });
 
+
+
 app.controller('ForumController', function($scope, $http, $rootScope, $location){
 
 	$scope.pageTitle = "Fórum";
@@ -93,10 +95,10 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
     $scope.pageTitle = "Fórum";
 
     var config = {
-            headers : {
-                'Content-Type': 'application/json;charset=utf-8;'
-            }
+        headers : {
+            'Content-Type': 'application/json;charset=utf-8;'
         }
+    }
 
     $scope.getAllAnswers = function(){
         $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
@@ -114,7 +116,7 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
     $scope.createQuestion = function() {
         $scope.question.description = $scope.data.text;
         
-        $http.post($rootScope.serviceBase + "questions/", $scope.question, this.config)
+        $http.post($rootScope.serviceBase + "questions/", $scope.question, app.header)
        .then(
             function(response){
                 $location.path(/questions/ + response.data.id);
@@ -193,9 +195,15 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
     // GetAll - Lista answers
     $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
         $scope.answers = response.data;
-        console.log($scope.answers);
     });
-
+    
+    $scope.acceptAnswer = function (answer) {
+        $http.get($rootScope.serviceBase + '/answers/' + $routeParams.id + "/better/" + answer.id).then(function (response) {
+            $scope.question.answered = true;
+            $scope.answers = $scope.getAllAnswers();
+        });
+    }
+    
     // Text Editor
     $scope.data = {
         text: '',
