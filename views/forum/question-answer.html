@@ -51,14 +51,14 @@
             <md-divider></md-divider>
 
             <md-card-content>
-                <div layout="row" class="float-right" ng-show="!hideButton">
+                <div layout="row" class="float-right" ng-show="!hideButton && !question.answered">
                     <md-button class="md-raised md-accent" ng-click="toAnswer()">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         responder
                     </md-button>
                 </div>
             </md-card-content>
-            <div ng-show="hideButton">
+            <div ng-show="hideButton && !question.answered">
                 <md-card-content>
                     <md-input-container>
                         <label>Resposta</label>
@@ -93,8 +93,12 @@
                     <img src="{{ user.image }}" class="userQuestion"/>
                     {{ user.rank }}°
                 </div>
-                <div layout="column" class="descQuestion">
+                <div layout="column" flex class="descQuestion">
                     {{ answer.description }}
+                </div>
+                <div layout="column">
+                    <i class="fa fa-check fa-gray-light float-right" aria-hidden="true" ng-click="acceptAnswer(answer)" ng-if="!answer.bestAnswer && !question.answered"></i>
+                    <i class="fa fa-check fa-blue float-right" aria-hidden="true" ng-if="answer.bestAnswer"></i>
                 </div>
             </div>
         </md-card-content>

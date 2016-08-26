@@ -6,7 +6,7 @@ app.filter('to_trusted', ['$sce', function ($sce) {
     };
 }]);
 
-app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $locationProvider) {
+app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
 
     $routeProvider
         .when('/login', {

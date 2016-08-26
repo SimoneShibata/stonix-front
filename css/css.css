@@ -103,6 +103,16 @@ https://github.com/google/material-design-icons
 .fa-gray {
     color: #6d6d6d;
 }
+
+.fa-gray-light{
+    color: #a0a0a0;
+    font-size: 20px;
+}
+.fa-blue{
+    color: dodgerblue;
+    font-size: 35px;
+}
+
 .actionQuestion {
     text-decoration: none;
     color: #6d6d6d;
