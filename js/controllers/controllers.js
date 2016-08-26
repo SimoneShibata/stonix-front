@@ -204,6 +204,7 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
         });
     };
 
+    //Nice em Question
     $scope.niceQuestion = function (question) {
         $http.get($rootScope.serviceBase + '/questions/nice/' + question.id).then(function (response) {
             $http.get($rootScope.serviceBase + "questions").then(function(response){
@@ -213,6 +214,7 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
         });
     };
 
+    // Nice em Answer
     $scope.niceAnswer = function (answer) {
         $http.get($rootScope.serviceBase + 'answers/nice/' + answer.id).then(function (response) {
             $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function(response){
@@ -220,6 +222,23 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
             });
     });
     };
+
+    //Delete Answer
+    $scope.deleteAnswer = function (answer) {
+        var configDelete = {
+            headers: {
+                'Authorization': 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==',
+                'Accept': 'application/json;odata=verbose'
+            }
+        };
+        $http.delete($rootScope.serviceBase + "answers/" + answer.id, configDelete).then(function(response){
+            $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function(response){
+                $scope.answers = response.data;
+            });
+        }, function(response){
+            console.log('faioh');
+        });
+    }
 
 
     // Text Editor
