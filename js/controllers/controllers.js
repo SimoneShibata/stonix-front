@@ -103,7 +103,6 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
     $scope.getAllAnswers = function(){
         $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
             $scope.answers = response.data;
-            console.log($scope.answers);
         });
     }
 
@@ -212,6 +211,14 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
                 $scope.question.nice++;
             });
         });
+    };
+
+    $scope.niceAnswer = function (answer) {
+        $http.get($rootScope.serviceBase + 'answers/nice/' + answer.id).then(function (response) {
+            $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function(response){
+                $scope.answers = response.data;
+            });
+    });
     };
 
 
