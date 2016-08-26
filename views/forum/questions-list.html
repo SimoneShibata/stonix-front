@@ -27,8 +27,11 @@
 											<img src="{{ user.image }}" class="userQuestion"/>
 											{{ user.rank }}°		
 										</div>
-										<div layout="column" class="descQuestion">
+										<div layout="column" flex class="descQuestion">
 											{{ question.title }}
+										</div>
+										<div layout="column">
+											<i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true" ng-if="question.answered"></i>
 										</div>
 									</div>
 								</md-card-content>
@@ -63,8 +66,11 @@
 											<img src="{{ user.image }}" class="userQuestion"/>
 											{{ user.rank }}°		
 										</div>
-										<div layout="column" class="descQuestion">
+										<div layout="column" flex class="descQuestion">
 											{{ question.title }}
+										</div>
+										<div layout="column">
+											<i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true" ng-if="question.answered"></i>
 										</div>
 									</div>
 								</md-card-content>
