@@ -25,7 +25,7 @@
 									<div layout="row">
 										<div layout="column">
 											<img src="{{ user.image }}" class="userQuestion"/>
-											{{ user.rank }}°		
+											{{ user.rank }}°
 										</div>
 										<div layout="column" flex class="descQuestion">
 											{{ question.title }}
@@ -64,7 +64,7 @@
 									<div layout="row">
 										<div layout="column">
 											<img src="{{ user.image }}" class="userQuestion"/>
-											{{ user.rank }}°		
+											{{ user.rank }}°
 										</div>
 										<div layout="column" flex class="descQuestion">
 											{{ question.title }}
@@ -109,17 +109,17 @@
 											<div ng-message="md-maxlength">Ops! Este campo não pode passar de 250 caracteres. :(</div>
 											<div ng-message="minlength">Ops! Este campo deve conter mais que 5 caracteres.</div>
 										</div>
-										
+
 									</md-input-container>
 
 									<label>Descrição</label>
 									<md-input-container>
-										<wysiwyg textarea-id="question" 
-											textarea-class="form-control"  
-											textarea-height="180px" 
+										<wysiwyg textarea-id="question"
+											textarea-class="form-control"
+											textarea-height="180px"
 											textarea-name="textareaQuestion"
-											textarea-required 
-											ng-model="data.text" 
+											textarea-required
+											ng-model="data.text"
 											enable-bootstrap-title="true"
 											textarea-menu="menu"
 											disabled="disabled"
