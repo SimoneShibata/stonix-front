@@ -101,7 +101,7 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
     }
 
     $scope.getAllAnswers = function(){
-        $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
+        $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function(response){
             $scope.answers = response.data;
         });
     }
@@ -142,7 +142,7 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
                 'Accept': 'application/json;odata=verbose'
             }
         };
-        $http.delete($rootScope.serviceBase + "questions/" + $routeParams.id, configDelete).then(function(response){
+        $http.delete($rootScope.serviceBase + "questions/" + $scope.question.id, configDelete).then(function(response){
             $location.path('/questions');
         }, function(response){
             console.log('faioh');
@@ -198,7 +198,7 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
 
     // Aceitar Melhor Resposta
     $scope.acceptAnswer = function (answer) {
-        $http.get($rootScope.serviceBase + '/answers/' + $routeParams.id + "/better/" + answer.id).then(function (response) {
+        $http.get($rootScope.serviceBase + '/answers/' + $scope.question.id + "/better/" + answer.id).then(function (response) {
             $scope.question.answered = true;
             $scope.answers = $scope.getAllAnswers();
         });
