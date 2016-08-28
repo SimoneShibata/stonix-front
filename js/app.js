@@ -58,10 +58,6 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
             templateUrl: "views/perfil/perfil.html",
         })
 
-        .when('/friends', {
-            templateUrl: "views/friends/friends.html",
-        })
-
         .otherwise({
             redirectTo: '/questions'
         });

@@ -1,7 +1,7 @@
 app.run(function($rootScope) {
     $rootScope.user = {
         'id': 1,
-        'name': 'José Almeida',
+        'name': 'José Almeida Junior',
         'email': 'jose@almeida.com',
         'dataNasc': '23/08/1990',
         'image': './img/user.jpg',
@@ -191,6 +191,11 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
         $scope.hideButton = true;
     }
 
+    // Botao hide input
+    $scope.hideInputAnswer = function() {
+        $scope.hideButton = false;
+    }
+
     // GetAll - Lista answers
     $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
         $scope.answers = response.data;
@@ -289,11 +294,5 @@ app.controller('RankingController', function($scope){
 app.controller('PerfilController', function($scope){
 
 	$scope.pageTitle = "Perfil";
-
-});
-
-app.controller('FriendsController', function($scope){
-
-    $scope.pageTitle = "Amigos";
 
 });
