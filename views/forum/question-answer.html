@@ -43,84 +43,90 @@
                     {{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
                 </a>
             </md-card-footer>
-            <md-divider></md-divider>
 
+            <md-divider></md-divider>
             <md-card-content>
                 <div ng-bind-html="question.description | to_trusted"></div>
             </md-card-content>
-            <md-divider></md-divider>
+            <md-divider ng-show="!question.answered"></md-divider>
 
-            <md-card-content>
-                <div layout="row" class="float-right" ng-show="!hideButton && !question.answered">
+            <md-card-content ng-show="!hideButton && !question.answered">
+                <div layout="row" class="float-right">
                     <md-button class="md-raised md-accent" ng-click="toAnswer()">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         responder
                     </md-button>
                 </div>
             </md-card-content>
-            <div ng-show="hideButton && !question.answered">
-                <md-card-content>
-                    <md-input-container>
-                        <label>Resposta</label>
-                        <input ng-model="answer.description">
-                    </md-input-container>
-                    <div layout="row" class="float-right">
-                        <div layout="column">
-                            <md-button class="md-raised md-primary float-right"
-                                       ng-click="navigateTo('/questions/' + question.id)">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                                cancelar
-                            </md-button>
-                        </div>
-                        <div layout="column">
-                            <md-button class="md-raised md-accent float-right"
-                                       ng-click="postAnswer()">
-                                <i class="fa fa-commenting" aria-hidden="true"></i>
-                                responder
-                            </md-button>
-                        </div>
+            <md-card-content ng-show="hideButton && !question.answered">
+                <md-input-container>
+                    <label>Resposta</label>
+                    <input ng-model="answer.description">
+                </md-input-container>
+                <div layout="row" class="float-right">
+                    <div layout="column">
+                        <md-button class="md-raised md-primary float-right"
+                                   ng-click="hideInputAnswer()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            cancelar
+                        </md-button>
                     </div>
+                    <div layout="column">
+                        <md-button class="md-raised md-accent float-right"
+                                   ng-click="postAnswer()">
+                            <i class="fa fa-commenting" aria-hidden="true"></i>
+                            responder
+                        </md-button>
+                    </div>
+                </div>
+            </md-card-content>
+
+            <md-divider></md-divider>
+            <md-card-content style="background-color:#ededed;">
+                <p style="font-weight:bold;margin-bottom:0;" class="fa-gray"> {{ question.numberAnswers }} Respostas</p>
+            </md-card-content>
+            <md-divider></md-divider>
+
+            <md-card-content ng-repeat="answer in answers">
+
+                <div layout="row">
+                    <div layout="column">
+                        <img src="{{ user.image }}" class="userQuestion"/>
+                        {{ user.rank }}°
+                    </div>
+                    <div layout="column" flex class="descQuestion">
+                        {{ answer.description }}
+                    </div>
+                    <div layout="column">
+                        <i class="fa fa-check fa-gray-light float-right" aria-hidden="true" ng-click="acceptAnswer(answer)"
+                           ng-if="!answer.bestAnswer && !question.answered"></i>
+                        <i class="fa fa-check fa-blue float-right" aria-hidden="true" ng-if="answer.bestAnswer"></i>
+                    </div>
+                </div>
+                <div style="margin-left:70px;">
+                    <a ng-click="niceAnswer(answer)" class="actionQuestion">
+                        <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
+                        {{ answer.nice }} gostei
+                    </a>
+                    <a href="#" class="actionQuestion">
+                        <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
+                        {{ answer.numberAnswers }} comentários
+                    </a>
+                    <a href="#" class="actionQuestion">
+                        <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
+                        {{ answer.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+                    </a>
+                    <a ng-click="deleteAnswer(answer)" class="actionQuestion">
+                        <i class="fa fa-trash-o fa-gray" aria-hidden="true"></i>
+                        excluir
+                    </a>
+                </div>
+                <md-card-content>
+                    <md-divider></md-divider>
                 </md-card-content>
+            </md-card-content>
         </md-card>
 
     </div>
-</div>
-<div class="content">
-    <md-card ng-repeat="answer in answers">
-        <md-card-content>
-            <div layout="row">
-                <div layout="column">
-                    <img src="{{ user.image }}" class="userQuestion"/>
-                    {{ user.rank }}°
-                </div>
-                <div layout="column" flex class="descQuestion">
-                    {{ answer.description }}
-                </div>
-                <div layout="column">
-                    <i class="fa fa-check fa-gray-light float-right" aria-hidden="true" ng-click="acceptAnswer(answer)" ng-if="!answer.bestAnswer && !question.answered"></i>
-                    <i class="fa fa-check fa-blue float-right" aria-hidden="true" ng-if="answer.bestAnswer"></i>
-                </div>
-            </div>
-        </md-card-content>
-        <md-divider></md-divider>
-        <md-card-footer>
-            <a ng-click="niceAnswer(answer)" class="actionQuestion">
-                <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-                {{ answer.nice }} gostei
-            </a>
-            <a href="#" class="actionQuestion">
-                <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
-                {{ answer.numberAnswers }} respostas
-            </a>
-            <a href="#" class="actionQuestion">
-                <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
-                {{ answer.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
-            </a>
-            <a ng-click="deleteAnswer(answer)" class="actionQuestion">
-                <i class="fa fa-trash-o fa-gray" aria-hidden="true"></i>
-                excluir
-            </a>
-        </md-card-footer>
-    </md-card>
 </div>
 </div>
