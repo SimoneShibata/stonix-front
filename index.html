@@ -14,43 +14,45 @@
     <meta charset="utf-8"/>
 </head>
 
-<body layout="column" ng-controller="AppController">
+<body layout="column" ng-controller="AppController" z>
 
 <div flex layout="row">
-    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
+    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left"
+                ng-show="userAutenticate.authenticated && logado == true">
         <div class="logo">
-            <img id="logo" src="./img/logo.png"/ ng-click="navigateTo('/oldowl')">
+            <img id="logo" ng-src="./img/logo.png" ng-click="navigateTo('/oldowl')"/>
         </div>
         <div>
-        <div layout="column">
-            <div layout="row">
-                <div layout="column">
-                    <div>
-                        <img src="{{ user.image }}" class="photoUser"/>
-                    </div>
+            <div layout="column">
+                <div layout="row">
+                    <div layout="column">
+                        <div>
+                            <img ng-src="{{ userAutenticate.image }}" class="photoUser"/>
+                        </div>
 
+                    </div>
+                    <div layout="column" class="infos">
+                        <div>
+                            <p class="titleInfo">Pontuação</p>
+                            <p class="descInfo">{{ userAutenticate.reputation }}</p>
+                        </div>
+                        <div>
+                            <p class="titleInfo">Ranking</p>
+                            <p class="descInfo">{{ userAutenticate.rank }}°</p>
+                        </div>
+                        <div>
+                            <p class="titleInfo">Moedas</p>
+                            <p class="descInfo">{{ userAutenticate.coins }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div layout="column" class="infos">
-                    <div>
-                        <p class="titleInfo">Pontuação</p>
-                        <p class="descInfo">{{ user.points }}</p>
-                    </div>
-                    <div>
-                        <p class="titleInfo">Ranking</p>
-                        <p class="descInfo">{{ user.rank }}°</p>
-                    </div>
-                    <div>
-                        <p class="titleInfo">Moedas</p>
-                        <p class="descInfo">{{ user.coins }}</p>
-                    </div>
+                <div class="userInfo">
+                    <p id="nameUser">{{ userAutenticate.name }}</p>
+                    <md-progress-linear md-mode="determinate" value="{{ userAutenticate.xp }}" class="md-accent"
+                                        style="width:93%;"></md-progress-linear>
+                    <p id="xp"><span>LVL {{ userAutenticate.level }}</span> | {{ userAutenticate.xp }}/100 XP</p>
                 </div>
             </div>
-            <div class="userInfo">
-                <p id="nameUser">{{ user.name }}</p>
-                <md-progress-linear md-mode="determinate" value="{{ user.xp }}" class="md-accent" style="width:93%;"></md-progress-linear>
-                <p id="xp"><span>LVL {{ user.level }}</span> | {{ user.xp }}/100 XP</p>
-            </div>
-        </div>
         </div>
 
         <md-divider></md-divider>
@@ -63,10 +65,6 @@
                 <i class="fa fa-graduation-cap margin-fa" aria-hidden="true"></i>
                 <p>Sala de aula</p>
             </md-list-item>
-            <md-list-item ng-click="navigateTo('/jogo')">
-                <i class="fa fa-gamepad margin-fa" aria-hidden="true"></i>
-                <p>Jogo</p>
-            </md-list-item>
             <md-list-item ng-click="navigateTo('/ranking')">
                 <i class="fa fa-trophy margin-fa" aria-hidden="true"></i>
                 <p>Ranking</p>
@@ -74,6 +72,10 @@
             <md-list-item ng-click="navigateTo('/perfil')">
                 <i class="fa fa-question-circle margin-fa" aria-hidden="true"></i>
                 <p>Perfil</p>
+            </md-list-item>
+            <md-list-item ng-click="logout()">
+                <i class="fa  fa-sign-out margin-fa" aria-hidden="true"></i>
+                <p>Sair</p>
             </md-list-item>
 
             <md-divider></md-divider>
@@ -84,27 +86,27 @@
     <md-content flex id="content">
         <div ng-view></div>
     </md-content>
+</div>
+<!-- Text Editor - Jquery -->
+<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
-    <!-- Text Editor - Jquery -->
-    <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+<script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-route.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-resource.min.js"></script>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-    <script type="text/javascript"
-            src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.js"></script>
-    <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
-    <script type="text/javascript" src="js/angular/angular-resource.min.js"></script>
+<!-- Text Editor - BootStrap -->
+<script data-require="bootstrap@*" data-semver="3.1.1"
+        src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="./lib/bootstrap-colorpicker-module.js"></script>
+<script src="./lib/angular-wysiwyg.js"></script>
 
-    <!-- Text Editor - BootStrap -->
-    <script data-require="bootstrap@*" data-semver="3.1.1"
-            src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="./lib/bootstrap-colorpicker-module.js"></script>
-    <script src="./lib/angular-wysiwyg.js"></script>
-
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/controllers/controllers.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controllers/controllers.js"></script>
 
 
 </body>

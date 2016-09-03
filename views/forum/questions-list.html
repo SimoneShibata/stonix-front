@@ -21,11 +21,11 @@
 						<div class="content">
 
 							<md-card ng-repeat="question in questions">
-								<md-card-content  ng-click="navigateTo('/questions/answers/' + question.id)">
+								<md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
 									<div layout="row">
 										<div layout="column">
-											<img src="{{ user.image }}" class="userQuestion"/>
-											{{ user.rank }}°
+											<img ng-src="{{ question.user.image }}" class="userQuestion"/>
+											{{ question.user.reputation }}°
 										</div>
 										<div layout="column" flex class="descQuestion">
 											{{ question.title }}
@@ -41,13 +41,17 @@
 										<i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
 										{{ question.nice }} gostei
 									</a>
-									<a href="#" class="actionQuestion">
+									<a ng-click="navigateTo('/questions/answers/' + question.id)" class="actionQuestion">
 										<i class="fa fa-comments fa-gray" aria-hidden="true"></i>
 										{{ question.numberAnswers }} respostas
 									</a>
-									<a href="#" class="actionQuestion">
+									<a class="actionQuestion">
 										<i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
 										{{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+									</a>
+									<a class="actionQuestion">
+										<i class="fa fa-eye fa-gray" aria-hidden="true"></i>
+										{{ question.views }} exibições
 									</a>
 								</md-card-footer>
 							</md-card>
@@ -59,34 +63,34 @@
 					<md-content>
 						<div class="content">
 
-							<md-card ng-click="navigateTo('/questions/' + question.id)" ng-repeat="question in questions">
+							<md-card ng-click="navigateTo('/questions/' + myQuestion.id)" ng-repeat="myQuestion in myQuestions">
 								<md-card-content>
 									<div layout="row">
 										<div layout="column">
-											<img src="{{ user.image }}" class="userQuestion"/>
-											{{ user.rank }}°
+											<img ng-src="{{ myQuestion.user.image }}" class="userQuestion"/>
+											{{ myQuestion.user.rank }}°
 										</div>
 										<div layout="column" flex class="descQuestion">
-											{{ question.title }}
+											{{ myQuestion.title }}
 										</div>
 										<div layout="column">
-											<i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true" ng-if="question.answered"></i>
+											<i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true" ng-if="myQuestion.answered"></i>
 										</div>
 									</div>
 								</md-card-content>
 								<md-divider></md-divider>
 								<md-card-footer>
-									<a ng-click="niceQuestion(question)" class="actionQuestion">
+									<a ng-click="niceQuestion(myQuestion)" class="actionQuestion">
 										<i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-										{{ question.nice }} gostei
+										{{ myQuestion.nice }} gostei
 									</a>
-									<a href="#" class="actionQuestion">
+									<a ng-click="navigateTo('/questions/answers/' + question.id)" class="actionQuestion">
 										<i class="fa fa-comments fa-gray" aria-hidden="true"></i>
-										{{ question.numberAnswers }} respostas
+										{{ myQuestion.numberAnswers }} respostas
 									</a>
-									<a href="#" class="actionQuestion">
+									<a class="actionQuestion">
 										<i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
-										{{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+										{{ myQuestion.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
 									</a>
 								</md-card-footer>
 							</md-card>

@@ -142,6 +142,19 @@ https://github.com/google/material-design-icons
     margin-left: 10px;
 }
 
+.comment-description {
+    color: #333;
+    margin-top: 5px;
+}
+.comment-user {
+    color: #ab1d18;
+    cursor: pointer;
+    font-size: 13px;
+}
+.comment-date {
+    font-size: 13px;
+}
+
 .tabsdemoDynamicHeight md-content {
     background-color: transparent !important; 
 }

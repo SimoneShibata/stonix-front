@@ -11,15 +11,17 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
     $routeProvider
         .when('/login', {
             controller: "LoginController",
-            templateUrl: "views/login.html",
+            templateUrl: "views/login/login.html",
         })
         .when('/cadastro', {
             controller: "CadastroController",
-            templateUrl: "views/cadastro.html",
+            templateUrl: "views/login/cadastro.html",
         })
+        
         .when('/oldowl', {
             templateUrl: "views/oldowl.html",
         })
+        
         .when('/questions/answers/:id', {
             controller: "QuestionController",
             templateUrl: "views/forum/question-answer.html",
@@ -36,7 +38,6 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
             controller: "QuestionController",
             templateUrl: "views/forum/question-edit.html",
         })
-
 
         .when('/salas', {
             controller: "SalasController",
@@ -59,7 +60,7 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
         })
 
         .otherwise({
-            redirectTo: '/questions'
+            redirectTo: '/login'
         });
 
 
@@ -84,4 +85,3 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
     $mdThemingProvider.theme('input')
         .primaryPalette('white');
 });
-
