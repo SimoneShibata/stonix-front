@@ -20,14 +20,14 @@
     <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left"
                 ng-show="userAutenticate.authenticated && logado == true">
         <div class="logo">
-            <img id="logo" ng-src="./img/logo.png" ng-click="navigateTo('/oldowl')"/>
+            <img id="logo" ng-src="./img/logo.png" ng-click="navigateTo('/oldowl')" title="Bem vindo ao Stonix Hero"/>
         </div>
         <div>
             <div layout="column">
                 <div layout="row">
                     <div layout="column">
                         <div>
-                            <img ng-src="{{ userAutenticate.image }}" class="photoUser"/>
+                            <img ng-src="{{ userAutenticate.image }}" class="photoUser" title="{{ userAutenticate.name }}"/>
                         </div>
 
                     </div>

@@ -9,7 +9,7 @@
         <md-input-container md-theme="input" flex>
             <input class="searchQuestion" aria-label="Buscar pergunta">
           </md-input-container>
-        <i class="fa fa-search" aria-hidden="true"></i>
+        <i class="fa fa-search" aria-hidden="true" title="Buscar perguntas"></i>
     </md-input-container>
 	</md-toolbar>
 
@@ -24,14 +24,14 @@
 								<md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
 									<div layout="row">
 										<div layout="column">
-											<img ng-src="{{ question.user.image }}" class="userQuestion"/>
+											<img ng-src="{{ question.user.image }}" class="userQuestion" title="{{ question.user.name }}"/>
 											{{ question.user.reputation }}°
 										</div>
 										<div layout="column" flex class="descQuestion">
 											{{ question.title }}
 										</div>
 										<div layout="column">
-											<i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true" ng-if="question.answered"></i>
+											<i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true" ng-if="question.answered" title="Resolvido"></i>
 										</div>
 									</div>
 								</md-card-content>
@@ -67,14 +67,14 @@
 								<md-card-content>
 									<div layout="row">
 										<div layout="column">
-											<img ng-src="{{ myQuestion.user.image }}" class="userQuestion"/>
+											<img ng-src="{{ myQuestion.user.image }}" class="userQuestion" title="{{ myQuestion.user.name }}"/>
 											{{ myQuestion.user.rank }}°
 										</div>
 										<div layout="column" flex class="descQuestion">
 											{{ myQuestion.title }}
 										</div>
 										<div layout="column">
-											<i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true" ng-if="myQuestion.answered"></i>
+											<i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true" ng-if="myQuestion.answered" title="Resolvido"></i>
 										</div>
 									</div>
 								</md-card-content>

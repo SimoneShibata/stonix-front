@@ -71,7 +71,7 @@ app.run(function ($rootScope, $http) {
 
 });
 
-app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http) {
+app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http, $mdToast) {
 
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
@@ -95,6 +95,28 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
             );
     };
 
+    // Toast
+    var last = {
+        bottom: false,
+        top: true,
+        left: false,
+        right: true
+    };
+    $scope.toastPosition = angular.extend({},last);
+    $scope.getToastPosition = function() {
+        return Object.keys($scope.toastPosition)
+            .filter(function(pos) { return $scope.toastPosition[pos]; })
+            .join(' ');
+    };
+    $rootScope.showToast = function(message) {
+        var pinTo = $scope.getToastPosition();
+        $mdToast.show(
+            $mdToast.simple()
+                .content(message)
+                .position(pinTo)
+                .hideDelay(3000)
+        );
+    };
 });
 
 app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope) {
@@ -124,7 +146,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
     };
 });
 
-app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location) {
+app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdToast) {
 
     $scope.pageTitle = "Fórum";
 
@@ -225,6 +247,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 function (response) {
                     $scope.answer.description = "";
                     $scope.answers = $scope.getAllAnswers();
+                    $rootScope.showToast("Você ganhou +5 pontos!");
                 },
                 function (response) {
                     // failure callback
@@ -349,6 +372,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.setDisabled = function () {
         $scope.disabled = !$scope.disabled;
     }
+
 });
 
 app.controller('SalasController', function ($scope) {
