@@ -1,173 +1,223 @@
-app.run(function($rootScope) {
-    $rootScope.user = {
-        'id': 1,
-        'name': 'José Almeida Junior',
-        'email': 'jose@almeida.com',
-        'dataNasc': '23/08/1990',
-        'image': './img/user.jpg',
-        'points': 1030,
-        'rank': 10,
-        'coins': 35,
-        'level': 20,
-        'xp': 15,
-        'qtdPerguntas': 0,
-        'qtdRespostas': 0,
-        'qtdMelhoresPerguntas': 0,
-        'qtdSalas':0,
-        'ouro': 0,
-        'prata': 0,
-        'bronze': 0
-    };
-
-    $rootScope.otherUsers = [
-        {
-            'id': 2,
-            'name': 'Marcelo Miranda',
-            'email': 'marcelo@miranda.com',
-            'image': './img/user2.jpg',
-            'points': 542,
-            'rank': 29,
-            'coins': 5,
-            'level': 11,
-            'xp': 120
-        },
-        {
-            'id': 3,
-            'name': 'Josefina Silva',
-            'email': 'josefina@silva.com',
-            'image': './img/user3.jpg',
-            'points': 2540,
-            'rank': 7,
-            'coins': 75,
-            'level': 23,
-            'xp': 30
-        },
-        {
-            'id': 4,
-            'name': 'Mariana Ribeiro',
-            'email': 'mariana@ribeiro.com',
-            'image': './img/user4.jpg',
-            'points': 500,
-            'rank': 38,
-            'coins': 5,
-            'level': 6,
-            'xp': 990
-        }
-    ];
-
+app.run(function ($rootScope, $http) {
     $rootScope.serviceBase = "http://localhost:9991/api/";
     $rootScope.uiBase = "http://localhost/stonix-front-end/#/";
+
+    $http.get($rootScope.serviceBase + "users/auth")
+        .then(
+            function (response) {
+                $rootScope.userAutenticate = response.data;
+                $rootScope.logado = true;
+            }
+        );
+    if ($rootScope.userAutenticate == null) {
+        $rootScope.logado = false;
+    }
 });
 
-app.controller('AppController', function($scope, $mdSidenav,$location, $rootScope){
+app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http, $mdToast) {
 
-	$scope.toggleSidenav = function(menuId) {
-		$mdSidenav(menuId).toggle();
-	};
+    $scope.toggleSidenav = function (menuId) {
+        $mdSidenav(menuId).toggle();
+    };
 
-	$scope.navigateTo = function(url){
+    $scope.navigateTo = function (url) {
         $location.path(url);
     };
 
-});
+    // sair - logout
+    $scope.logout = function () {
+        $http.post($rootScope.serviceBase + "logout", $rootScope.userAutenticate, app.header)
+            .then(
+                function (response) {
+                    $rootScope.userAutenticate = {};
+                    $location.path('/login');
+                },
+                function (response) {
+                    // failure callback
+                }
+            );
+    };
 
-app.controller('LoginController', function($scope, $mdSidenav,$location){
-
-	$scope.toggleSidenav = function(menuId) {
-		$mdSidenav(menuId).toggle();
-	};
-
-	$scope.navigateTo = function(url){
-        $location.path(url);
+    // Toast
+    var last = {
+        bottom: false,
+        top: true,
+        left: false,
+        right: true
+    };
+    $scope.toastPosition = angular.extend({},last);
+    $scope.getToastPosition = function() {
+        return Object.keys($scope.toastPosition)
+            .filter(function(pos) { return $scope.toastPosition[pos]; })
+            .join(' ');
+    };
+    $rootScope.showToast = function(message) {
+        var pinTo = $scope.getToastPosition();
+        $mdToast.show(
+            $mdToast.simple()
+                .content(message)
+                .position(pinTo)
+                .hideDelay(3000)
+        );
     };
 });
 
+app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog) {
 
+    $scope.toggleSidenav = function (menuId) {
+        $mdSidenav(menuId).toggle();
+    };
 
-app.controller('ForumController', function($scope, $http, $rootScope, $location){
+    $scope.navigateTo = function (url) {
+        $location.path(url);
+    };
 
-	$scope.pageTitle = "Fórum";
+    // Login
+    $scope.logar = function () {
+        $http.post($rootScope.serviceBase + "login", $scope.user, app.header)
+            .then(
+                function (response) {
+                    $rootScope.userAutenticate = response.data;
+                    $rootScope.userAutenticate.rank = 1;
+                    $rootScope.userAutenticate.coins = 0;
+                    $location.path('/questions');
+                },
+                function (response) {
+                    // failure callback
+                }
+            );
+    };
+
+    // Dialog
+    var DialogController = function($scope, $mdDialog)
+    {
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
+    };
+
+    $scope.showDialog = function(ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: '../views/login/cadastro.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+            .then(function(answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+                $scope.status = 'You cancelled the dialog.';
+            });
+    };
+
+    // Cadastrar - register
+    $scope.register = function (user) {
+        $http.post($rootScope.serviceBase + "users", user).then(function() {
+            $rootScope.showToast("Cadastrado com sucesso");
+        });
+    }
 
 });
 
-app.controller('QuestionController', function($scope, $rootScope, $http, $routeParams, $location){
+app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdToast) {
 
     $scope.pageTitle = "Fórum";
 
     var config = {
-        headers : {
+        headers: {
             'Content-Type': 'application/json;charset=utf-8;'
         }
     }
 
-    $scope.getAllAnswers = function(){
-        $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function(response){
+    $scope.getAllAnswers = function () {
+        $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
             $scope.answers = response.data;
         });
     }
 
     // GetAll - Lista questions
-    $http.get($rootScope.serviceBase + "questions").then(function(response){
+    $http.get($rootScope.serviceBase + "questions").then(function (response) {
         $scope.questions = response.data;
+    }, function (error) {
+        // failure
     });
 
+    // GetAllMyQuestions - Somente minhas pergunta
+    $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAutenticate.id)
+        .then(function (response) {
+            $scope.myQuestions = response.data;
+        }, function (error) {
+            // failure
+        });
+
     // Post - Cria question
-    $scope.createQuestion = function() {
+    $scope.question = {user: {}};
+    $scope.createQuestion = function () {
         $scope.question.description = $scope.data.text;
-        
+        $scope.question.user = $rootScope.userAutenticate;
         $http.post($rootScope.serviceBase + "questions/", $scope.question, app.header)
-       .then(
-            function(response){
-                $location.path(/questions/ + response.data.id);
-                $scope.question = {};
-                $rootScope.user.xp += 5;
-                $rootScope.user.points += 5;
-            }, 
-           function(response){
-                // failure callback
-           }
-        );
+            .then(
+                function (response) {
+                    $location.path(/questions/ + response.data.id);
+                    $scope.question = {};
+                },
+                function (response) {
+                    // failure callback
+                }
+            );
     };
 
     // GetOne - Chama Question solicitada
-    $http.get($rootScope.serviceBase + "questions/" + $routeParams.id).then(function(response){
+    $http.get($rootScope.serviceBase + "questions/" + $routeParams.id).then(function (response) {
         $scope.question = response.data;
+    }, function (error) {
+        // failure
     });
 
     // Delete 
-    $scope.deleteQuestion = function() {
+    $scope.deleteQuestion = function () {
         var configDelete = {
             headers: {
                 'Authorization': 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==',
                 'Accept': 'application/json;odata=verbose'
             }
         };
-        $http.delete($rootScope.serviceBase + "questions/" + $scope.question.id, configDelete).then(function(response){
+        $http.delete($rootScope.serviceBase + "questions/" + $scope.question.id, configDelete).then(function (response) {
             $location.path('/questions');
-        }, function(response){
+        }, function (response) {
             console.log('faioh');
         });
     }
 
     // Update - editar question
-    $scope.editQuestion = function() {
+    $scope.editQuestion = function () {
         $http.put($rootScope.serviceBase + "questions/", $scope.question, this.config)
-        .then(
-            function(response){
-                $location.path(/questions/ + response.data.id);
-                $scope.question = {};
-            }, 
-           function(response){
-             // failure callback
-           }
-        );
+            .then(
+                function (response) {
+                    $location.path(/questions/ + response.data.id);
+                    $scope.question = {};
+                },
+                function (response) {
+                    // failure callback
+                }
+            );
     };
-    
-    // Question Answer - responder
-    $scope.answer = {question:{}};
-    $scope.postAnswer = function(){
 
+    // Question Answer - responder
+    $scope.answer = {question: {}, user: {}};
+    $scope.postAnswer = function () {
         $scope.answer.question = $scope.question;
+        $scope.answer.user = $rootScope.userAutenticate;
 
         var configPost = {
             headers: {
@@ -177,27 +227,28 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
         };
         $http.post($rootScope.serviceBase + "answers/", $scope.answer, this.config)
             .then(
-                function(response){
+                function (response) {
                     $scope.answer.description = "";
                     $scope.answers = $scope.getAllAnswers();
+                    $rootScope.showToast("Você ganhou +5 pontos!");
                 },
-                function(response){
+                function (response) {
                     // failure callback
                 }
             );
     }
     // Botao show input
-    $scope.toAnswer = function() {
+    $scope.toAnswer = function () {
         $scope.hideButton = true;
     }
 
     // Botao hide input
-    $scope.hideInputAnswer = function() {
+    $scope.hideInputAnswer = function () {
         $scope.hideButton = false;
     }
 
     // GetAll - Lista answers
-    $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function(response){
+    $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function (response) {
         $scope.answers = response.data;
     });
 
@@ -212,7 +263,7 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
     //Nice em Question
     $scope.niceQuestion = function (question) {
         $http.get($rootScope.serviceBase + '/questions/nice/' + question.id).then(function (response) {
-            $http.get($rootScope.serviceBase + "questions").then(function(response){
+            $http.get($rootScope.serviceBase + "questions").then(function (response) {
                 $scope.questions = response.data;
                 $scope.question.nice++;
             });
@@ -222,10 +273,10 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
     // Nice em Answer
     $scope.niceAnswer = function (answer) {
         $http.get($rootScope.serviceBase + 'answers/nice/' + answer.id).then(function (response) {
-            $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function(response){
+            $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
                 $scope.answers = response.data;
             });
-    });
+        });
     };
 
     //Delete Answer
@@ -236,20 +287,53 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
                 'Accept': 'application/json;odata=verbose'
             }
         };
-        $http.delete($rootScope.serviceBase + "answers/" + answer.id, configDelete).then(function(response){
-            $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function(response){
+        $http.delete($rootScope.serviceBase + "answers/" + answer.id, configDelete).then(function (response) {
+            $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
                 $scope.answers = response.data;
             });
-        }, function(response){
+        }, function (response) {
             console.log('faioh');
         });
     }
 
+    // GetAllCommentAnswer - listar comentarios de resposta
+
+    $scope.comments = [];
+    $scope.listComments = function (answer) {
+        $http.get($rootScope.serviceBase + "comment/answers/answer/" + answer.id)
+            .then(
+                function (response) {
+                    $scope.comments = response.data;
+                }, function (error) {
+                    // failure
+                    console.log("list");
+                }
+            );
+    };
+
+    $scope.commentSelected = function (answer) {
+        $scope.selected = answer.id;
+        $scope.listComments(answer);
+    }
+    $scope.comment = {user: {}, answer: {}};
+    // Post Comment Answer - comentar resposta
+    $scope.postCommentAnswer = function (answer) {
+        $scope.comment.answer = answer;
+        $scope.comment.user = $rootScope.userAutenticate;
+
+        $http.post($rootScope.serviceBase + "comment/answers/", $scope.comment)
+            .then(function (response) {
+                $scope.comments.push(response.data);
+                $scope.comment = {};
+            }, function (error) {
+                // failure
+            });
+    };
 
     // Text Editor
     $scope.data = {
         text: '',
-        answer:''
+        answer: ''
     }
     $scope.disabled = false;
     $scope.menu = [
@@ -268,31 +352,32 @@ app.controller('QuestionController', function($scope, $rootScope, $http, $routeP
 
     $scope.cssClasses = ['test1', 'test2'];
 
-    $scope.setDisabled = function() {
+    $scope.setDisabled = function () {
         $scope.disabled = !$scope.disabled;
     }
-});
-
-app.controller('SalasController', function($scope){
-
-	$scope.pageTitle = "Salas de aula";
 
 });
 
-app.controller('JogoController', function($scope){
+app.controller('SalasController', function ($scope) {
 
-	$scope.pageTitle = "Jogo";
-
-});
-
-app.controller('RankingController', function($scope){
-
-	$scope.pageTitle = "Ranking";
+    $scope.pageTitle = "Salas de aula";
 
 });
 
-app.controller('PerfilController', function($scope){
+app.controller('JogoController', function ($scope) {
 
-	$scope.pageTitle = "Perfil";
+    $scope.pageTitle = "Jogo";
+
+});
+
+app.controller('RankingController', function ($scope) {
+
+    $scope.pageTitle = "Ranking";
+
+});
+
+app.controller('PerfilController', function ($scope) {
+
+    $scope.pageTitle = "Perfil";
 
 });

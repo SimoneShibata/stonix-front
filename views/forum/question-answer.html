@@ -11,7 +11,7 @@
         <md-input-container md-theme="input" flex>
             <input class="searchQuestion" aria-label="Buscar pergunta">
         </md-input-container>
-        <i class="fa fa-search" aria-hidden="true"></i>
+        <i class="fa fa-search" aria-hidden="true" title="Buscar perguntas"></i>
         </md-input-container>
     </md-toolbar>
 
@@ -20,8 +20,8 @@
             <md-card-content>
                 <div layout="row">
                     <div layout="column">
-                        <img src="{{ user.image }}" class="userQuestion"/>
-                        {{ user.rank }}°
+                        <img ng-src="{{ question.user.image }}" class="userQuestion" title="{{ question.user.name }}"/>
+                        {{ question.user.rank }}°
                     </div>
                     <div layout="column" class="descQuestion">
                         {{ question.title }}
@@ -34,13 +34,17 @@
                     <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                     {{ question.nice }} gostei
                 </a>
-                <a href="#" class="actionQuestion">
+                <a class="actionQuestion">
                     <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
                     {{ question.numberAnswers}} respostas
                 </a>
-                <a href="#" class="actionQuestion">
+                <a class="actionQuestion">
                     <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
                     {{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+                </a>
+                <a  class="actionQuestion">
+                    <i class="fa fa-eye fa-gray" aria-hidden="true"></i>
+                    {{ question.views }} exibições
                 </a>
             </md-card-footer>
 
@@ -91,35 +95,56 @@
 
                 <div layout="row">
                     <div layout="column">
-                        <img src="{{ user.image }}" class="userQuestion"/>
-                        {{ user.rank }}°
+                        <img ng-src="{{ answer.user.image }}" class="userQuestion"/>
+                        {{ answer.user.rank }}°
                     </div>
                     <div layout="column" flex class="descQuestion">
                         {{ answer.description }}
                     </div>
                     <div layout="column">
                         <i class="fa fa-check fa-gray-light float-right" aria-hidden="true" ng-click="acceptAnswer(answer)"
-                           ng-if="!answer.bestAnswer && !question.answered"></i>
-                        <i class="fa fa-check fa-blue float-right" aria-hidden="true" ng-if="answer.bestAnswer"></i>
+                           ng-if="!answer.bestAnswer && !question.answered && userAutenticate.id == question.user.id" title="Avaliar melhor resposta"></i>
+                        <i class="fa fa-check fa-blue float-right" aria-hidden="true" ng-if="answer.bestAnswer" title="Melhor resposta"></i>
                     </div>
                 </div>
-                <div style="margin-left:70px;">
+                <div style="margin-left:70px; margin-bottom: 8px;">
                     <a ng-click="niceAnswer(answer)" class="actionQuestion">
                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                         {{ answer.nice }} gostei
                     </a>
-                    <a href="#" class="actionQuestion">
+                    <a ng-click="commentSelected(answer)" class="actionQuestion">
                         <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
-                        {{ answer.numberAnswers }} comentários
+                        comentários
                     </a>
-                    <a href="#" class="actionQuestion">
+                    <a class="actionQuestion">
                         <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
                         {{ answer.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
                     </a>
-                    <a ng-click="deleteAnswer(answer)" class="actionQuestion">
+                    <a ng-click="deleteAnswer(answer)" class="actionQuestion" ng-if="userAutenticate.id == answer.user.id && !question.answered">
                         <i class="fa fa-trash-o fa-gray" aria-hidden="true"></i>
                         excluir
                     </a>
+                </div>
+                <div ng-if="selected == answer.id">
+                    <div ng-repeat="comment in comments">
+                        <md-divider></md-divider>
+                        <p class="comment-description">{{ comment.description }} -
+                            <a class="comment-user">{{ comment.user.name }}</a> |
+                            <span class="comment-date">{{ comment.created | date: 'dd/MM/yyyy HH:mm' }}</span>
+                        </p>
+                    </div>
+                    <div layout="row">
+                        <md-input-container flex="80">
+                            <label>Comentário</label>
+                            <input ng-model="comment.description">
+                        </md-input-container>
+                        <div class="float-right">
+                            <md-button class="md-raised" ng-click="postCommentAnswer(answer)">
+                                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                                comentar
+                            </md-button>
+                        </div>
+                    </div>
                 </div>
                 <md-card-content>
                     <md-divider></md-divider>

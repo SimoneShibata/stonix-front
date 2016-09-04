@@ -1,0 +1,64 @@
+<md-dialog aria-label="Cadastro" ng-controller="LoginController">
+    <form ng-cloak style="z-index: 100;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Cadastro</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="../../img/svg/cancel.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div style="padding: 15px;">
+                <md-input-container class="md-block" style="width: 800px;">
+                    <label>Nome</label>
+                    <input md-maxlength="30" required md-no-asterisk name="nome" ng-model="user.name">
+                    <div ng-messages="projectForm.description.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>E-mail</label>
+                    <input md-maxlength="30" required md-no-asterisk ng-model="user.email">
+                    <div ng-messages="projectForm.description.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Data de nascimento</label>
+                    <input md-maxlength="30" type="text" required md-no-asterisk name="birth" ng-model="user.birth">
+                </md-input-container>
+
+                <div layout="row">
+                    <md-input-container class="md-block" flex>
+                        <label>Senha</label>
+                        <input md-maxlength="30" type="password" required md-no-asterisk ng-model="user.password">
+                        <div ng-messages="projectForm.description.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex>
+                        <label>Confirmar Senha</label>
+                        <input type="password" required md-no-asterisk>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>Foto de perfil</label>
+                    <input ng-model="user.image">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" ng-click="register(user)">
+                Cadastrar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
