@@ -14,7 +14,7 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
             templateUrl: "views/login/login.html",
         })
         .when('/cadastro', {
-            controller: "CadastroController",
+            controller: "LoginController",
             templateUrl: "views/login/cadastro.html",
         })
         

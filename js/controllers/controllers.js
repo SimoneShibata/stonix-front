@@ -12,63 +12,6 @@ app.run(function ($rootScope, $http) {
     if ($rootScope.userAutenticate == null) {
         $rootScope.logado = false;
     }
-
-    // $rootScope.user = {
-    //     'id': 1,
-    //     'name': 'José Almeida Junior',
-    //     'email': 'jose@almeida.com',
-    //     'dataNasc': '23/08/1990',
-    //     'image': './img/user.jpg',
-    //     'points': 1030,
-    //     'rank': 10,
-    //     'coins': 35,
-    //     'level': 20,
-    //     'xp': 15,
-    //     'qtdPerguntas': 0,
-    //     'qtdRespostas': 0,
-    //     'qtdMelhoresPerguntas': 0,
-    //     'qtdSalas':0,
-    //     'ouro': 0,
-    //     'prata': 0,
-    //     'bronze': 0
-    // };
-
-    $rootScope.otherUsers = [
-        {
-            'id': 2,
-            'name': 'Marcelo Miranda',
-            'email': 'marcelo@miranda.com',
-            'image': './img/user2.jpg',
-            'points': 542,
-            'rank': 29,
-            'coins': 5,
-            'level': 11,
-            'xp': 120
-        },
-        {
-            'id': 3,
-            'name': 'Josefina Silva',
-            'email': 'josefina@silva.com',
-            'image': './img/user3.jpg',
-            'points': 2540,
-            'rank': 7,
-            'coins': 75,
-            'level': 23,
-            'xp': 30
-        },
-        {
-            'id': 4,
-            'name': 'Mariana Ribeiro',
-            'email': 'mariana@ribeiro.com',
-            'image': './img/user4.jpg',
-            'points': 500,
-            'rank': 38,
-            'coins': 5,
-            'level': 6,
-            'xp': 990
-        }
-    ];
-
 });
 
 app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http, $mdToast) {
@@ -119,7 +62,7 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
     };
 });
 
-app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope) {
+app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog) {
 
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
@@ -144,6 +87,46 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
                 }
             );
     };
+
+    // Dialog
+    var DialogController = function($scope, $mdDialog)
+    {
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
+    };
+
+    $scope.showDialog = function(ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: '../views/login/cadastro.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+            .then(function(answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+                $scope.status = 'You cancelled the dialog.';
+            });
+    };
+
+    // Cadastrar - register
+    $scope.register = function (user) {
+        $http.post($rootScope.serviceBase + "users", user).then(function() {
+            $rootScope.showToast("Cadastrado com sucesso");
+        });
+    }
+
 });
 
 app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdToast) {
