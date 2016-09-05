@@ -83,14 +83,13 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
                     $location.path('/questions');
                 },
                 function (response) {
-                    // failure callback
+                    $rootScope.showToast("E-mail ou senha incorreto.");
                 }
             );
     };
 
     // Dialog
-    var DialogController = function($scope, $mdDialog)
-    {
+    var DialogController = function($scope, $mdDialog){
         $scope.hide = function () {
             $mdDialog.hide();
         };
@@ -111,7 +110,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose:true,
-            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            fullscreen: false
         })
             .then(function(answer) {
                 $scope.status = 'You said the information was "' + answer + '".';
@@ -122,8 +121,12 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
 
     // Cadastrar - register
     $scope.register = function (user) {
+        if(user.image == null) {
+            user.image = "../../img/default.png";
+        }
         $http.post($rootScope.serviceBase + "users", user).then(function() {
             $rootScope.showToast("Cadastrado com sucesso");
+            $mdDialog.cancel();
         });
     }
 

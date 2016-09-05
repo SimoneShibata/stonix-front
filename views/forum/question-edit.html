@@ -51,7 +51,7 @@
 		<md-card-footer>
 			<div layout="row" class="float-right" ng-if="!question.answered">
 
-				<md-button class="md-raised md-primary">
+				<md-button class="md-raised md-primary" ng-click="navigateTo('/questions/' + question.id)">
 					<i class="fa fa-times" aria-hidden="true"></i>
 					cancelar
 				</md-button>
