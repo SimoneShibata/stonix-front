@@ -180,13 +180,14 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             );
     };
 
-    // GetOne - Chama Question solicitada
-    $http.get($rootScope.serviceBase + "questions/" + $routeParams.id).then(function (response) {
-        $scope.question = response.data;
-    }, function (error) {
-        // failure
-    });
-
+    if ($routeParams.id != null) {
+        // GetOne - Chama Question solicitada
+        $http.get($rootScope.serviceBase + "questions/" + $routeParams.id).then(function (response) {
+            $scope.question = response.data;
+        }, function (error) {
+            // failure
+        });
+    }
     // Delete 
     $scope.deleteQuestion = function () {
         var configDelete = {
@@ -373,9 +374,22 @@ app.controller('JogoController', function ($scope) {
 
 });
 
-app.controller('RankingController', function ($scope) {
+app.controller('RankingController', function ($scope, $http, $rootScope) {
 
     $scope.pageTitle = "Ranking";
+
+    $http.get($rootScope.serviceBase + "users").then(function(response) {
+        response.data.sort(function (a, b) {
+            return a.reputation + b.reputation;
+        });
+        $scope.topUsers = angular.copy(response.data).slice(0,3);
+        if (response.data.length > 3) {
+            if (response.data.indexOf()) {
+                $scope.othersUsers = angular.copy(response.data);
+            }
+        }
+
+    });
 
 });
 
