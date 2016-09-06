@@ -380,7 +380,7 @@ app.controller('RankingController', function ($scope, $http, $rootScope) {
 
     $http.get($rootScope.serviceBase + "users").then(function(response) {
         response.data.sort(function (a, b) {
-            return a.reputation + b.reputation;
+            return a.reputation < b.reputation;
         });
         $scope.topUsers = angular.copy(response.data).slice(0,3);
         if (response.data.length > 3) {
