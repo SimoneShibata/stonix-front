@@ -45,13 +45,15 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
         left: false,
         right: true
     };
-    $scope.toastPosition = angular.extend({},last);
-    $scope.getToastPosition = function() {
+    $scope.toastPosition = angular.extend({}, last);
+    $scope.getToastPosition = function () {
         return Object.keys($scope.toastPosition)
-            .filter(function(pos) { return $scope.toastPosition[pos]; })
+            .filter(function (pos) {
+                return $scope.toastPosition[pos];
+            })
             .join(' ');
     };
-    $rootScope.showToast = function(message) {
+    $rootScope.showToast = function (message) {
         var pinTo = $scope.getToastPosition();
         $mdToast.show(
             $mdToast.simple()
@@ -89,7 +91,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
     };
 
     // Dialog
-    var DialogController = function($scope, $mdDialog){
+    var DialogController = function ($scope, $mdDialog) {
         $scope.hide = function () {
             $mdDialog.hide();
         };
@@ -103,28 +105,28 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
         };
     };
 
-    $scope.showDialog = function(ev) {
+    $scope.showDialog = function (ev) {
         $mdDialog.show({
             controller: DialogController,
             templateUrl: '../views/login/cadastro.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose:true,
+            clickOutsideToClose: true,
             fullscreen: false
         })
-            .then(function(answer) {
+            .then(function (answer) {
                 $scope.status = 'You said the information was "' + answer + '".';
-            }, function() {
+            }, function () {
                 $scope.status = 'You cancelled the dialog.';
             });
     };
 
     // Cadastrar - register
     $scope.register = function (user) {
-        if(user.image == null) {
+        if (user.image == null) {
             user.image = "../../img/default.png";
         }
-        $http.post($rootScope.serviceBase + "users", user).then(function() {
+        $http.post($rootScope.serviceBase + "users", user).then(function () {
             $rootScope.showToast("Cadastrado com sucesso");
             $mdDialog.cancel();
         });
@@ -140,30 +142,52 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         headers: {
             'Content-Type': 'application/json;charset=utf-8;'
         }
-    }
+    };
 
     $scope.getAllAnswers = function () {
         $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
             $scope.answers = response.data;
         });
+    };
+
+    function getNumberAnswer(questionResponse) {
+        $http.get($rootScope.serviceBase + "answers/count/question/" + questionResponse.id).then(function (response) {
+            questionResponse.numberAnswers = response.data;
+            $scope.questions.push(questionResponse);
+        });
     }
 
-    // GetAll - Lista questions
+    function getNumberMyAnswer(myQuestion) {
+        $http.get($rootScope.serviceBase + "answers/count/question/" + myQuestion.id).then(function (response) {
+            myQuestion.numberAnswers = response.data;
+            $scope.myQuestions.push(myQuestion);
+        });
+    }
+
+// GetAll - Lista questions
+    $scope.questions = [];
     $http.get($rootScope.serviceBase + "questions").then(function (response) {
-        $scope.questions = response.data;
+        questionsResponse = response.data;
+        for(var i = 0; i<response.data.length; i++){
+            getNumberAnswer(questionsResponse[i]);
+        }
     }, function (error) {
         // failure
     });
 
-    // GetAllMyQuestions - Somente minhas pergunta
+// GetAllMyQuestions - Somente minhas pergunta
+    $scope.myQuestions = [];
     $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAutenticate.id)
         .then(function (response) {
-            $scope.myQuestions = response.data;
+            questionsResponse = response.data;
+            for(var i = 0; i<response.data.length; i++){
+                getNumberMyAnswer(questionsResponse[i]);
+            }
         }, function (error) {
             // failure
         });
 
-    // Post - Cria question
+// Post - Cria question
     $scope.question = {user: {}};
     $scope.createQuestion = function () {
         $scope.question.description = $scope.data.text;
@@ -188,7 +212,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             // failure
         });
     }
-    // Delete 
+// Delete
     $scope.deleteQuestion = function () {
         var configDelete = {
             headers: {
@@ -203,7 +227,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         });
     }
 
-    // Update - editar question
+// Update - editar question
     $scope.editQuestion = function () {
         $http.put($rootScope.serviceBase + "questions/", $scope.question, this.config)
             .then(
@@ -217,7 +241,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             );
     };
 
-    // Question Answer - responder
+// Question Answer - responder
     $scope.answer = {question: {}, user: {}};
     $scope.postAnswer = function () {
         $scope.answer.question = $scope.question;
@@ -241,30 +265,46 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 }
             );
     }
-    // Botao show input
+
+    $scope.countAnswer = function (question) {
+        $http.get($rootScope.serviceBase + "answers/count/question/" + question.id).then(function (response) {
+            return response.data;
+        });
+    };
+
+// Botao show input
     $scope.toAnswer = function () {
         $scope.hideButton = true;
     }
 
-    // Botao hide input
+// Botao hide input
     $scope.hideInputAnswer = function () {
         $scope.hideButton = false;
     }
 
-    // GetAll - Lista answers
+// GetAll - Lista answers
     $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function (response) {
         $scope.answers = response.data;
     });
 
-    // Aceitar Melhor Resposta
+// Aceitar Melhor Resposta
     $scope.acceptAnswer = function (answer) {
         $http.get($rootScope.serviceBase + '/answers/' + $scope.question.id + "/better/" + answer.id).then(function (response) {
             $scope.question.answered = true;
             $scope.answers = $scope.getAllAnswers();
+            var userAnswer = answer.user;
+            if($rootScope.userAutenticate.id!=userAnswer.id){
+                $http.put($rootScope.serviceBase + '/users/assign/xp/40', userAnswer).then(function (response) {
+                    if ($rootScope.userAutenticate.id == answer.user.id) {
+                        $rootScope.userAutenticate = response.data;
+                    }
+                });
+            }
+
         });
     };
 
-    //Nice em Question
+//Nice em Question
     $scope.niceQuestion = function (question) {
         $http.get($rootScope.serviceBase + '/questions/nice/' + question.id).then(function (response) {
             $http.get($rootScope.serviceBase + "questions").then(function (response) {
@@ -274,7 +314,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         });
     };
 
-    // Nice em Answer
+// Nice em Answer
     $scope.niceAnswer = function (answer) {
         $http.get($rootScope.serviceBase + 'answers/nice/' + answer.id).then(function (response) {
             $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
@@ -283,7 +323,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         });
     };
 
-    //Delete Answer
+//Delete Answer
     $scope.deleteAnswer = function (answer) {
         var configDelete = {
             headers: {
@@ -300,7 +340,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         });
     }
 
-    // GetAllCommentAnswer - listar comentarios de resposta
+// GetAllCommentAnswer - listar comentarios de resposta
 
     $scope.comments = [];
     $scope.listComments = function (answer) {
@@ -320,7 +360,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $scope.listComments(answer);
     }
     $scope.comment = {user: {}, answer: {}};
-    // Post Comment Answer - comentar resposta
+// Post Comment Answer - comentar resposta
     $scope.postCommentAnswer = function (answer) {
         $scope.comment.answer = answer;
         $scope.comment.user = $rootScope.userAutenticate;
@@ -334,7 +374,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             });
     };
 
-    // Text Editor
+// Text Editor
     $scope.data = {
         text: '',
         answer: ''
@@ -360,7 +400,8 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $scope.disabled = !$scope.disabled;
     }
 
-});
+})
+;
 
 app.controller('SalasController', function ($scope) {
 
@@ -378,11 +419,11 @@ app.controller('RankingController', function ($scope, $http, $rootScope) {
 
     $scope.pageTitle = "Ranking";
 
-    $http.get($rootScope.serviceBase + "users").then(function(response) {
+    $http.get($rootScope.serviceBase + "users").then(function (response) {
         response.data.sort(function (a, b) {
             return a.reputation < b.reputation;
         });
-        $scope.topUsers = angular.copy(response.data).slice(0,3);
+        $scope.topUsers = angular.copy(response.data).slice(0, 3);
         if (response.data.length > 3) {
             if (response.data.indexOf()) {
                 $scope.othersUsers = angular.copy(response.data);
