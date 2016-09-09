@@ -24,7 +24,7 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
         $location.path(url);
     };
 
-    // sair - logout
+// sair - logout
     $scope.logout = function () {
         $http.post($rootScope.serviceBase + "logout", $rootScope.userAutenticate, app.header)
             .then(
@@ -38,7 +38,7 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
             );
     };
 
-    // Toast
+// Toast
     var last = {
         bottom: false,
         top: true,
@@ -74,7 +74,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
         $location.path(url);
     };
 
-    // Login
+// Login
     $scope.logar = function () {
         $http.post($rootScope.serviceBase + "login", $scope.user, app.header)
             .then(
@@ -90,7 +90,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
             );
     };
 
-    // Dialog
+// Dialog
     var DialogController = function ($scope, $mdDialog) {
         $scope.hide = function () {
             $mdDialog.hide();
@@ -121,7 +121,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
             });
     };
 
-    // Cadastrar - register
+// Cadastrar - register
     $scope.register = function (user) {
         if (user.image == null) {
             user.image = "../../img/default.png";
@@ -144,9 +144,11 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         }
     };
 
+// GetAll Answers - atualiza lista de respostas
     $scope.getAllAnswers = function () {
         $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
             $scope.answers = response.data;
+            $scope.numberAnswers = response.data.length;
         });
     };
 
@@ -285,6 +287,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
 // GetAll - Lista answers
     $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function (response) {
         $scope.answers = response.data;
+        $scope.numberAnswers = response.data.length;
     });
 
 // Aceitar Melhor Resposta
