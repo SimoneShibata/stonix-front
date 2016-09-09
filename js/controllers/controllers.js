@@ -225,7 +225,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $http.delete($rootScope.serviceBase + "questions/" + $scope.question.id, configDelete).then(function (response) {
             $location.path('/questions');
         }, function (response) {
-            console.log('faioh');
+            // failure
         });
     }
 
@@ -339,7 +339,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 $scope.answers = response.data;
             });
         }, function (response) {
-            console.log('faioh');
+            // failure
         });
     }
 
@@ -353,7 +353,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                     $scope.comments = response.data;
                 }, function (error) {
                     // failure
-                    console.log("list");
                 }
             );
     };
