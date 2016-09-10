@@ -38,7 +38,7 @@
                         </div>
                         <div>
                             <p class="titleInfo">Ranking</p>
-                            <p class="descInfo">{{ userAutenticate.rank }}°</p>
+                            <p class="descInfo">{{ rank }}°</p>
                         </div>
                         <div>
                             <p class="titleInfo">Level</p>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="userInfo">
                     <p id="nameUser">{{ userAutenticate.name }}</p>
-                    <md-progress-linear md-mode="determinate" value="{{ userAutenticate.xp }}" class="md-accent"
+                    <md-progress-linear md-mode="determinate" value="{{100 * (userAutenticate.xp / userAutenticate.xpForNextLevel)}}" class="md-accent"
                                         style="width:93%;"></md-progress-linear>
                     <p id="xp"><span>{{ userAutenticate.xp }}</span> / {{ userAutenticate.xpForNextLevel }} XP</p>
                 </div>
