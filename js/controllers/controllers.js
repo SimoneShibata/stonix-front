@@ -65,7 +65,7 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
 
 // Ranking
     $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
-        for (i=0; i<=response.data.length;i++) {
+        for (var i = 0; i < response.data.length; i++) {
             if (response.data[i].id == $rootScope.userAutenticate.id) {
                 $scope.rank = i + 1;
             }
@@ -161,27 +161,11 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         });
     };
 
-    function getNumberAnswer(questionResponse) {
-        $http.get($rootScope.serviceBase + "answers/count/question/" + questionResponse.id).then(function (response) {
-            questionResponse.numberAnswers = response.data;
-            $scope.questions.push(questionResponse);
-        });
-    }
-
-    function getNumberMyAnswer(myQuestion) {
-        $http.get($rootScope.serviceBase + "answers/count/question/" + myQuestion.id).then(function (response) {
-            myQuestion.numberAnswers = response.data;
-            $scope.myQuestions.push(myQuestion);
-        });
-    }
 
 // GetAll - Lista questions
     $scope.questions = [];
     $http.get($rootScope.serviceBase + "questions").then(function (response) {
-        questionsResponse = response.data;
-        for(var i = 0; i<response.data.length; i++){
-            getNumberAnswer(questionsResponse[i]);
-        }
+        $scope.questions = response.data;
     }, function (error) {
         // failure
     });
@@ -190,10 +174,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.myQuestions = [];
     $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAutenticate.id)
         .then(function (response) {
-            questionsResponse = response.data;
-            for(var i = 0; i<response.data.length; i++){
-                getNumberMyAnswer(questionsResponse[i]);
-            }
+            $scope.myQuestions = response.data;
         }, function (error) {
             // failure
         });
@@ -312,7 +293,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             $scope.question.answered = true;
             $scope.answers = $scope.getAllAnswers();
             var userAnswer = answer.user;
-            if($rootScope.userAutenticate.id != userAnswer.id){
+            if ($rootScope.userAutenticate.id != userAnswer.id) {
                 $http.put($rootScope.serviceBase + '/users/assign/xp/40', userAnswer).then(function (response) {
                 });
                 $http.put($rootScope.serviceBase + '/users/assign/punctuation/50', userAnswer).then(function (response) {
@@ -390,6 +371,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             .then(function (response) {
                 $scope.comments.push(response.data);
                 $scope.comment = {};
+                $scope.getAllAnswers();
             }, function (error) {
                 // failure
             });
