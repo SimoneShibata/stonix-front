@@ -190,7 +190,16 @@ https://github.com/google/material-design-icons
     height: 150px;
 }
 
-
+.avatar {
+    max-width: 40px;
+    height: 40px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 16px;
+    border-radius: 50%;
+    box-sizing: content-box;
+    text-align: center;
+}
 
 .tabsdemoDynamicHeight md-content {
     background-color: transparent !important; 

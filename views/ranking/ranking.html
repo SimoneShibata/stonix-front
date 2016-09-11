@@ -17,7 +17,11 @@
                                     <md-card-content>
                                         <md-list-item ng-repeat="u in users" class="noright"
                                                       ng-click="goToPerson(person.name, $event)">
-                                            <img alt="{{ u.name }}" ng-src="{{ u.image }}" class="md-avatar"/>
+                                            <img title="Primeiro lugar por pontuação" ng-src="../../img/gold-medal.png" class="avatar" ng-if="$index == 0"/>
+                                            <img title="Segundo lugar por pontuação" ng-src="../../img/silver-medal.png" class="avatar" ng-if="$index == 1"/>
+                                            <img title="Terceiro lugar por pontuação" ng-src="../../img/bronze-medal.png" class="avatar" ng-if="$index == 2"/>
+                                            <p ng-if="$index > 2" class="avatar" style="margin: 8px 16px 8px 0px ;">{{ $index + 1 }}</p>
+                                            <img alt="{{ u.name }}" ng-src="{{ u.image }}" class="avatar"/>
                                             <p>{{ u.name }}</p>
                                             <p>Level {{ u.level }}</p>
                                             <p>{{ u.punctuation }} pontos</p>
@@ -38,8 +42,11 @@
                                     <md-card-content>
                                         <md-list-item ng-repeat="u in usersLevel" class="noright"
                                                       ng-click="goToPerson(person.name, $event)">
-                                            <p>{{ $index }}</p>
-                                            <img alt="{{ u.name }}" ng-src="{{ u.image }}" class="md-avatar"/>
+                                            <img title="Primeiro lugar por pontuação" ng-src="../../img/gold-medal.png" class="avatar" ng-if="$index == 0"/>
+                                            <img title="Segundo lugar por pontuação" ng-src="../../img/silver-medal.png" class="avatar" ng-if="$index == 1"/>
+                                            <img title="Terceiro lugar por pontuação" ng-src="../../img/bronze-medal.png" class="avatar" ng-if="$index == 2"/>
+                                            <p ng-if="$index > 2" style="width: 40px;"> {{ $index }} </p>
+                                            <img alt="{{ u.name }}" ng-src="{{ u.image }}" class="avatar"/>
                                             <p>{{ u.name }}</p>
                                             <p>Level {{ u.level }}</p>
                                             <p>{{ u.punctuation }} pontos</p>

@@ -64,13 +64,15 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
     };
 
 // Ranking
-    $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
-        for (var i = 0; i < response.data.length; i++) {
-            if (response.data[i].id == $rootScope.userAutenticate.id) {
-                $scope.rank = i + 1;
+    if ($rootScope.userAutenticate != null) {
+        $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
+            for (var i = 0; i < response.data.length; i++) {
+                if (response.data[i].id == $rootScope.userAutenticate.id) {
+                    $scope.rank = i + 1;
+                }
             }
-        }
-    });
+        });
+    }
 });
 
 app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog) {
