@@ -1,37 +1,79 @@
 <div class="page">
-	<md-toolbar layout="row">
-	  	<md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
-	    	<md-icon md-svg-icon="menu"></md-icon>
-	  	</md-button>
-		<h3 class="md-toolbar-tools">{{pageTitle}}</h3>
-	</md-toolbar>
+    <md-toolbar layout="row">
+        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+        <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
+    </md-toolbar>
 
-	<div class="content">
-		<div layout="row">
-			<div layout="column" flex>
-				<md-card>
-					<md-card-content>
-						<div layout="row">
-							<img src="{{ topUsers[0].image }}" class="photoUser-rank"/>
-						</div>
-						<div layout="row">
-							<img src="{{ topUsers[1].image }}" class="photoUser-rank"/>
-							<img src="{{ topUsers[2].image }}" class="photoUser-rank"/>
-						</div>
-					</md-card-content>
-					<md-divider></md-divider>
-					<md-card-content>
-						<md-list-item ng-repeat="u in othersUsers" class="noright" ng-click="goToPerson(person.name, $event)" ng-if="$index >2">
-							<img alt="{{ u.name }}" ng-src="{{ u.image }}" class="md-avatar" />
-							<p>{{ u.name }}</p>
-							<p>{{ u.level }}</p>
-							<p>{{ u.reputation }}</p>
-							<i class="fa fa-user-plus margin-fa" aria-hidden="true"></i>
-							<i class="fa fa-info-circle" aria-hidden="true"></i>
-						</md-list-item>
-					</md-card-content>
-				</md-card>
-			</div>
-		</div>
-	</div>
+
+    <div ng-cloak class="tabsdemoDynamicHeight">
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Pontuação">
+                    <md-content class="md-padding">
+                        <div layout="row">
+                            <div layout="column" flex>
+                                <md-card>
+                                    <md-card-content>
+                                        <div layout="row">
+                                            <img ng-src="{{ users[0].image }}" class="photoUser-rank"/>
+                                        </div>
+                                        <div layout="row">
+                                            <img ng-src="{{ users[1].image }}" class="photoUser-rank"/>
+                                            <img ng-src="{{ users[2].image }}" class="photoUser-rank"/>
+                                        </div>
+                                    </md-card-content>
+                                    <md-divider></md-divider>
+                                    <md-card-content>
+                                        <md-list-item ng-repeat="u in users" class="noright"
+                                                      ng-click="goToPerson(person.name, $event)" ng-if="$index >2">
+                                            <img alt="{{ u.name }}" ng-src="{{ u.image }}" class="md-avatar"/>
+                                            <p>{{ u.name }}</p>
+                                            <p>{{ u.level }}</p>
+                                            <p>{{ u.punctuation }}</p>
+                                            <i class="fa fa-user-plus margin-fa" aria-hidden="true"></i>
+                                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        </md-list-item>
+                                    </md-card-content>
+                                </md-card>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Level">
+                    <md-content class="md-padding">
+                        <div layout="row">
+                            <div layout="column" flex>
+                                <md-card>
+                                    <md-card-content>
+                                        <div layout="row">
+                                            <img ng-src="{{ usersLevel[0].image }}" class="photoUser-rank"/>
+                                        </div>
+                                        <div layout="row">
+                                            <img ng-src="{{ usersLevel[1].image }}" class="photoUser-rank"/>
+                                            <img ng-src="{{ usersLevel[2].image }}" class="photoUser-rank"/>
+                                        </div>
+                                    </md-card-content>
+                                    <md-divider></md-divider>
+                                    <md-card-content>
+                                        <md-list-item ng-repeat="u in usersLevel" class="noright"
+                                                      ng-click="goToPerson(person.name, $event)" ng-if="$index >2">
+                                            <img alt="{{ u.name }}" ng-src="{{ u.image }}" class="md-avatar"/>
+                                            <p>{{ u.name }}</p>
+                                            <p>{{ u.level }}</p>
+                                            <p>{{ u.punctuation }}</p>
+                                            <i class="fa fa-user-plus margin-fa" aria-hidden="true"></i>
+                                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        </md-list-item>
+                                    </md-card-content>
+                                </md-card>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+
 </div>
