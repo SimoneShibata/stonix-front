@@ -1,13 +1,12 @@
 <html ng-app="app">
 <head>
     <title>Stonix Hero</title>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/0.11.1/angular-material.min.css">
+    <link rel="stylesheet" href="css/angular-material.min.css">
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="css/css.css">
 
     <!-- Text Editor -->
-    <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet"
-          href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/texteditor.css">
 
     <meta name="viewport" content="initial-scale=1"/>
@@ -27,7 +26,8 @@
                 <div layout="row">
                     <div layout="column">
                         <div>
-                            <img ng-src="{{ userAutenticate.image }}" class="photoUser" title="{{ userAutenticate.name }}"/>
+                            <img ng-src="{{ userAutenticate.image }}" class="photoUser"
+                                 title="{{ userAutenticate.name }}"/>
                         </div>
 
                     </div>
@@ -48,7 +48,9 @@
                 </div>
                 <div class="userInfo">
                     <p id="nameUser">{{ userAutenticate.name }}</p>
-                    <md-progress-linear md-mode="determinate" value="{{100 * (userAutenticate.xp / userAutenticate.xpForNextLevel)}}" class="md-accent"
+                    <md-progress-linear md-mode="determinate"
+                                        value="{{100 * (userAutenticate.xp / userAutenticate.xpForNextLevel)}}"
+                                        class="md-accent"
                                         style="width:93%;"></md-progress-linear>
                     <p id="xp"><span>{{ userAutenticate.xp }}</span> / {{ userAutenticate.xpForNextLevel }} XP</p>
                 </div>
@@ -88,18 +90,19 @@
     </md-content>
 </div>
 <!-- Text Editor - Jquery -->
-<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="js/jQuery/jquery-2.0.3.min.js"></script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.1/angular-material.min.js"></script>
+<script src="js/angular/angular.min.js"></script>
+<script src="js/angular/angular-animate.min.js"></script>
+<script src="js/angular/angular-aria.min.js"></script>
+<script src="js/angular/angular-messages.min.js"></script>
+<script type="text/javascript"
+        src="js/angular/angular-material.min.js"></script>
 <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
 <script type="text/javascript" src="js/angular/angular-resource.min.js"></script>
 
 <!-- Text Editor - BootStrap -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
 <script src="./lib/angular-wysiwyg.js"></script>
 <script src="./lib/bootstrap-colorpicker-module.js"></script>
 
