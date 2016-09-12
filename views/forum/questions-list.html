@@ -25,7 +25,7 @@
 									<div layout="row">
 										<div layout="column">
 											<img ng-src="{{ question.user.image }}" class="userQuestion" title="{{ question.user.name }}"/>
-											{{ question.user.reputation }}°
+											{{ question.user.punctuation }} pontos
 										</div>
 										<div layout="column" flex class="descQuestion">
 											{{ question.title }}
@@ -35,7 +35,7 @@
 										</div>
 									</div>
 								</md-card-content>
-								<md-divider class="divider-grey"></md-divider>
+								<md-divider></md-divider>
 								<md-card-footer>
 									<a ng-click="niceQuestion(question)" class="actionQuestion">
 										<i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
@@ -68,7 +68,7 @@
 									<div layout="row">
 										<div layout="column">
 											<img ng-src="{{ myQuestion.user.image }}" class="userQuestion" title="{{ myQuestion.user.name }}"/>
-											{{ myQuestion.user.rank }}°
+											{{ myQuestion.user.punctuation }} pontos
 										</div>
 										<div layout="column" flex class="descQuestion">
 											{{ myQuestion.title }}
@@ -78,7 +78,7 @@
 										</div>
 									</div>
 								</md-card-content>
-								<md-divider class="divider-grey"></md-divider>
+								<md-divider></md-divider>
 								<md-card-footer>
 									<a ng-click="niceQuestion(myQuestion)" class="actionQuestion">
 										<i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
