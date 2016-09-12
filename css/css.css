@@ -203,6 +203,10 @@ https://github.com/google/material-design-icons
     margin-top: 0; 
 }
 
+.divider-grey {
+    color: #ccc;
+}
+
 @media only screen and (max-width: 768px) {
     .content {
         margin: 10px;

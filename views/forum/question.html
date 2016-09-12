@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </md-card-content>
-            <md-divider></md-divider>
+            <md-divider class="divider-grey"></md-divider>
             <md-card-footer>
                 <a ng-click="niceQuestion(question)" class="actionQuestion">
                     <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
@@ -48,7 +48,7 @@
                 </a>
             </md-card-footer>
 
-            <md-divider></md-divider>
+            <md-divider class="divider-grey"></md-divider>
             <md-card-content>
                 <div ng-bind-html="question.description | to_trusted"></div>
 
@@ -65,11 +65,11 @@
                 </div>
             </md-card-content>
 
-            <md-divider></md-divider>
+            <md-divider class="divider-grey"></md-divider>
             <md-card-content style="background-color:#ededed;">
                 <p style="font-weight:bold;margin-bottom:0;" class="fa-gray"> {{ question.numberAnswers }} Respostas</p>
             </md-card-content>
-            <md-divider></md-divider>
+            <md-divider class="divider-grey"></md-divider>
 
             <md-card-content ng-repeat="answer in answers">
 
@@ -107,7 +107,7 @@
                 </div>
                 <div ng-if="selected == answer.id">
                     <div ng-repeat="comment in comments">
-                        <md-divider></md-divider>
+                        <md-divider class="divider-grey"></md-divider>
                         <p class="comment-description">{{ comment.description }} -
                             <a class="comment-user">{{ comment.user.name }}</a> |
                             <span class="comment-date">{{ comment.created | date: 'dd/MM/yyyy HH:mm' }}</span>
@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <md-card-content>
-                    <md-divider></md-divider>
+                    <md-divider class="divider-grey"></md-divider>
                 </md-card-content>
             </md-card-content>
         </md-card>
