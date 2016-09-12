@@ -243,17 +243,12 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $scope.answer.question = $scope.question;
         $scope.answer.user = $rootScope.userAutenticate;
 
-        var configPost = {
-            headers: {
-                'Authorization': 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==',
-                'Accept': 'application/json;odata=verbose'
-            }
-        };
         $http.post($rootScope.serviceBase + "answers/", $scope.answer, this.config)
             .then(
                 function (response) {
                     $scope.answer.description = "";
                     $scope.answers = $scope.getAllAnswers();
+                    $scope.question.numberAnswers++;
                     $http.put($rootScope.serviceBase + '/users/assign/xp/10', $rootScope.userAutenticate).then(function (response) {
                         $rootScope.userAutenticate = response.data;
                         $rootScope.showToast("Boaaaa, ganhou +10 xp!");
