@@ -28,10 +28,15 @@
                         <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
                     </div>
                 </md-input-container>
-                <md-input-container>
-                    <label>Data de nascimento</label>
-                    <input md-maxlength="30" type="text" required md-no-asterisk name="birth" ng-model="user.birth">
-                </md-input-container>
+                <div layout-gt-xs="row">
+                    <div flex-gt-xs>
+                        <label>Data de nascimento</label>
+                        <md-datepicker ng-model="user.birth" md-placeholder="Enter date"></md-datepicker>
+                    </div>
+                </div>
+
+                <!--<input md-maxlength="30" type="text" required md-no-asterisk name="birth" ng-model="user.birth">-->
+                <!--</md-input-container>-->
 
                 <div layout="row">
                     <md-input-container class="md-block" flex>
@@ -39,7 +44,8 @@
                         <input md-maxlength="30" type="password" required md-no-asterisk ng-model="user.password">
                         <div ng-messages="projectForm.description.$error">
                             <div ng-message="required">This is required.</div>
-                            <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+                            <div ng-message="md-maxlength">The description must be less than 30 characters long.
+                            </div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex>
@@ -52,13 +58,13 @@
                     <input ng-model="user.image">
                 </md-input-container>
             </div>
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button class="md-raised md-primary" ng-click="register(user)">
+                    Cadastrar
+                </md-button>
+            </md-dialog-actions>
         </md-dialog-content>
 
-        <md-dialog-actions layout="row">
-            <span flex></span>
-            <md-button class="md-raised md-primary" ng-click="register(user)">
-                Cadastrar
-            </md-button>
-        </md-dialog-actions>
     </form>
 </md-dialog>
