@@ -7,6 +7,13 @@ app.run(function ($rootScope, $http) {
             function (response) {
                 $rootScope.userAutenticate = response.data;
                 $rootScope.logado = true;
+                $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
+                    for (var i = 0; i < response.data.length; i++) {
+                        if (response.data[i].id == $rootScope.userAutenticate.id) {
+                            $rootScope.rank = i + 1;
+                        }
+                    }
+                });
             }
         );
     if ($rootScope.userAutenticate == null) {
@@ -62,17 +69,6 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
                 .hideDelay(3000)
         );
     };
-
-// Ranking
-    if ($rootScope.userAutenticate != null) {
-        $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
-            for (var i = 0; i < response.data.length; i++) {
-                if (response.data[i].id == $rootScope.userAutenticate.id) {
-                    $scope.rank = i + 1;
-                }
-            }
-        });
-    }
 });
 
 app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog) {
@@ -256,6 +252,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 function (response) {
                     $scope.answer.description = "";
                     $scope.answers = $scope.getAllAnswers();
+                    $scope.question.numberAnswers++;
                     $http.put($rootScope.serviceBase + '/users/assign/xp/10', $rootScope.userAutenticate).then(function (response) {
                         $rootScope.userAutenticate = response.data;
                         $rootScope.showToast("Boaaaa, ganhou +10 xp!");

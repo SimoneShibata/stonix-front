@@ -21,7 +21,7 @@
                 <div layout="row">
                     <div layout="column">
                         <img ng-src="{{ question.user.image }}" class="userQuestion" title="{{ question.user.name }}"/>
-                        {{ question.user.rank }}°
+                        {{ question.user.punctuation }} pontos
                     </div>
                     <div layout="column" class="descQuestion">
                         {{ question.title }}
@@ -92,7 +92,7 @@
                 <div layout="row">
                     <div layout="column">
                         <img ng-src="{{ answer.user.image }}" class="userQuestion"/>
-                        {{ answer.user.rank }}°
+                        {{ answer.user.punctuation }} pontos
                     </div>
                     <div layout="column" flex class="descQuestion">
                         {{ answer.description }}

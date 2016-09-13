@@ -214,6 +214,20 @@ https://github.com/google/material-design-icons
     margin-top: 0; 
 }
 
+.area-color {
+    border: 2px solid #d4d4d4;
+    outline-color: #ab1d18;
+}
+
+.div-label {
+    font-weight: bold;
+    color: #ccc;
+}
+
+.divider-grey {
+    color: #ccc;
+}
+
 @media only screen and (max-width: 768px) {
     .content {
         margin: 10px;
