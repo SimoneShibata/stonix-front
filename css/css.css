@@ -208,6 +208,11 @@ https://github.com/google/material-design-icons
     outline-color: #ab1d18;
 }
 
+.div-label {
+    font-weight: bold;
+    color: #ccc;
+}
+
 .divider-grey {
     color: #ccc;
 }
