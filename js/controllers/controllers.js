@@ -375,17 +375,14 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.data = {
         text: '',
         answer: ''
-    }
+    };
     $scope.disabled = false;
     $scope.menu = [
         ['bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript'],
-        [],
-        [],
         ['font-size'],
         ['font-color', 'hilite-color'],
         ['remove-format'],
         ['ordered-list', 'unordered-list'],
-        [],
         ['code', 'quote'],
         ['link', 'image'],
         ['css-class']
@@ -395,10 +392,9 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
 
     $scope.setDisabled = function () {
         $scope.disabled = !$scope.disabled;
-    }
+    };
 
-})
-;
+});
 
 app.controller('SalasController', function ($scope) {
 
