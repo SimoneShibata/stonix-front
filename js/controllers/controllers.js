@@ -327,6 +327,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
 
 //Delete Answer
     $scope.deleteAnswer = function (answer) {
+        var questionId = answer.question.id;
         var configDelete = {
             headers: {
                 'Authorization': 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==',
@@ -337,10 +338,13 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
                 $scope.answers = response.data;
             });
+            $http.get($rootScope.serviceBase + "questions/" + questionId).then(function (response) {
+                $scope.question = response.data;
+            });
         }, function (response) {
             // failure
         });
-    }
+    };
 
 // GetAllCommentAnswer - listar comentarios de resposta
 
