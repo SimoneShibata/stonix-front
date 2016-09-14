@@ -1,3 +1,6 @@
+$.ajaxPrefilter(function( options ) {
+    options.async = true;
+});
 var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'wysiwyg.module']);
 
 app.filter('to_trusted', ['$sce', function ($sce) {
