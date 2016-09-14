@@ -83,7 +83,7 @@
                     </div>
                     <div layout="column">
                         <i class="fa fa-check fa-gray-light float-right" aria-hidden="true" ng-click="acceptAnswer(answer)"
-                           ng-if="!answer.bestAnswer && !question.answered && userAutenticate.id == question.user.id"></i>
+                           ng-if="!answer.bestAnswer && !question.answered && userAuthenticated.id == question.user.id"></i>
                         <i class="fa fa-check fa-blue float-right" aria-hidden="true" ng-if="answer.bestAnswer"></i>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
                         {{ answer.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
                     </a>
-                    <a ng-click="deleteAnswer(answer)" class="actionQuestion" ng-if="userAutenticate.id == answer.user.id && !question.answered">
+                    <a ng-click="deleteAnswer(answer)" class="actionQuestion" ng-if="userAuthenticated.id == answer.user.id && !question.answered">
                         <i class="fa fa-trash-o fa-gray" aria-hidden="true"></i>
                         excluir
                     </a>

@@ -5,18 +5,18 @@ app.run(function ($rootScope, $http) {
     $http.get($rootScope.serviceBase + "users/auth")
         .then(
             function (response) {
-                $rootScope.userAutenticate = response.data;
+                $rootScope.userAuthenticated = response.data;
                 $rootScope.logado = true;
                 $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
                     for (var i = 0; i < response.data.length; i++) {
-                        if (response.data[i].id == $rootScope.userAutenticate.id) {
+                        if (response.data[i].id == $rootScope.userAuthenticated.id) {
                             $rootScope.rank = i + 1;
                         }
                     }
                 });
             }
         );
-    if ($rootScope.userAutenticate == null) {
+    if ($rootScope.userAuthenticated == null) {
         $rootScope.logado = false;
     }
 });
@@ -33,10 +33,10 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
 
 // sair - logout
     $scope.logout = function () {
-        $http.post($rootScope.serviceBase + "logout", $rootScope.userAutenticate, app.header)
+        $http.post($rootScope.serviceBase + "logout", $rootScope.userAuthenticated, app.header)
             .then(
                 function (response) {
-                    $rootScope.userAutenticate = {};
+                    $rootScope.userAuthenticated = {};
                     $location.path('/login');
                 },
                 function (response) {
@@ -86,9 +86,9 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
         $http.post($rootScope.serviceBase + "login", $scope.user, app.header)
             .then(
                 function (response) {
-                    $rootScope.userAutenticate = response.data;
-                    $rootScope.userAutenticate.rank = 1;
-                    $rootScope.userAutenticate.coins = 0;
+                    $rootScope.userAuthenticated = response.data;
+                    $rootScope.userAuthenticated.rank = 1;
+                    $rootScope.userAuthenticated.coins = 0;
                     $location.path('/questions');
                 },
                 function (response) {
@@ -170,7 +170,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
 
 // GetAllMyQuestions - Somente minhas pergunta
     $scope.myQuestions = [];
-    $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAutenticate.id)
+    $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAuthenticated.id)
         .then(function (response) {
             $scope.myQuestions = response.data;
         }, function (error) {
@@ -181,14 +181,14 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.question = {user: {}};
     $scope.createQuestion = function () {
         $scope.question.description = $scope.data.text;
-        $scope.question.user = $rootScope.userAutenticate;
+        $scope.question.user = $rootScope.userAuthenticated;
         $http.post($rootScope.serviceBase + "questions/", $scope.question, app.header)
             .then(
                 function (response) {
                     $location.path(/questions/ + response.data.id);
                     $scope.question = {};
-                    $http.put($rootScope.serviceBase + '/users/assign/xp/5', $rootScope.userAutenticate).then(function (response) {
-                        $rootScope.userAutenticate = response.data;
+                    $http.put($rootScope.serviceBase + '/users/assign/xp/5', $rootScope.userAuthenticated).then(function (response) {
+                        $rootScope.userAuthenticated = response.data;
                         $rootScope.showToast("Em dúvida? +5 de xp para você!");
                     });
                 },
@@ -239,7 +239,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.answer = {question: {}, user: {}};
     $scope.postAnswer = function () {
         $scope.answer.question = $scope.question;
-        $scope.answer.user = $rootScope.userAutenticate;
+        $scope.answer.user = $rootScope.userAuthenticated;
 
         var configPost = {
             headers: {
@@ -253,8 +253,8 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                     $scope.answer.description = "";
                     $scope.answers = $scope.getAllAnswers();
                     $scope.question.numberAnswers++;
-                    $http.put($rootScope.serviceBase + '/users/assign/xp/10', $rootScope.userAutenticate).then(function (response) {
-                        $rootScope.userAutenticate = response.data;
+                    $http.put($rootScope.serviceBase + '/users/assign/xp/10', $rootScope.userAuthenticated).then(function (response) {
+                        $rootScope.userAuthenticated = response.data;
                         $rootScope.showToast("Boaaaa, ganhou +10 xp!");
                     });
                 },
@@ -292,15 +292,15 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             $scope.question.answered = true;
             $scope.answers = $scope.getAllAnswers();
             var userAnswer = answer.user;
-            if ($rootScope.userAutenticate.id != userAnswer.id) {
+            if ($rootScope.userAuthenticated.id != userAnswer.id) {
                 $http.put($rootScope.serviceBase + '/users/assign/xp/40', userAnswer).then(function (response) {
                 });
                 $http.put($rootScope.serviceBase + '/users/assign/punctuation/50', userAnswer).then(function (response) {
                 });
             }
-            $http.put($rootScope.serviceBase + '/users/assign/punctuation/25', $rootScope.userAutenticate).then(function (response) {
-                $rootScope.userAutenticate = response.data;
-                $rootScope.userAutenticate = response.data;
+            $http.put($rootScope.serviceBase + '/users/assign/punctuation/25', $rootScope.userAuthenticated).then(function (response) {
+                $rootScope.userAuthenticated = response.data;
+                $rootScope.userAuthenticated = response.data;
             });
             $rootScope.showToast("Uauuuu, boa escolha! Aceitar a resposta te rendeu 25 pontos!");
         });
@@ -364,7 +364,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
 // Post Comment Answer - comentar resposta
     $scope.postCommentAnswer = function (answer) {
         $scope.comment.answer = answer;
-        $scope.comment.user = $rootScope.userAutenticate;
+        $scope.comment.user = $rootScope.userAuthenticated;
 
         $http.post($rootScope.serviceBase + "comment/answers/", $scope.comment)
             .then(function (response) {

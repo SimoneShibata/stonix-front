@@ -9,7 +9,7 @@
 		<div layout="row">
 			<div layout="column">
 				<div>
-                    <img ng-src="{{ userAutenticate.image }}" class="photoUser-perfil"/>
+                    <img ng-src="{{ userAuthenticated.image }}" class="photoUser-perfil"/>
                 </div>
 			</div>
 			<div layout="column" flex>
@@ -23,22 +23,22 @@
 							<div layout="column">
 								<p>Nome: </p>
 								<p>E-mail: </p>
-								<p>Data de nascimento: </p>		
+								<p>Data de nascimento: </p>
 							</div>
 							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAutenticate.name }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.email }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.birth | date: 'dd/MM/yyyy' }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.name }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.email }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.birth | date: 'dd/MM/yyyy' }}</span></p>
 							</div>
 							<div layout="column">
 								<a href=""><i class="fa fa-key fa-gray" aria-hidden="true"></i> Alterar senha</a>
 							</div>
 						</div>
-						
+
 					</md-card-content>
 				</md-card>
 			</div>
-			
+
 		</div>
 		<div layout="row" >
 			<div layout="column" flex>
@@ -52,34 +52,34 @@
 							<div layout="column" flex>
 								<p>Perguntas: </p>
 								<p>Respostas: </p>
-								<p>Melhores perguntas: </p>		
+								<p>Melhores perguntas: </p>
 							</div>
 							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAutenticate.qtdPerguntas }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.qtdRespostas }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.qtdMelhoresPerguntas }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.qtdPerguntas }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.qtdRespostas }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.qtdMelhoresPerguntas }}</span></p>
 							</div>
 							<div layout="column" flex>
 								<p>Participação de salas: </p>
 								<p>Aluno de Ouro: </p>
-								<p>Aluno de Prata: </p>	
-								<p>Aluno de Bronze: </p>		
+								<p>Aluno de Prata: </p>
+								<p>Aluno de Bronze: </p>
 							</div>
 							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAutenticate.qtdSalas }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.ouro }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.prata }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.bronze }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.qtdSalas }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.ouro }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.prata }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.bronze }}</span></p>
 							</div>
 							<div layout="column" flex>
 								<p>Pontuação geral: </p>
 								<p>Ranking geral: </p>
-								<p>Level: </p>		
+								<p>Level: </p>
 							</div>
 							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAutenticate.points }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.rank }}°</span></p>
-								<p><span style="font-weight:bold;">{{ userAutenticate.level }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.points }}</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.rank }}°</span></p>
+								<p><span style="font-weight:bold;">{{ userAuthenticated.level }}</span></p>
 							</div>
 						</div>
 					</md-card-content>
