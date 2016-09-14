@@ -54,11 +54,11 @@
 
                 <div layout="row" class="float-right">
 
-                    <md-button class="md-raised md-primary" ng-click="deleteQuestion()">
+                    <md-button class="md-raised md-primary" ng-if="!question.answered" ng-click="deleteQuestion()">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                         delete
                     </md-button>
-                    <md-button class="md-raised md-accent" ng-click="navigateTo('/questions/edit/' + question.id)">
+                    <md-button class="md-raised md-accent" ng-if="!question.answered" ng-click="navigateTo('/questions/edit/' + question.id)">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         editar
                     </md-button>
