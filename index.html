@@ -20,7 +20,7 @@
 
 <div flex layout="row">
     <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left"
-                ng-show="userAutenticate.authenticated && logado == true">
+                ng-show="userAuthenticated.authenticated && logado == true">
         <div class="logo">
             <img id="logo" ng-src="./img/logo.png" ng-click="navigateTo('/oldowl')" title="Bem vindo ao Stonix Hero"/>
         </div>
@@ -29,15 +29,15 @@
                 <div layout="row">
                     <div layout="column">
                         <div>
-                            <img ng-src="{{ userAutenticate.image }}" class="photoUser"
-                                 title="{{ userAutenticate.name }}"/>
+                            <img ng-src="{{ userAuthenticated.image }}" class="photoUser"
+                                 title="{{ userAuthenticated.name }}"/>
                         </div>
 
                     </div>
                     <div layout="column" class="infos">
                         <div>
                             <p class="titleInfo">Pontuação</p>
-                            <p class="descInfo">{{ userAutenticate.punctuation }}</p>
+                            <p class="descInfo">{{ userAuthenticated.punctuation }}</p>
                         </div>
                         <div>
                             <p class="titleInfo">Ranking</p>
@@ -45,17 +45,17 @@
                         </div>
                         <div>
                             <p class="titleInfo">Level</p>
-                            <p class="descInfo">{{ userAutenticate.level }}</p>
+                            <p class="descInfo">{{ userAuthenticated.level }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="userInfo">
-                    <p id="nameUser">{{ userAutenticate.name }}</p>
+                    <p id="nameUser">{{ userAuthenticated.name }}</p>
                     <md-progress-linear md-mode="determinate"
-                                        value="{{100 * (userAutenticate.xp / userAutenticate.xpForNextLevel)}}"
+                                        value="{{100 * (userAuthenticated.xp / userAuthenticated.xpForNextLevel)}}"
                                         class="md-accent"
                                         style="width:93%;"></md-progress-linear>
-                    <p id="xp"><span>{{ userAutenticate.xp }}</span> / {{ userAutenticate.xpForNextLevel }} XP</p>
+                    <p id="xp"><span>{{ userAuthenticated.xp }}</span> / {{ userAuthenticated.xpForNextLevel }} XP</p>
                 </div>
             </div>
         </div>
