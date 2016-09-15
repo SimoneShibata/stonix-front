@@ -21,7 +21,7 @@
                 <div layout="row">
                     <div layout="column">
                         <img ng-src="{{ question.user.image }}" class="userQuestion" title="{{ question.user.name }}"/>
-                        {{ question.user.punctuation }} pontos
+                        {{ question.user.punctuation }} pts
                     </div>
                     <div layout="column" class="descQuestion">
                         {{ question.title }}
@@ -34,15 +34,15 @@
                     <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                     {{ question.nice }} gostei
                 </a>
-                <a class="actionQuestion">
+                <a class="actionQuestion noLink">
                     <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
                     {{ question.numberAnswers}} respostas
                 </a>
-                <a class="actionQuestion">
+                <a class="actionQuestion noLink">
                     <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
                     {{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
                 </a>
-                <a  class="actionQuestion">
+                <a  class="actionQuestion noLink">
                     <i class="fa fa-eye fa-gray" aria-hidden="true"></i>
                     {{ question.views }} exibições
                 </a>
@@ -76,7 +76,7 @@
                 <div layout="row">
                     <div layout="column">
                         <img ng-src="{{ answer.user.image }}" class="userQuestion"/>
-                        {{ answer.user.punctuation }} pontos
+                        {{ answer.user.punctuation }} pts
                     </div>
                     <div layout="column" flex class="descQuestion">
                         {{ answer.description }}
@@ -94,9 +94,9 @@
                     </a>
                     <a ng-click="commentSelected(answer)" class="actionQuestion">
                         <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
-                        comentários
+                        {{ answer.numberComments }} comentários
                     </a>
-                    <a class="actionQuestion">
+                    <a class="actionQuestion noLink">
                         <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
                         {{ answer.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
                     </a>
