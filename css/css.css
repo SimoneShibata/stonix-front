@@ -165,6 +165,13 @@ https://github.com/google/material-design-icons
     margin-top: 10%;
     left: 25%;
 }
+
+.noLink:hover {
+    color: #ab1d18;
+    cursor: default;
+    text-decoration: none;
+}
+
 #login-logo {
     position: absolute;
     width: 180px;
