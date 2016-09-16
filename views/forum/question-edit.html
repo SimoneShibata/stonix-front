@@ -7,12 +7,6 @@
 			<i class="fa fa-arrow-left margin-fa" aria-hidden="true" ng-click="navigateTo('/questions')"></i>
 			{{pageTitle}}
 		</h3>
-
-		<md-input-container md-theme="input" flex>
-			<input class="searchQuestion" aria-label="Buscar pergunta">
-		</md-input-container>
-		<i class="fa fa-search" aria-hidden="true" title="Buscar perguntas"></i>
-	</md-input-container>
 </md-toolbar>
 
 <div class="content">
@@ -32,8 +26,8 @@
 
 				</md-input-container>
 
-				<md-input-container>					
-					<md-input-container>
+				<md-input-container>
+					<div class="div-label">Descrição</div>
 						<wysiwyg textarea-id="question"
 								 textarea-class="area-color"
 							textarea-height="180px"
@@ -45,7 +39,6 @@
 
 							ng-model="question.description">
 				        </wysiwyg>
-					</md-input-container>
 				</md-input-container>
 			</form>
 		</md-card-content>
