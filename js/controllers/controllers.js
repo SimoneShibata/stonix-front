@@ -87,11 +87,9 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
             .then(
                 function (response) {
                     $rootScope.userAuthenticated = response.data;
-                    $rootScope.userAuthenticated.rank = 1;
-                    $rootScope.userAuthenticated.coins = 0;
                     $location.path('/questions');
                 },
-                function (response) {
+                function (error) {
                     $rootScope.showToast("E-mail ou senha incorreto.");
                 }
             );
