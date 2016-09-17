@@ -62,6 +62,10 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
             templateUrl: "views/perfil/perfil.html",
         })
 
+        .when('/404', {
+            templateUrl: "404.html",
+        })
+
         .otherwise({
             redirectTo: '/login'
         });
