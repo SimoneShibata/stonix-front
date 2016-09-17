@@ -69,6 +69,11 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
                 .hideDelay(3000)
         );
     };
+    
+// pagina 404 voltar ultima pagina
+    $rootScope.backLastPage = function () {
+        window.history.back(2);
+    }
 });
 
 app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog) {
@@ -203,12 +208,14 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             );
     };
 
+// GetOne - Chama Question solicitada
     if ($routeParams.id != null) {
-        // GetOne - Chama Question solicitada
         $http.get($rootScope.serviceBase + "questions/" + $routeParams.id).then(function (response) {
             $scope.question = response.data;
         }, function (error) {
-            // failure
+            if (error.status == 404) {
+                $location.path('/404');
+            }
         });
     }
 // Delete
