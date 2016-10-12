@@ -5,17 +5,12 @@
         </md-button>
 
         <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
-
-        <md-input-container md-theme="input" flex>
-            <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search" aria-label="Buscar pergunta">
-        </md-input-container>
-        <i class="fa fa-search" aria-hidden="true" title="Buscar perguntas"></i>
     </md-toolbar>
 
     <div ng-cloak class="tabsdemoDynamicHeight">
         <md-content>
             <md-tabs md-dynamic-height md-border-bottom>
-                <md-tab label="Todos">
+                <md-tab label="Materiais">
                     <md-content>
                         <div class="content">
 
@@ -28,8 +23,7 @@
                                             {{ question.user.punctuation }} pts
                                         </div>
                                         <div layout="column" flex class="descQuestion">
-                                            <strong>{{ question.title }}</strong>
-                                            <p style="color:#5e5e5e;">{{ question.description }}</p>
+                                            {{ question.title }}
                                         </div>
                                         <div layout="column">
                                             <i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true"
@@ -62,7 +56,7 @@
                     </md-content>
                 </md-tab>
 
-                <md-tab label="Minhas perguntas">
+                <md-tab label="Atividades">
                     <md-content>
                         <div class="content">
 
@@ -104,61 +98,38 @@
                     </md-content>
                 </md-tab>
 
-                <md-tab label="Nova pergunta">
+                <md-tab label="Integrantes">
                     <md-content>
                         <div class="content">
 
-                            <md-card>
-                                <md-card-content>
-
-                                    <form name="questionForm">
-                                        <md-input-container>
-                                            <label>Título da pergunta</label>
-                                            <input name="title" ng-model="question.title" required md-maxlength="250"
-                                                   minlength="5">
-                                            <div ng-messages="questionForm.title.$error"
-                                                 ng-show="questionForm.title.$dirty">
-                                                <div ng-message="required">Ei! Este campo é obrigatório!</div>
-                                                <div ng-message="md-maxlength">Ops! Este campo não pode passar de 250
-                                                    caracteres. :(
-                                                </div>
-                                                <div ng-message="minlength">Ops! Este campo deve conter mais que 5
-                                                    caracteres.
-                                                </div>
-                                            </div>
-
-                                        </md-input-container>
-                                        <md-input-container style="margin-top: 30px">
-                                            <div class="div-label">Descrição</div>
-                                            <wysiwyg textarea-id="question"
-                                                     textarea-class="area-color"
-                                                     textarea-height="180px"
-                                                     textarea-name="textareaQuestion"
-                                                     textarea-required
-                                                     ng-model="data.text"
-                                                     enable-bootstrap-title="true"
-                                                     textarea-menu="menu"
-                                                     disabled="disabled"
-
-                                                     ng-model="question.description">
-                                            </wysiwyg>
-                                        </md-input-container>
-                                    </form>
-                                </md-card-content>
-                                <md-card-footer>
-                                    <div layout="row" class="float-right">
-
-                                        <md-button class="md-raised md-primary">
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                            cancelar
-                                        </md-button>
-                                        <md-button class="md-raised md-accent" ng-click="createQuestion();">
-                                            <i class="fa fa-comment" aria-hidden="true"></i>
-                                            perguntar
-                                        </md-button>
-                                    </div>
-                                </md-card-footer>
-                            </md-card>
+                            <div layout="row">
+                                <div layout="column" flex>
+                                    <md-card>
+                                        <md-card-content>
+                                            <md-list-item ng-repeat="u in users" class="noright"
+                                                          ng-click="goToPerson(person.name, $event)">
+                                                <img title="Primeiro lugar por pontuação"
+                                                     ng-src="../../img/gold-medal.png" class="avatar"
+                                                     ng-if="$index == 0"/>
+                                                <img title="Segundo lugar por pontuação"
+                                                     ng-src="../../img/silver-medal.png" class="avatar"
+                                                     ng-if="$index == 1"/>
+                                                <img title="Terceiro lugar por pontuação"
+                                                     ng-src="../../img/bronze-medal.png" class="avatar"
+                                                     ng-if="$index == 2"/>
+                                                <p ng-if="$index > 2" class="avatar" style="margin: 8px 16px 8px 0px ;">
+                                                    {{ $index + 1 }}</p>
+                                                <img alt="{{ u.name }}" ng-src="{{ u.image }}" class="avatar"/>
+                                                <p>{{ u.name }}</p>
+                                                <p>Level {{ u.level }}</p>
+                                                <p>{{ u.punctuation }} pontos</p>
+                                                <i class="fa fa-user-plus margin-fa" aria-hidden="true"></i>
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            </md-list-item>
+                                        </md-card-content>
+                                    </md-card>
+                                </div>
+                            </div>
                         </div>
                     </md-content>
                 </md-tab>

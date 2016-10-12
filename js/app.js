@@ -42,9 +42,13 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
             templateUrl: "views/forum/question-edit.html",
         })
 
-        .when('/salas', {
-            controller: "SalasController",
-            templateUrl: "views/salas/salas.html",
+        .when('/rooms', {
+            controller: "RoomController",
+            templateUrl: "views/rooms/rooms.html",
+        })
+        .when('/rooms/:id', {
+            controller: "RoomController",
+            templateUrl: "views/rooms/room.html",
         })
 
         .when('/jogo', {
