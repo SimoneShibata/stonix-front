@@ -1,0 +1,50 @@
+<div class="page">
+    <md-toolbar layout="row">
+        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+
+        <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
+    </md-toolbar>
+
+    <div class="content">
+        <md-card ng-repeat="room in rooms | filter:search" ng-click="navigateTo('/room/' + room.id)">
+            <md-card-content>
+                <div layout="row">
+                    <p style="font-weight: bold;">{{ room.name }}</p>
+                </div>
+            </md-card-content>
+            <md-divider></md-divider>
+            <md-card ng-repeat="room in rooms | filter:search" ng-click="navigateTo('/room/answers/' + question.id)">
+                <md-card-content>
+                    <div layout="row">
+                        <div layout="column">
+                            <img ng-src="../../img/salas.png" class="userQuestion"
+                                 title="{{ room.name }}"/>
+                        </div>
+                        <div layout="column" flex class="descQuestion">
+                            {{ room.description }}
+                        </div>
+                    </div>
+                </md-card-content>
+                <md-divider></md-divider>
+                <md-card-footer>
+                    <a ng-click="niceQuestion(question)" class="actionQuestion">
+                        <i class="fa fa-user fa-gray" aria-hidden="true"></i>
+                        {{ room.teacher.name }}
+                    </a>
+                    <a ng-click="navigateTo('/questions/answers/' + question.id)"
+                       class="actionQuestion">
+                        <i class="fa fa-users fa-gray" aria-hidden="true"></i>
+                        {{ room.members }} integrantes
+                    </a>
+                    <a class="actionQuestion noLink">
+                        <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
+                        {{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+                    </a>
+                </md-card-footer>
+            </md-card>
+    </div>
+
+
+</div>

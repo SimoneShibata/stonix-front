@@ -417,7 +417,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
 
 });
 
-app.controller('SalasController', function ($scope) {
+app.controller('RoomController', function ($scope) {
 
     $scope.pageTitle = "Salas de aula";
 
