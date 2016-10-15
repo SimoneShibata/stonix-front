@@ -147,11 +147,80 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
             $rootScope.showToast("Cadastrado com sucesso");
             $mdDialog.cancel();
         });
+    };
+
+    $scope.showThirdTutorDialog = function (ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: '../views/forum/tutor3.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            fullscreen: false
+        })
+            .then(function (answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                $scope.status = 'You cancelled the dialog.';
+            });
+    };
+
+    $scope.showSecondTutorDialog = function (ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: '../views/forum/tutor2.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            fullscreen: false
+        })
+            .then(function (answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                $scope.status = 'You cancelled the dialog.';
+            });
+    };
+
+    $scope.showSecond = function () {
+        $scope.showSecondTutorDialog();
+    };
+
+    $scope.showThird = function () {
+        $scope.showThirdTutorDialog();
+    };
+
+    $scope.finalTutor = function () {
+        $rootScope.userAuthenticated.tutor = true;
+        $rootScope.userAuthenticated.xp = $rootScope.userAuthenticated.xp + 20;
+        $http.put($rootScope.serviceBase + 'users', $rootScope.userAuthenticated).then(function (response) {
+            $rootScope.userAuthenticated = response.data;
+        });
+        $scope.cancel();
+        $rootScope.showToast("Uauuu você concluiu o tutorial! 20 de XP a mais para você :)");
     }
 
 });
 
-app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdToast) {
+app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location,$mdDialog, $mdToast) {
+
+    $scope.showTutorDialog = function (ev) {
+        $mdDialog.show({
+            templateUrl: '../views/forum/tutor.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            fullscreen: false
+        })
+            .then(function (answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                $scope.status = 'You cancelled the dialog.';
+            });
+    };
+
+    if(!$rootScope.userAuthenticated.tutor){
+        $scope.showTutorDialog();
+    }
 
     $scope.pageTitle = "Fórum";
 

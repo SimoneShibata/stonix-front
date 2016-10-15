@@ -1,0 +1,26 @@
+<md-dialog aria-label="Tutorial3" ng-controller="LoginController">
+    <form ng-cloak style="z-index: 100;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Aceitando uma resposta</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="../../img/svg/cancel.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <p>Cada resposta para sua pergunta apresentará um sinal de certo para aceitá-la como melhor resposta.</p>
+            <p>Clicando nesse sinal ele ficará azul sinalizando ela como a melhor resposta.</p>
+            <p>O usuário autor da resposta vai ganhar reputação por sua aceitação, e você ganhará reputação por ter ajudado a comunidade com uma pergunta super interessante.</p>
+
+            <h2><a>#OlhaQueLouco #HAHAAHAH</a></h2>
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button class="md-raised md-primary" ng-click="finalTutor()">finalizar</md-button>
+            </md-dialog-actions>
+        </md-dialog-content>
+
+    </form>
+</md-dialog>

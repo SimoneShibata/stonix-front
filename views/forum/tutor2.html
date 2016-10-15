@@ -1,0 +1,34 @@
+<md-dialog aria-label="Tutorial2" ng-controller="LoginController">
+    <form ng-cloak style="z-index: 100;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Como criar uma pergunta?</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="../../img/svg/cancel.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <strong>Como fazer uma pergunta?</strong>
+            <p>Clique na aba "NOVA PERGUNTA".</p>
+            <p>No campo Título da Pergunta é legal colocar de forma clara e objetiva a sua dúvida.</p>
+            <p>No campo DESCRIÇÃO é super maneiro dar os detalhes e particularidades da sua 	dúvida ou problema</p>
+            <ul>
+                <li><p>Lembre que seguindo essas dicas você terá mais chance de ser bem avaliado pelo 	restante da comunidade, formando uma baita reputação ;)</p>
+                </li>
+
+                <li><p>Você ganhará experiência (XP) por sua pergunta.</p>
+                </li>
+            </ul>
+
+            <h2><a>#Chocante #AiQueTudo</a></h2>
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button class="md-raised md-primary" ng-click="showThird()">próximo</md-button>
+            </md-dialog-actions>
+        </md-dialog-content>
+
+    </form>
+</md-dialog>
