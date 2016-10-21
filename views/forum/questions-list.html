@@ -19,7 +19,7 @@
                     <md-content>
                         <div class="content">
 
-                            <md-card ng-repeat="question in questions | filter:search">
+                            <md-card ng-repeat="question in questions | filter:search" style="cursor:pointer;">
                                 <md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
                                     <div layout="row">
                                         <div layout="column">
@@ -29,7 +29,7 @@
                                         </div>
                                         <div layout="column" flex class="descQuestion">
                                             <strong>{{ question.title }}</strong>
-                                            <p style="color:#5e5e5e;">{{ question.description }}</p>
+                                            <div ng-bind-html="question.description | to_trusted" class="nowrap"></div>
                                         </div>
                                         <div layout="column">
                                             <i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true"
@@ -67,7 +67,7 @@
                         <div class="content">
 
                             <md-card ng-click="navigateTo('/questions/' + myQuestion.id)"
-                                     ng-repeat="myQuestion in myQuestions | filter:search">
+                                     ng-repeat="myQuestion in myQuestions | filter:search" style="cursor:pointer;">
                                 <md-card-content>
                                     <div layout="row">
                                         <div layout="column">
@@ -76,7 +76,8 @@
                                             {{ myQuestion.user.punctuation }} pts
                                         </div>
                                         <div layout="column" flex class="descQuestion">
-                                            {{ myQuestion.title }}
+                                            <strong>{{ myQuestion.title }}</strong>
+                                            <div ng-bind-html="myQuestion.description | to_trusted" class="nowrap"></div>
                                         </div>
                                         <div layout="column">
                                             <i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true"
@@ -97,6 +98,10 @@
                                     <a class="actionQuestion noLink">
                                         <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
                                         {{ myQuestion.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+                                    </a>
+                                    <a class="actionQuestion noLink">
+                                        <i class="fa fa-eye fa-gray" aria-hidden="true"></i>
+                                        {{ myQuestion.views }} exibições
                                     </a>
                                 </md-card-footer>
                             </md-card>

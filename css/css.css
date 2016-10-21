@@ -284,3 +284,11 @@ https://github.com/google/material-design-icons
         width: 150px;
     }
 }
+
+.nowrap{
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    height: 56px;
+    position: relative;
+}
