@@ -42,7 +42,7 @@
             <md-card-content>
                 <div ng-bind-html="question.description | to_trusted"></div>
             </md-card-content>
-            <md-divider ng-show="!question.answered"></md-divider>
+            <md-divider ng-show="!question.answered" class="nowrap"></md-divider>
 
             <md-card-content ng-show="!hideButton && !question.answered">
                 <div layout="row" class="float-right">

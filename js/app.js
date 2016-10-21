@@ -65,6 +65,14 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
             controller: "PerfilController",
             templateUrl: "views/perfil/perfil.html",
         })
+        .when('/perfil-edit', {
+            controller: "PerfilController",
+            templateUrl: "views/perfil/perfil-edit.html",
+        })
+        .when('/perfil-edit-password', {
+            controller: "PerfilController",
+            templateUrl: "views/perfil/perfil-edit-password.html",
+        })
 
         .when('/404', {
             templateUrl: "404.html",
@@ -73,7 +81,6 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
         .otherwise({
             redirectTo: '/login'
         });
-
 
     $mdIconProvider
         .defaultIconSet("./img/svg/menu.svg", 24)

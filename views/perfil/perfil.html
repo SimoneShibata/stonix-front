@@ -15,7 +15,10 @@
 			<div layout="column" flex>
 				<md-card>
 					<md-card-content>
-						<span class="md-headline">Informações</span>
+						<span class="md-headline">
+							Informações
+							<i class="fa fa-pencil-square-o fa-blue" style="float:right;font-size:30px;cursor:pointer;" ng-click="navigateTo('/perfil-edit')"></i>
+						</span>
 					</md-card-content>
 					<md-divider></md-divider>
 					<md-card-content>
@@ -31,61 +34,60 @@
 								<p><span style="font-weight:bold;">{{ userAuthenticated.birth | date: 'dd/MM/yyyy' }}</span></p>
 							</div>
 							<div layout="column">
-								<a href=""><i class="fa fa-key fa-gray" aria-hidden="true"></i> Alterar senha</a>
+								<a style="cursor:pointer;" ng-click="navigateTo('/perfil-edit-password')"><i class="fa fa-key fa-gray" aria-hidden="true"></i>
+									Alterar senha
+								</a>
 							</div>
 						</div>
-
 					</md-card-content>
 				</md-card>
 			</div>
-
 		</div>
-		<div layout="row" >
-			<div layout="column" flex>
-				<md-card>
-					<md-card-content>
-						<span class="md-headline">Indicadores </span>
-					</md-card-content>
-					<md-divider></md-divider>
-					<md-card-content>
-						<div layout="row">
-							<div layout="column" flex>
-								<p>Perguntas: </p>
-								<p>Respostas: </p>
-								<p>Melhores perguntas: </p>
-							</div>
-							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.qtdPerguntas }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.qtdRespostas }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.qtdMelhoresPerguntas }}</span></p>
-							</div>
-							<div layout="column" flex>
-								<p>Participação de salas: </p>
-								<p>Aluno de Ouro: </p>
-								<p>Aluno de Prata: </p>
-								<p>Aluno de Bronze: </p>
-							</div>
-							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.qtdSalas }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.ouro }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.prata }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.bronze }}</span></p>
-							</div>
-							<div layout="column" flex>
-								<p>Pontuação geral: </p>
-								<p>Ranking geral: </p>
-								<p>Level: </p>
-							</div>
-							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.points }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.rank }}°</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.level }}</span></p>
-							</div>
-						</div>
-					</md-card-content>
-				</md-card>
-			</div>
+		<!--<div layout="row">-->
+			<!--<div layout="column" flex>-->
+				<!--<md-card>-->
+					<!--<md-card-content>-->
+						<!--<span class="md-headline">Indicadores </span>-->
+					<!--</md-card-content>-->
+					<!--<md-divider></md-divider>-->
+					<!--<md-card-content>-->
+						<!--<div layout="row">-->
+							<!--<div layout="column" flex>-->
+								<!--<p>Perguntas: </p>-->
+								<!--<p>Respostas: </p>-->
+								<!--<p>Melhores perguntas: </p>-->
+							<!--</div>-->
+							<!--<div layout="column" flex>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdPerguntas }}</span></p>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdRespostas }}</span></p>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdMelhoresPerguntas }}</span></p>-->
+							<!--</div>-->
+							<!--<div layout="column" flex>-->
+								<!--<p>Participação de salas: </p>-->
+								<!--<p>Aluno de Ouro: </p>-->
+								<!--<p>Aluno de Prata: </p>-->
+								<!--<p>Aluno de Bronze: </p>-->
+							<!--</div>-->
+							<!--<div layout="column" flex>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdSalas }}</span></p>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.ouro }}</span></p>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.prata }}</span></p>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.bronze }}</span></p>-->
+							<!--</div>-->
+							<!--<div layout="column" flex>-->
+								<!--<p>Pontuação geral: </p>-->
+								<!--<p>Ranking geral: </p>-->
+								<!--<p>Level: </p>-->
+							<!--</div>-->
+							<!--<div layout="column" flex>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.points }}</span></p>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.rank }}°</span></p>-->
+								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.level }}</span></p>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</md-card-content>-->
+				<!--</md-card>-->
+			<!--</div>-->
 		</div>
 	</div>
-</div>
 </div>
