@@ -5,46 +5,120 @@
         </md-button>
 
         <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
+
+        <md-input-container md-theme="input" flex>
+            <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search" aria-label="Buscar sala">
+        </md-input-container>
+        <i class="fa fa-search" aria-hidden="true" title="Buscar salas"></i>
     </md-toolbar>
 
-    <div class="content">
-        <md-card ng-repeat="room in rooms | filter:search" ng-click="navigateTo('/room/' + room.id)">
-            <md-card-content>
-                <div layout="row">
-                    <p style="font-weight: bold;">{{ room.name }}</p>
-                </div>
-            </md-card-content>
-            <md-divider></md-divider>
-            <md-card ng-repeat="room in rooms | filter:search" ng-click="navigateTo('/room/answers/' + question.id)">
-                <md-card-content>
-                    <div layout="row">
-                        <div layout="column">
-                            <img ng-src="../../img/salas.png" class="userQuestion"
-                                 title="{{ room.name }}"/>
+    <div ng-cloak class="tabsdemoDynamicHeight">
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Salas">
+                    <md-content>
+                        <div class="content">
+                            <md-card ng-repeat="room in rooms | filter:search"
+                                     ng-click="navigateTo('/rooms/' + room.id)" style="cursor:pointer;">
+                                <md-card-content>
+                                    <div layout="row">
+                                        <div layout="column">
+                                            <i class="fa fa-graduation-cap fa-icon-classroom" aria-hidden="true"></i>
+                                        </div>
+                                        <div layout="column" flex class="descQuestion">
+                                            <strong>{{ room.name }}</strong>
+                                            <p>{{ room.description }}</p>
+                                        </div>
+                                    </div>
+                                </md-card-content>
+                                <md-divider></md-divider>
+                                <md-card-footer>
+                                    <a class="actionQuestion">
+                                        <i class="fa fa-user fa-gray" aria-hidden="true"></i>
+                                        {{ room.teacher.name }}
+                                    </a>
+                                    <a class="actionQuestion">
+                                        <i class="fa fa-users fa-gray" aria-hidden="true"></i>
+                                        {{ room.members }} integrantes
+                                    </a>
+                                </md-card-footer>
+                            </md-card>
                         </div>
-                        <div layout="column" flex class="descQuestion">
-                            {{ room.description }}
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Minhas salas">
+                    <md-content>
+                        <div class="content">
+                            <md-card ng-repeat="myRoom in myRooms | filter:search"
+                                     ng-click="navigateTo('/rooms/' + myRoom.id)" style="cursor:pointer;">
+                                <md-card-content>
+                                    <div layout="row">
+                                        <div layout="column">
+                                            <i class="fa fa-graduation-cap fa-icon-classroom" aria-hidden="true"></i>
+                                        </div>
+                                        <div layout="column" flex class="descQuestion">
+                                            <strong>{{ myRoom.name }}</strong>
+                                            <p>{{ myRoom.description }}</p>
+                                        </div>
+                                    </div>
+                                </md-card-content>
+                                <md-divider></md-divider>
+                                <md-card-footer>
+                                    <a class="actionQuestion">
+                                        <i class="fa fa-user fa-gray" aria-hidden="true"></i>
+                                        {{ myRoom.teacher.name }}
+                                    </a>
+                                    <a class="actionQuestion">
+                                        <i class="fa fa-users fa-gray" aria-hidden="true"></i>
+                                        {{ myRoom.members }} integrantes
+                                    </a>
+                                </md-card-footer>
+                            </md-card>
                         </div>
-                    </div>
-                </md-card-content>
-                <md-divider></md-divider>
-                <md-card-footer>
-                    <a ng-click="niceQuestion(question)" class="actionQuestion">
-                        <i class="fa fa-user fa-gray" aria-hidden="true"></i>
-                        {{ room.teacher.name }}
-                    </a>
-                    <a ng-click="navigateTo('/questions/answers/' + question.id)"
-                       class="actionQuestion">
-                        <i class="fa fa-users fa-gray" aria-hidden="true"></i>
-                        {{ room.members }} integrantes
-                    </a>
-                    <a class="actionQuestion noLink">
-                        <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
-                        {{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
-                    </a>
-                </md-card-footer>
-            </md-card>
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Nova sala">
+                    <md-content>
+                        <div class="content">
+
+                            <md-card>
+                                <md-card-content>
+
+                                    <form name="roomForm">
+                                        <md-input-container>
+                                            <label>Nome da sala</label>
+                                            <input name="title" ng-model="room.name" required md-maxlength="250"
+                                                   minlength="5">
+                                        </md-input-container>
+                                        <md-input-container style="margin-top: 30px">
+                                            <md-input-container>
+                                                <label>Descrição da sala</label>
+                                                <input name="title" ng-model="room.description" required
+                                                       md-maxlength="250"
+                                                       minlength="5">
+                                            </md-input-container>
+                                        </md-input-container>
+                                    </form>
+                                </md-card-content>
+                                <md-card-footer>
+                                    <div layout="row" class="float-right">
+                                        <md-button class="md-raised md-primary">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                            cancelar
+                                        </md-button>
+                                        <md-button class="md-raised md-accent" ng-click="createRoom(room);">
+                                            <i class="fa fa-comment" aria-hidden="true"></i>
+                                            criar
+                                        </md-button>
+                                    </div>
+                                </md-card-footer>
+                            </md-card>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
     </div>
-
-
 </div>
