@@ -69,7 +69,7 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
                 .hideDelay(3000)
         );
     };
-    
+
 // pagina 404 voltar ultima pagina
     $rootScope.backLastPage = function () {
         window.history.back(2);
@@ -140,6 +140,12 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
 
 // Cadastrar - register
     $scope.register = function (user) {
+
+        if (user.password != user.passwordConfirm) {
+            $rootScope.showToast("Confirmação de senha inválida!");
+            return null;
+        }
+
         if (user.image == null) {
             user.image = "../../img/default.png";
         }
@@ -201,7 +207,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
 
 });
 
-app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location,$mdDialog, $mdToast) {
+app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
 
     $scope.showTutorDialog = function (ev) {
         $mdDialog.show({
@@ -218,7 +224,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             });
     };
 
-    if(!$rootScope.userAuthenticated.tutor){
+    if (!$rootScope.userAuthenticated.tutor) {
         $scope.showTutorDialog();
     }
 
@@ -486,9 +492,40 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
 
 });
 
-app.controller('RoomController', function ($scope) {
+app.controller('RoomController', function ($scope, $http, $rootScope, $location, $routeParams) {
 
     $scope.pageTitle = "Salas de aula";
+
+    $http.get($rootScope.serviceBase + "classroom").then(function (response) {
+        $scope.rooms = response.data;
+    });
+
+    $http.get($rootScope.serviceBase + "classroom").then(function (response) {
+        $scope.myRooms = response.data;
+    });
+
+    $scope.createRoom = function (room) {
+        room.teacher = $rootScope.userAuthenticated;
+        $http.post($rootScope.serviceBase + "classroom", room).then(function (response) {
+            $rootScope.showToast("Sala de aula criada com sucesso.");
+            console.log(response.data);
+            $location.path('/rooms/' + response.data.id);
+        });
+    }
+
+    // GetOne - Chama Sala solicitada
+    if ($routeParams.id != null) {
+        $http.get($rootScope.serviceBase + "classroom/" + $routeParams.id).then(function (response) {
+            $scope.room = response.data;
+            if ($scope.room == "") {
+                $location.path('/404');
+            }
+        }, function (error) {
+            if (error.status == 404) {
+                $location.path('/404');
+            }
+        });
+    }
 
 });
 
@@ -535,7 +572,7 @@ app.controller('PerfilController', function ($scope, $rootScope, $location, $htt
     var mes = $filter('date')($rootScope.userAuthenticated.birth, 'MM');
     var ano = $filter('date')($rootScope.userAuthenticated.birth, 'yyyy');
 
-    var dateBirth = new Date(ano,mes,dia);
+    var dateBirth = new Date(ano, mes, dia);
 
     $scope.u = {
         name: $rootScope.userAuthenticated.name,

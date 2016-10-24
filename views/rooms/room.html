@@ -101,7 +101,6 @@
                 <md-tab label="Integrantes">
                     <md-content>
                         <div class="content">
-
                             <div layout="row">
                                 <div layout="column" flex>
                                     <md-card>
@@ -124,6 +123,22 @@
                                                 <p>Level {{ u.level }}</p>
                                                 <p>{{ u.punctuation }} pontos</p>
                                                 <i class="fa fa-user-plus margin-fa" aria-hidden="true"></i>
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            </md-list-item>
+                                        </md-card-content>
+                                    </md-card>
+                                    <md-card>
+                                        <md-card-content>
+                                            <md-list-item class="noright"
+                                                          ng-click="goToPerson(person.name, $event)">
+                                                <img title="Primeiro lugar por pontuação"
+                                                     ng-src="../../img/apple.png" class="avatar"/>
+                                                <img title="{{room.teacher.name}}"
+                                                     ng-src="{{room.teacher.image}}" class="avatar"/>
+                                                <p>{{ room.teacher.name }}</p>
+                                                <p>Level {{ room.teacher.level }}</p>
+                                                <p>{{ room.teacher.punctuation }} pontos</p>
+                                                <i class="fa fa-apple margin-fa" aria-hidden="true"></i>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                             </md-list-item>
                                         </md-card-content>
