@@ -70,7 +70,7 @@ https://github.com/google/material-design-icons
 }
 
 .infos {
-    margin: 30px 30px;
+    margin: 50px 30px;
     text-align: center;
 }
 
@@ -296,4 +296,9 @@ https://github.com/google/material-design-icons
 .fa-icon-classroom {
     font-size: 40px;
     color: #751612;
+}
+
+.icon-apple {
+    width: 16px;
+    margin-right: 10px;
 }

@@ -42,6 +42,10 @@
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                                         {{ question.nice }} gostei
                                     </a>
+                                    <a ng-click="dislikeQuestion(question)" class="actionQuestion">
+                                        <i class="fa fa-thumbs-down fa-gray" aria-hidden="true"></i>
+                                        {{ question.dislike }} não gostei
+                                    </a>
                                     <a ng-click="navigateTo('/questions/answers/' + question.id)"
                                        class="actionQuestion">
                                         <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
@@ -108,7 +112,7 @@
                     </md-content>
                 </md-tab>
 
-                <md-tab label="Nova pergunta">
+                <md-tab label="Nova pergunta" title="Tire suas dúvidas aqui e ganhe pontos de reputação">
                     <md-content>
                         <div class="content">
 

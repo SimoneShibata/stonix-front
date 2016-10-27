@@ -14,63 +14,14 @@
                     <md-content>
                         <div class="content">
 
-                            <md-card ng-repeat="question in questions | filter:search">
-                                <md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
-                                    <div layout="row">
-                                        <div layout="column">
-                                            <img ng-src="{{ question.user.image }}" class="userQuestion"
-                                                 title="{{ question.user.name }}"/>
-                                            {{ question.user.punctuation }} pts
-                                        </div>
-                                        <div layout="column" flex class="descQuestion">
-                                            {{ question.title }}
-                                        </div>
-                                        <div layout="column">
-                                            <i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true"
-                                               ng-if="question.answered" title="Resolvido"></i>
-                                        </div>
-                                    </div>
-                                </md-card-content>
-                                <md-divider></md-divider>
-                                <md-card-footer>
-                                    <a ng-click="niceQuestion(question)" class="actionQuestion">
-                                        <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-                                        {{ question.nice }} gostei
-                                    </a>
-                                    <a ng-click="navigateTo('/questions/answers/' + question.id)"
-                                       class="actionQuestion">
-                                        <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
-                                        {{question.numberAnswers}} respostas
-                                    </a>
-                                    <a class="actionQuestion noLink">
-                                        <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
-                                        {{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
-                                    </a>
-                                    <a class="actionQuestion noLink">
-                                        <i class="fa fa-eye fa-gray" aria-hidden="true"></i>
-                                        {{ question.views }} exibições
-                                    </a>
-                                </md-card-footer>
-                            </md-card>
-                        </div>
-                    </md-content>
-                </md-tab>
-
-                <md-tab label="Atividades">
-                    <md-content>
-                        <div class="content">
 
                             <md-card ng-click="navigateTo('/questions/' + myQuestion.id)"
-                                     ng-repeat="myQuestion in myQuestions | filter:search">
+                                     ng-repeat="material in materials | filter:search">
                                 <md-card-content>
                                     <div layout="row">
                                         <div layout="column">
-                                            <img ng-src="{{ myQuestion.user.image }}" class="userQuestion"
-                                                 title="{{ myQuestion.user.name }}"/>
-                                            {{ myQuestion.user.punctuation }} pts
-                                        </div>
-                                        <div layout="column" flex class="descQuestion">
-                                            {{ myQuestion.title }}
+                                            <img ng-src="{{ material.image }}" class="userQuestion"/>
+                                            {{ material.name }} pts
                                         </div>
                                         <div layout="column">
                                             <i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true"
@@ -94,6 +45,31 @@
                                     </a>
                                 </md-card-footer>
                             </md-card>
+
+                        </div>
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Atividades">
+                    <md-content>
+                        <div class="content">
+
+                            <md-card ng-repeat="task in tasks | filter:search">
+                                <md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
+                                    <div layout="column">
+                                        <strong>{{ task.title }}</strong>
+                                        {{ task.description }}
+                                    </div>
+                                </md-card-content>
+                                <md-divider></md-divider>
+                                <md-card-footer>
+                                    <a class="actionQuestion noLink">
+                                        <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
+                                        Aberta até {{ task.closingDate | date: 'dd/MM/yyyy HH:mm' }}
+                                    </a>
+                                </md-card-footer>
+                            </md-card>
+
                         </div>
                     </md-content>
                 </md-tab>
@@ -101,6 +77,21 @@
                 <md-tab label="Integrantes">
                     <md-content>
                         <div class="content">
+                            <md-card ng-show="userAuthenticated.id == room.teacher.id">
+                                <md-card-content>
+                                    <div layout="row">
+                                        <md-input-container flex style="padding-bottom: 5px;">
+                                            <label>Integrante</label>
+                                            <input ng-model="u.email" placeholder="E-mail do usuário"/>
+                                        </md-input-container>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex></div>
+                                        <md-button class="md-raised md-primary" ng-click="addUser(u)">Adicionar
+                                        </md-button>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
                             <div layout="row">
                                 <div layout="column" flex>
                                     <md-card>
@@ -138,7 +129,10 @@
                                                 <p>{{ room.teacher.name }}</p>
                                                 <p>Level {{ room.teacher.level }}</p>
                                                 <p>{{ room.teacher.punctuation }} pontos</p>
-                                                <i class="fa fa-apple margin-fa" aria-hidden="true"></i>
+
+                                                <img title="Presentear com maçã"
+                                                     ng-src="../../img/apple.png" class="icon-apple"
+                                                     ng-click="addApple(room.teacher.id)"/>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                             </md-list-item>
                                         </md-card-content>
