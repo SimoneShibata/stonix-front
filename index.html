@@ -22,7 +22,7 @@
     <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left"
                 ng-show="userAuthenticated.authenticated && logado == true">
         <div class="logo">
-            <img id="logo" ng-src="./img/logo.png" ng-click="navigateTo('/oldowl')" title="Bem vindo ao Stonix Hero"/>
+            <img id="logo" ng-src="./img/logo.png" title="Bem vindo ao Stonix Hero"/>
         </div>
         <div>
             <div layout="column">
@@ -35,17 +35,13 @@
 
                     </div>
                     <div layout="column" class="infos">
-                        <div>
-                            <p class="titleInfo">Pontuação</p>
+                        <div title="Você ganha reputação tirando dúvidas de outras pessoas e concluindo atividades nas salas de aulas">
+                            <p class="titleInfo">Reputação</p>
                             <p class="descInfo">{{ userAuthenticated.punctuation }}</p>
                         </div>
-                        <div>
+                        <div title="Você pode subir no ranking e se destacar com o maior ponto de reputação">
                             <p class="titleInfo">Ranking</p>
                             <p class="descInfo">{{ rank }}°</p>
-                        </div>
-                        <div>
-                            <p class="titleInfo">Level</p>
-                            <p class="descInfo">{{ userAuthenticated.level }}</p>
                         </div>
                     </div>
                 </div>
@@ -54,15 +50,16 @@
                     <md-progress-linear md-mode="determinate"
                                         value="{{100 * (userAuthenticated.xp / userAuthenticated.xpForNextLevel)}}"
                                         class="md-accent"
-                                        style="width:93%;"></md-progress-linear>
-                    <p id="xp"><span>{{ userAuthenticated.xp }}</span> / {{ userAuthenticated.xpForNextLevel }} XP</p>
+                                        style="width:93%;"
+                                        title="Você tem {{userAuthenticated.xp}} XP. Com mais um pouco você consegue subir de level! Ganhe XP utilizando os recursos da plataforma."></md-progress-linear>
+                    <p id="xp">Level <span style="color:#ab1d18; font-size:20px;">{{ userAuthenticated.level }}</span> | <span>{{ userAuthenticated.xp }}</span> / {{ userAuthenticated.xpForNextLevel }} XP</p>
                 </div>
             </div>
         </div>
 
         <md-divider></md-divider>
         <md-list>
-            <md-list-item ng-click="navigateTo('/questions')">
+            <md-list-item ng-click="navigateTo('/questions')" title="Tire suas dúvidas, ajude a tirar as dúvidas de outras pessoas e ganhe pontos de reputação">
                 <i class="fa fa-question-circle margin-fa" aria-hidden="true"></i>
                 <p>Fórum</p>
             </md-list-item>
@@ -85,7 +82,7 @@
 
             <md-divider></md-divider>
         </md-list>
-        <p id="footer">Desenvolvido por OldOwl com ♥</p>
+        <p id="footer" ng-click="navigateTo('/oldowl')">Desenvolvido por OldOwl com ♥</p>
     </md-sidenav>
 
     <md-content flex id="content">
@@ -110,6 +107,11 @@
 
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/controllers/controllers.js"></script>
+<script type="text/javascript" src="js/controllers/login-controller.js"></script>
+<script type="text/javascript" src="js/controllers/question-controller.js"></script>
+<script type="text/javascript" src="js/controllers/perfil-controller.js"></script>
+<script type="text/javascript" src="js/controllers/ranking-controller.js"></script>
+<script type="text/javascript" src="js/controllers/room-controller.js"></script>
 
 
 </body>
