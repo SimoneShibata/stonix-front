@@ -1,4 +1,4 @@
-app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog) {
+app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog, MyStorageService) {
 
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
@@ -9,47 +9,30 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
     };
 
 // Login
-    $scope.logar = function () {
-        $rootScope.userAuthenticated = {
-            "id": "4561e152-f093-4074-93ef-f13a597f4a51",
-            "dead": false,
-            "name": "Bruna Marconato",
-            "birth": 803185200000,
-            "email": "bruna@email.com",
-            "xp": 0,
-            "xpForNextLevel": 40,
-            "level": 0,
-            "punctuation": 0,
-            "password": "123",
-            "image": "../../img/bruna.jpg",
-            "tutor": true,
-            "authenticated": true
-        }
-        $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
-            for (var i = 0; i < response.data.length; i++) {
-                if (response.data[i].id == $rootScope.userAuthenticated.id) {
-                    $rootScope.rank = i + 1;
+    $scope.logar = function (credentials) {
+
+        console.log(credentials);
+
+        $http.post("http://localhost:9991/login", credentials)
+            .then(
+                function (response) {
+                    console.log('success ' + response);
+                    //MyStorageService.token.set(response);
+
+                    // $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
+                    //     for (var i = 0; i < response.data.length; i++) {
+                    //         if (response.data[i].id == $rootScope.userAuthenticated.id) {
+                    //             $rootScope.rank = i + 1;
+                    //         }
+                    //     }
+                    // });
+                    // $location.path('/questions');
+                },
+                function (error) {
+                    console.log('error ' + error);
+                    $rootScope.showToast("E-mail ou senha incorreto.");
                 }
-            }
-        });
-        $location.path('/questions');
-        // $http.post($rootScope.serviceBase + "login", $scope.user, app.header)
-        //     .then(
-        //         function (response) {
-        //             $rootScope.userAuthenticated = response.data;
-        //             $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
-        //                 for (var i = 0; i < response.data.length; i++) {
-        //                     if (response.data[i].id == $rootScope.userAuthenticated.id) {
-        //                         $rootScope.rank = i + 1;
-        //                     }
-        //                 }
-        //             });
-        //             $location.path('/questions');
-        //         },
-        //         function (error) {
-        //             $rootScope.showToast("E-mail ou senha incorreto.");
-        //         }
-        //     );
+            );
     };
 
 // Dialog
@@ -98,6 +81,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
         if (user.image == null) {
             user.image = "../../img/default.png";
         }
+        console.log(user);
         $http.post($rootScope.serviceBase + "users", user).then(function () {
             $rootScope.showToast("Cadastrado com sucesso");
             $mdDialog.cancel();

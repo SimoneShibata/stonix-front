@@ -2,23 +2,6 @@ app.run(function ($rootScope, $http) {
     $rootScope.serviceBase = "http://localhost:9991/api/";
     $rootScope.uiBase = "http://localhost/stonix-front-end/#/";
 
-    $http.get($rootScope.serviceBase + "users/auth")
-        .then(
-            function (response) {
-                $rootScope.userAuthenticated = response.data;
-                $rootScope.logado = true;
-                $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
-                    for (var i = 0; i < response.data.length; i++) {
-                        if (response.data[i].id == $rootScope.userAuthenticated.id) {
-                            $rootScope.rank = i + 1;
-                        }
-                    }
-                });
-            }
-        );
-    if ($rootScope.userAuthenticated == null) {
-        $rootScope.logado = false;
-    }
 });
 
 app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http, $mdToast) {
@@ -33,18 +16,16 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
 
 // sair - logout
     $scope.logout = function () {
-        $rootScope.userAuthenticated = {};
-        $location.path('/login');
-        // $http.post($rootScope.serviceBase + "logout", $rootScope.userAuthenticated, app.header)
-        //     .then(
-        //         function (response) {
-        //             $rootScope.userAuthenticated = {};
-        //             $location.path('/login');
-        //         },
-        //         function (response) {
-        //             // failure callback
-        //         }
-        //     );
+        $http.post($rootScope.serviceBase + "logout", $rootScope.userAuthenticated, app.header)
+            .then(
+                function (response) {
+                    $rootScope.userAuthenticated = {};
+                    $location.path('/login');
+                },
+                function (response) {
+                    // failure callback
+                }
+            );
     };
 
 // Toast
