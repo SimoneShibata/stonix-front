@@ -11,13 +11,19 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
 // Login
     $scope.logar = function (credentials) {
 
-        console.log(credentials);
-
         $http.post("http://localhost:9991/login", credentials)
             .then(
                 function (response) {
-                    console.log('success ' + response);
-                    //MyStorageService.token.set(response);
+
+                    console.log('Response Headers: ', response.headers('Authorization'));
+
+                    var tokenBearer = response.headers('Authorization');
+                    var token = tokenBearer.substring(7, tokenBearer.length);
+
+                    console.log(tokenBearer);
+                    console.log(token);
+
+                    MyStorageService.token.set(token);
 
                     // $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
                     //     for (var i = 0; i < response.data.length; i++) {
@@ -26,7 +32,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
                     //         }
                     //     }
                     // });
-                    // $location.path('/questions');
+                    $location.path('/questions');
                 },
                 function (error) {
                     console.log('error ' + error);
