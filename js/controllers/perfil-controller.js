@@ -1,5 +1,9 @@
 app.controller('PerfilController', function ($scope, $rootScope, $location, $http, $filter) {
 
+    $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
+        $rootScope.userAuthenticated = response.data;
+    });
+    
     $scope.pageTitle = "Perfil";
 
 // Update Password - Atualização de senha

@@ -1,11 +1,10 @@
 app.run(function ($rootScope, $http) {
     $rootScope.serviceBase = "http://localhost:9991/api/";
     $rootScope.uiBase = "http://localhost/stonix-front-end/#/";
-
 });
 
 app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http, $mdToast) {
-
+    
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };

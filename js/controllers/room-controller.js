@@ -1,4 +1,7 @@
 app.controller('RoomController', function ($scope, $http, $rootScope, $location, $routeParams, $timeout, $q) {
+    $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
+        $rootScope.userAuthenticated = response.data;
+    });
 
     $scope.pageTitle = "Salas de aula";
 

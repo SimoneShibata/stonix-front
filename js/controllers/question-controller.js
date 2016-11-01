@@ -1,6 +1,5 @@
 app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
-        console.log(response.data);
         $rootScope.userAuthenticated = response.data;
         if (!$rootScope.userAuthenticated.tutor) {
             $scope.showTutorDialog();
