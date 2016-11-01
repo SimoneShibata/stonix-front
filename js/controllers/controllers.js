@@ -3,8 +3,8 @@ app.run(function ($rootScope, $http) {
     $rootScope.uiBase = "http://localhost/stonix-front-end/#/";
 });
 
-app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http, $mdToast) {
-    
+app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http, $mdToast, $injector) {
+    var MyStorageService = $injector.get("MyStorageService");
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
@@ -13,20 +13,12 @@ app.controller('AppController', function ($scope, $mdSidenav, $location, $rootSc
         $location.path(url);
     };
 
-// sair - logout
-    $scope.logout = function () {
-        $http.post($rootScope.serviceBase + "logout", $rootScope.userAuthenticated, app.header)
-            .then(
-                function (response) {
-                    $rootScope.userAuthenticated = {};
-                    $location.path('/login');
-                },
-                function (response) {
-                    // failure callback
-                }
-            );
-    };
+    $scope.logout = function() {
+        MyStorageService.token.clear();
+        $rootScope.userAuthenticated = null;
 
+        location.reload();
+    };
 // Toast
     var last = {
         bottom: false,
