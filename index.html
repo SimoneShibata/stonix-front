@@ -16,7 +16,7 @@
     <meta charset="utf-8"/>
 </head>
 
-<body layout="column" ng-controller="AppController">
+<body layout="column" ng-cloak ng-controller="AppController">
 
 <div flex layout="row">
     <md-sidenav ng-if="userAuthenticated != null" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
@@ -109,6 +109,7 @@
 <script type="text/javascript" src="js/controllers/controllers.js"></script>
 <script type="text/javascript" src="js/controllers/login-controller.js"></script>
 <script type="text/javascript" src="js/controllers/question-controller.js"></script>
+<script type="text/javascript" src="js/controllers/question-controller-free.js"></script>
 <script type="text/javascript" src="js/controllers/perfil-controller.js"></script>
 <script type="text/javascript" src="js/controllers/ranking-controller.js"></script>
 <script type="text/javascript" src="js/controllers/room-controller.js"></script>

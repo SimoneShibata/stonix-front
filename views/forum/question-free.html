@@ -1,0 +1,147 @@
+<div class="page">
+    <md-toolbar layout="row">
+        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+        <h3 class="md-toolbar-tools">
+            <i class="fa fa-arrow-left margin-fa" aria-hidden="true" ng-click="navigateTo('/questions')"></i>
+            {{pageTitle}}
+        </h3>
+    </md-toolbar>
+
+    <div class="content">
+        <md-card>
+            <md-card-content>
+                <div layout="row">
+                    <div layout="column">
+                        <img ng-src="{{ question.user.image }}" class="userQuestion" title="{{ question.user.name }}"/>
+                        {{ question.user.punctuation }} pts
+                    </div>
+                    <div layout="column" class="descQuestion">
+                        {{ question.title }}
+                    </div>
+                </div>
+            </md-card-content>
+            <md-divider></md-divider>
+            <md-card-footer>
+                <a ng-click="niceQuestion(question)" class="actionQuestion">
+                    <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
+                    {{ question.nice }} gostei
+                </a>
+                <a class="actionQuestion noLink">
+                    <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
+                    {{ question.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+                </a>
+                <a  class="actionQuestion noLink">
+                    <i class="fa fa-eye fa-gray" aria-hidden="true"></i>
+                    {{ question.views }} exibições
+                </a>
+            </md-card-footer>
+
+            <md-divider></md-divider>
+            <md-card-content>
+                <div ng-bind-html="question.description | to_trusted"></div>
+            </md-card-content>
+            <md-divider ng-show="!question.answered" class="nowrap"></md-divider>
+
+            <md-card-content ng-show="!hideButton && !question.answered">
+                <div layout="row" class="float-right">
+                    <md-button class="md-raised md-accent" ng-click="toAnswer()">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        responder
+                    </md-button>
+                </div>
+            </md-card-content>
+            <md-card-content ng-show="hideButton && !question.answered">
+                <md-input-container>
+                    <label>Resposta</label>
+                    <input ng-model="answer.description">
+                </md-input-container>
+                <div layout="row" class="float-right">
+                    <div layout="column">
+                        <md-button class="md-raised md-primary float-right"
+                                   ng-click="hideInputAnswer()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            cancelar
+                        </md-button>
+                    </div>
+                    <div layout="column">
+                        <md-button class="md-raised md-accent float-right"
+                                   ng-click="postAnswer()">
+                            <i class="fa fa-commenting" aria-hidden="true"></i>
+                            responder
+                        </md-button>
+                    </div>
+                </div>
+            </md-card-content>
+
+            <md-divider></md-divider>
+            <md-card-content style="background-color:#ededed;">
+                <p style="font-weight:bold;margin-bottom:0;" class="fa-gray"> {{ question.numberAnswers }} Respostas</p>
+            </md-card-content>
+            <md-divider></md-divider>
+
+            <md-card-content ng-repeat="answer in answers">
+
+                <div layout="row">
+                    <div layout="column">
+                        <img ng-src="{{ answer.user.image }}" class="userQuestion"/>
+                        {{ answer.user.punctuation }} pts
+                    </div>
+                    <div layout="column" flex class="descQuestion">
+                        {{ answer.description }}
+                    </div>
+                    <div layout="column">
+                        <i class="fa fa-check fa-gray-light float-right" aria-hidden="true" ng-click="acceptAnswer(answer)"
+                           ng-if="!answer.bestAnswer && !question.answered && userAuthenticated.id == question.user.id" title="Avaliar melhor resposta"></i>
+                        <i class="fa fa-check fa-blue float-right" aria-hidden="true" ng-if="answer.bestAnswer" title="Melhor resposta"></i>
+                    </div>
+                </div>
+                <div style="margin-left:70px; margin-bottom: 8px;">
+                    <a ng-click="niceAnswer(answer)" class="actionQuestion">
+                        <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
+                        {{ answer.nice }} gostei
+                    </a>
+                    <a ng-click="commentSelected(answer)" class="actionQuestion">
+                        <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
+                        {{ answer.numberComments }} comentários
+                    </a>
+                    <a class="actionQuestion noLink">
+                        <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
+                        {{ answer.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
+                    </a>
+                    <a ng-click="deleteAnswer(answer)" class="actionQuestion" ng-if="userAuthenticated.id == answer.user.id && !question.answered">
+                        <i class="fa fa-trash-o fa-gray" aria-hidden="true"></i>
+                        excluir
+                    </a>
+                </div>
+                <div ng-if="selected == answer.id">
+                    <div ng-repeat="comment in comments">
+                        <md-divider></md-divider>
+                        <p class="comment-description">{{ comment.description }} -
+                            <a class="comment-user">{{ comment.user.name }}</a> |
+                            <span class="comment-date">{{ comment.created | date: 'dd/MM/yyyy HH:mm' }}</span>
+                        </p>
+                    </div>
+                    <div layout="row">
+                        <md-input-container flex="80">
+                            <label>Comentário</label>
+                            <input ng-model="comment.description">
+                        </md-input-container>
+                        <div class="float-right">
+                            <md-button class="md-raised" ng-click="postCommentAnswer(answer)">
+                                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                                comentar
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <md-card-content>
+                    <md-divider></md-divider>
+                </md-card-content>
+            </md-card-content>
+        </md-card>
+
+    </div>
+</div>
+</div>

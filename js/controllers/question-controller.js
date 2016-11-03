@@ -68,6 +68,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.createQuestion = function () {
         $scope.question.description = $scope.data.text;
         $scope.question.user = $rootScope.userAuthenticated;
+        console.log($scope.question);
         $http.post($rootScope.serviceBase + "questions/", $scope.question, app.header)
             .then(
                 function (response) {
@@ -194,16 +195,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         });
     };
 
-//Nice em Question
-    $scope.niceQuestion = function (question) {
-        $http.get($rootScope.serviceBase + '/questions/nice/' + question.id).then(function (response) {
-            $http.get($rootScope.serviceBase + "questions").then(function (response) {
-                $scope.questions = response.data;
-                $scope.question.nice++;
-            });
-        });
-    };
-
 //Dislike em Question
     $scope.dislikeQuestion = function (question) {
         $scope.question.dislike++;
@@ -213,15 +204,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         //         $scope.question.dislike++;
         //     });
         // });
-    };
-
-// Nice em Answer
-    $scope.niceAnswer = function (answer) {
-        $http.get($rootScope.serviceBase + 'answers/nice/' + answer.id).then(function (response) {
-            $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
-                $scope.answers = response.data;
-            });
-        });
     };
 
 //Delete Answer

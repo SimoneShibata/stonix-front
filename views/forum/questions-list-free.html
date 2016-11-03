@@ -19,7 +19,7 @@
                     <md-content>
                         <div class="content">
                             <md-card ng-repeat="question in questions | filter:search" style="cursor:pointer;">
-                                <md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
+                                <md-card-content ng-click="getOne(question.id)">
                                     <div layout="row">
                                         <div layout="column">
                                             <img ng-src="{{ question.user.image }}" class="userQuestion"
@@ -69,7 +69,7 @@
                     <md-content>
                         <div class="content">
 
-                            <md-card ng-click="navigateTo('/questions/' + myQuestion.id)"
+                            <md-card ng-click="navigateTo('free/questions/' + myQuestion.id)"
                                      ng-repeat="myQuestion in myQuestions | filter:search" style="cursor:pointer;">
                                 <md-card-content>
                                     <div layout="row">

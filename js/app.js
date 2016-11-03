@@ -37,9 +37,17 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpP
             controller: "QuestionController",
             templateUrl: "views/forum/questions-list.html",
         })
+        .when('/free/questions', {
+            controller: "QuestionControllerFree",
+            templateUrl: "views/forum/questions-list-free.html",
+        })
         .when('/questions/:id', {
             controller: "QuestionController",
             templateUrl: "views/forum/question.html",
+        })
+        .when('/free/questions/:id', {
+            controller: "QuestionControllerFree",
+            templateUrl: "views/forum/question-free.html",
         })
         .when('/questions/edit/:id', {
             controller: "QuestionController",
