@@ -1,4 +1,27 @@
 app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
+    $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
+        $rootScope.userAuthenticated = response.data;
+        $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
+            for (var i = 0; i < response.data.length; i++) {
+                if (response.data[i].id == $rootScope.userAuthenticated.id) {
+                    $rootScope.rank = i + 1;
+                }
+            }
+        });
+
+        if (!$rootScope.userAuthenticated.tutor) {
+            $scope.showTutorDialog();
+        }
+        // GetAllMyQuestions - Somente minhas pergunta
+        $scope.myQuestions = [];
+        $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAuthenticated.id)
+            .then(function (response) {
+                $scope.myQuestions = response.data;
+            }, function (error) {
+                // failure
+            });
+
+    });
 
     $scope.showTutorDialog = function (ev) {
         $mdDialog.show({
@@ -14,10 +37,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 $scope.status = 'You cancelled the dialog.';
             });
     };
-
-    if (!$rootScope.userAuthenticated.tutor) {
-        $scope.showTutorDialog();
-    }
 
     $scope.pageTitle = "Fórum";
 
@@ -43,15 +62,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     }, function (error) {
         // failure
     });
-
-// GetAllMyQuestions - Somente minhas pergunta
-    $scope.myQuestions = [];
-    $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAuthenticated.id)
-        .then(function (response) {
-            $scope.myQuestions = response.data;
-        }, function (error) {
-            // failure
-        });
 
 // Post - Cria question
     $scope.question = {user: {}};

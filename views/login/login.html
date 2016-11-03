@@ -17,15 +17,15 @@
 <img ng-src="../img/logo.png" id="login-logo"/>
 <div class="card-login">
 
-    <form ng-submit="logar()">
+    <form>
         <md-card>
             <md-card-content>
-                <input class="campo-login" id="margin-top" type="email" ng-model="user.email" placeholder="E-mail"
+                <input class="campo-login" id="margin-top" type="email" ng-model="credentials.username" placeholder="E-mail"
                        autofocus/>
-                <input class="campo-login" type="password" ng-model="user.password" placeholder="Senha"/>
+                <input class="campo-login" type="password" ng-model="credentials.password" placeholder="Senha"/>
             </md-card-content>
             <md-card-footer>
-                <md-button class="md-raised md-accent float-right" ng-click="logar()">
+                <md-button class="md-raised md-accent float-right" ng-click="logar(credentials)">
                     <i class="fa fa-sign-in" aria-hidden="true"></i>
                     partiu
                 </md-button>
@@ -50,8 +50,16 @@
 <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
 
 <script type="text/javascript" src="js/app.js"></script>
+<!-- Controllers -->
 <script type="text/javascript" src="js/controllers/controllers.js"></script>
-
+<script type="text/javascript" src="js/controllers/login-controller.js"></script>
+<script type="text/javascript" src="js/controllers/question-controller.js"></script>
+<script type="text/javascript" src="js/controllers/perfil-controller.js"></script>
+<script type="text/javascript" src="js/controllers/ranking-controller.js"></script>
+<script type="text/javascript" src="js/controllers/room-controller.js"></script>
+<!-- Services -->
+<script type="text/javascript" src="js/services/storage.service.js"></script>
+<script type="text/javascript" src="js/services/myStorage.service.js"></script>
 
 </body>
 </html>

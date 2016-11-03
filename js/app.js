@@ -9,7 +9,11 @@ app.filter('to_trusted', ['$sce', function ($sce) {
     };
 }]);
 
-app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
+
+app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpProvider) {
+
+    $httpProvider.defaults.withCredentials = true;
+    $httpProvider.interceptors.push('AuthInterceptor');
 
     $routeProvider
         .when('/login', {
@@ -103,3 +107,33 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider) {
     $mdThemingProvider.theme('input')
         .primaryPalette('white');
 });
+
+app.factory('AuthInterceptor', ['$q', '$window', '$location', '$injector', function ($q, $window, $location, $injector) {
+
+    var MyStorageService = $injector.get("MyStorageService");
+
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+            //insere o token no header do cabeçalho
+            if (MyStorageService.token.get()) {
+                config.headers.Authorization = MyStorageService.token.get();
+            }
+            return config || $q.when(config);
+        },
+        response: function (response) {
+            return response || $q.when(response);
+        },
+        responseError: function (rejection) {
+            if (rejection.status === 403) {
+                //limpa o token do storage
+                MyStorageService.token.clear();
+                $location.path("/login");
+            } else {
+                var message = rejection.data + '<br><br><i>' + rejection.status + ' - ' + rejection.statusText + '</i>';
+                console.log(message);
+            }
+            return $q.reject(rejection);
+        }
+    };
+}]);
