@@ -15,13 +15,8 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
             .then(
                 function (response) {
 
-                    console.log('Response Headers: ', response.headers('Authorization'));
-
                     var tokenBearer = response.headers('Authorization');
                     var token = tokenBearer.substring(7, tokenBearer.length);
-
-                    console.log(tokenBearer);
-                    console.log(token);
 
                     MyStorageService.token.set(token);
 
