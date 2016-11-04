@@ -95,9 +95,7 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
             return null;
         }
 
-        if (user.image == null) {
-            user.image = "../../img/default.png";
-        }
+        $scope.user.imageProfile = $scope.image.base64;
         $http.post($rootScope.serviceBase + "users", user).then(function () {
             $rootScope.showToast("Cadastrado com sucesso");
             $mdDialog.cancel();

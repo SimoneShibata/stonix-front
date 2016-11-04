@@ -29,8 +29,7 @@
                 <div layout="row">
                     <div layout="column">
                         <div>
-                            <img ng-src="{{ userAuthenticated.image }}" class="photoUser"
-                                 title="{{ userAuthenticated.name }}"/>
+                            <img data-ng-src="data:image/png;base64,{{ userAuthenticated.imageProfile }}" title="{{ userAuthenticated.name }}" class="photoUser" data-err-src="images/png/avatar.png"/>
                         </div>
 
                     </div>
@@ -112,6 +111,7 @@
 <script type="text/javascript" src="js/controllers/perfil-controller.js"></script>
 <script type="text/javascript" src="js/controllers/ranking-controller.js"></script>
 <script type="text/javascript" src="js/controllers/room-controller.js"></script>
+<script type="text/javascript" src="node_modules/angular-base64-upload/dist/angular-base64-upload.min.js"></script>
 
 
 </body>

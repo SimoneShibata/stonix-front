@@ -1,7 +1,7 @@
 $.ajaxPrefilter(function( options ) {
     options.async = true;
 });
-var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'wysiwyg.module']);
+var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'wysiwyg.module', 'naif.base64']);
 
 app.filter('to_trusted', ['$sce', function ($sce) {
     return function (text) {

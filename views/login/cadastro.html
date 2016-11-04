@@ -29,7 +29,7 @@
                     </div>
                 </md-input-container>
                 <div flex-gt-xs>
-                    <md-datepicker  ng-model="user.birth" md-placeholder="Data nascimento"></md-datepicker>
+                    <md-datepicker ng-model="user.birth" md-placeholder="Data nascimento"></md-datepicker>
                 </div>
 
                 <div layout="row">
@@ -47,10 +47,8 @@
                         <input type="password" required md-no-asterisk ng-model="user.passwordConfirm">
                     </md-input-container>
                 </div>
-                <md-input-container class="md-block">
-                    <label>Foto de perfil</label>
-                    <input ng-model="user.image">
-                </md-input-container>
+
+                <input type="file" ng-model="image" base-sixty-four-input>
             </div>
             <md-dialog-actions layout="row">
                 <span flex></span>
