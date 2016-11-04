@@ -22,8 +22,11 @@
                                 <md-card-content ng-click="getOne(question.id)">
                                     <div layout="row">
                                         <div layout="column">
-                                            <img data-ng-src="data:image/png;base64,{{ question.user.imageProfile }}" class="userQuestion"
+                                            <img ng-if="question.user.imageProfile" data-ng-src="data:image/png;base64,{{ question.user.imageProfile }}" class="userQuestion"
                                                  title="{{ question.user.name }}"/>
+                                            <img ng-if="!question.user.imageProfile" title="{{question.user.name}}"
+                                                 ng-src="../img/default.png"
+                                                 class="userQuestion"/>
                                             {{ question.user.punctuation }} pts
                                         </div>
                                         <div layout="column" flex class="descQuestion">

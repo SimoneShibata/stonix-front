@@ -109,7 +109,12 @@
                                                      ng-if="$index == 2"/>
                                                 <p ng-if="$index > 2" class="avatar" style="margin: 8px 16px 8px 0px ;">
                                                     {{ $index + 1 }}</p>
-                                                <img alt="{{ u.name }}" ng-src="{{ u.image }}" class="avatar"/>
+                                                <img ng-if="u.imageProfile" alt="{{ u.name }}"
+                                                     data-ng-src="data:image/png;base64,{{ u.imageProfile }}"
+                                                     title="{{ userAuthenticated.name }}" class="avatar"
+                                                     data-err-src="/img/default.png"/>
+                                                <img class="avatar" ng-if="!u.imageProfile"
+                                                     ng-src="../img/default.png"/>
                                                 <p>{{ u.name }}</p>
                                                 <p>Level {{ u.level }}</p>
                                                 <p>{{ u.punctuation }} pontos</p>
@@ -124,8 +129,12 @@
                                                           ng-click="goToPerson(person.name, $event)">
                                                 <img title="Primeiro lugar por pontuação"
                                                      ng-src="../../img/apple.png" class="avatar"/>
-                                                <img title="{{room.teacher.name}}"
-                                                     ng-src="{{room.teacher.image}}" class="avatar"/>
+                                                <img ng-if="room.teacher.imageProfile" title="{{room.teacher.name}}"
+                                                     data-ng-src="data:image/png;base64,{{ room.teacher.imageProfile }}"
+                                                     class="avatar"/>
+                                                <img ng-if="!room.teacher.imageProfile" title="{{room.teacher.name}}"
+                                                     ng-src="../img/default.png"
+                                                     class="avatar"/>
                                                 <p>{{ room.teacher.name }}</p>
                                                 <p>Level {{ room.teacher.level }}</p>
                                                 <p>{{ room.teacher.punctuation }} pontos</p>

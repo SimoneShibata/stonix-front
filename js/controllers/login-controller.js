@@ -77,7 +77,9 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
             return null;
         }
 
-        $scope.user.imageProfile = $scope.image.base64;
+        if($scope.image != null) {
+            $scope.user.imageProfile = $scope.image.base64;
+        }
 
         $http.post($rootScope.serviceBase + "users", user).then(function () {
             $rootScope.showToast("Cadastrado com sucesso");

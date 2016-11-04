@@ -9,8 +9,11 @@
 		<div layout="row">
 			<div layout="column">
 				<div>
-                    <img data-ng-src="data:image/png;base64,{{ userAuthenticated.imageProfile }}" class="photoUser-perfil"/>
-                </div>
+                    <img ng-if="userAuthenticated.imageProfile" data-ng-src="data:image/png;base64,{{ userAuthenticated.imageProfile }}" class="photoUser-perfil"/>
+					<img ng-if="!userAuthenticated.imageProfile"
+						 ng-src="../img/default.png"
+						 class="photoUser-perfil"/>
+				</div>
 			</div>
 			<div layout="column" flex>
 				<md-card>
