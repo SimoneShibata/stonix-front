@@ -16,11 +16,10 @@
     <meta charset="utf-8"/>
 </head>
 
-<body layout="column" ng-controller="AppController">
+<body layout="column" ng-cloak ng-controller="AppController">
 
 <div flex layout="row">
-    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left"
-                ng-show="userAuthenticated.authenticated && logado == true">
+    <md-sidenav ng-if="userAuthenticated != null" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
         <div class="logo">
             <img id="logo" ng-src="./img/logo.png" title="Bem vindo ao Stonix Hero"/>
         </div>
@@ -105,14 +104,18 @@
 <script src="./lib/bootstrap-colorpicker-module.js"></script>
 
 <script type="text/javascript" src="js/app.js"></script>
+<!-- Controllers -->
 <script type="text/javascript" src="js/controllers/controllers.js"></script>
 <script type="text/javascript" src="js/controllers/login-controller.js"></script>
 <script type="text/javascript" src="js/controllers/question-controller.js"></script>
+<script type="text/javascript" src="js/controllers/question-controller-free.js"></script>
 <script type="text/javascript" src="js/controllers/perfil-controller.js"></script>
 <script type="text/javascript" src="js/controllers/ranking-controller.js"></script>
 <script type="text/javascript" src="js/controllers/room-controller.js"></script>
 <script type="text/javascript" src="node_modules/angular-base64-upload/dist/angular-base64-upload.min.js"></script>
-
+<!-- Services -->
+<script type="text/javascript" src="js/services/storage.service.js"></script>
+<script type="text/javascript" src="js/services/myStorage.service.js"></script>
 
 </body>
 </html>

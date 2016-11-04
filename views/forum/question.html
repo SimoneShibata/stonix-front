@@ -15,7 +15,7 @@
             <md-card-content>
                 <div layout="row">
                     <div layout="column">
-                        <img ng-src="{{ question.user.image }}" class="userQuestion" title="{{ question.user.name }}"/>
+                        <img data-ng-src="data:image/png;base64,{{ question.user.imageProfile }}" class="userQuestion" title="{{ question.user.name }}"/>
                         {{ question.user.punctuation }} pts
                     </div>
                     <div layout="column" class="descQuestion">
@@ -70,7 +70,7 @@
 
                 <div layout="row">
                     <div layout="column">
-                        <img ng-src="{{ answer.user.image }}" class="userQuestion"/>
+                        <img data-ng-src="data:image/png;base64,{{ answer.user.imageProfile }}" class="userQuestion"/>
                         {{ answer.user.punctuation }} pts
                     </div>
                     <div layout="column" flex class="descQuestion">
