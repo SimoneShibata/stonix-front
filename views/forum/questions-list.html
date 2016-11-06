@@ -41,13 +41,13 @@
                                 </md-card-content>
                                 <md-divider></md-divider>
                                 <md-card-footer>
-                                    <a class="actionQuestion">
+                                    <a ng-if="!question.likedQuestion" ng-click="newLike(question)" class="actionQuestion">
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-                                        0 gostei
+                                        {{question.numberLikes}} gostei
                                     </a>
-                                    <a ng-click="dislikeQuestion(question)" class="actionQuestion">
-                                        <i class="fa fa-thumbs-down fa-gray" aria-hidden="true"></i>
-                                        {{ question.dislike }} não gostei
+                                    <a ng-if="question.likedQuestion" ng-click="unlike(question)" class="actionQuestion">
+                                        <i class="fa fa-thumbs-up like-blue" aria-hidden="true"></i>
+                                        <span class="like-blue">{{question.numberLikes}} gostei</span>
                                     </a>
                                     <a ng-click="navigateTo('/questions/answers/' + question.id)"
                                        class="actionQuestion">
@@ -96,9 +96,13 @@
                                 </md-card-content>
                                 <md-divider></md-divider>
                                 <md-card-footer>
-                                    <a class="actionQuestion">
+                                    <a ng-if="!myQuestion.likedQuestion" class="actionQuestion">
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-                                        0 gostei
+                                        {{myQuestion.numberLikes}} gostei
+                                    </a>
+                                    <a ng-if="myQuestion.likedQuestion"  class="actionQuestion">
+                                        <i class="fa fa-thumbs-up like-blue" aria-hidden="true"></i>
+                                        <span class="like-blue">{{myQuestion.numberLikes}} gostei</span>
                                     </a>
                                     <a class="actionQuestion">
                                         <i class="fa fa-comments fa-gray " aria-hidden="true"></i>
