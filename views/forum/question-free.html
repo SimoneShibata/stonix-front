@@ -1,10 +1,7 @@
 <div class="page">
     <md-toolbar layout="row">
-        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
-            <md-icon md-svg-icon="menu"></md-icon>
-        </md-button>
         <h3 class="md-toolbar-tools">
-            <i class="fa fa-arrow-left margin-fa" aria-hidden="true" ng-click="navigateTo('/questions')"></i>
+            <i class="fa fa-arrow-left margin-fa" aria-hidden="true" ng-click="navigateTo('/free/questions')"></i>
             {{pageTitle}}
         </h3>
     </md-toolbar>
@@ -27,7 +24,7 @@
             </md-card-content>
             <md-divider></md-divider>
             <md-card-footer>
-                <a ng-click="niceQuestion(question)" class="actionQuestion">
+                <a class="actionQuestion noLink">
                     <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                     {{ question.nice }} gostei
                 </a>
@@ -44,16 +41,6 @@
             <md-divider></md-divider>
             <md-card-content>
                 <div ng-bind-html="question.description | to_trusted"></div>
-            </md-card-content>
-            <md-divider ng-show="!question.answered" class="nowrap"></md-divider>
-
-            <md-card-content ng-show="!hideButton && !question.answered">
-                <div layout="row" class="float-right">
-                    <md-button class="md-raised md-accent" ng-click="toAnswer()">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        responder
-                    </md-button>
-                </div>
             </md-card-content>
             <md-card-content ng-show="hideButton && !question.answered">
                 <md-input-container>

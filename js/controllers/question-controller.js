@@ -1,4 +1,7 @@
 app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
+
+    $scope.pageTitle = "Fórum";
+    
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
         $rootScope.userAuthenticated = response.data;
         $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
@@ -37,8 +40,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 $scope.status = 'You cancelled the dialog.';
             });
     };
-
-    $scope.pageTitle = "Fórum";
 
     var config = {
         headers: {

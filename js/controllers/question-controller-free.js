@@ -1,5 +1,6 @@
 app.controller('QuestionControllerFree', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
 
+    $scope.pageTitle = "Fórum";
 
 // GetAll - Lista questions
     $scope.questions = [];

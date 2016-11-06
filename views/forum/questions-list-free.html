@@ -1,9 +1,5 @@
 <div class="page">
     <md-toolbar layout="row">
-        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
-            <md-icon md-svg-icon="menu"></md-icon>
-        </md-button>
-
         <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
 
         <md-input-container md-theme="input" flex>
@@ -41,13 +37,9 @@
                                 </md-card-content>
                                 <md-divider></md-divider>
                                 <md-card-footer>
-                                    <a class="actionQuestion">
+                                    <a class="actionQuestion noLink">
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                                         0 gostei
-                                    </a>
-                                    <a ng-click="dislikeQuestion(question)" class="actionQuestion">
-                                        <i class="fa fa-thumbs-down fa-gray" aria-hidden="true"></i>
-                                        {{ question.dislike }} não gostei
                                     </a>
                                     <a ng-click="navigateTo('/questions/answers/' + question.id)"
                                        class="actionQuestion">

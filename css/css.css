@@ -302,3 +302,23 @@ https://github.com/google/material-design-icons
     width: 16px;
     margin-right: 10px;
 }
+
+input[type=file] {
+    display: none;
+}
+.inputfile {
+    position: absolute;
+    z-index: -1;
+}
+.inputfile + label {
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+
+    color: #fff;
+    background-color: #ab1d18;
+}

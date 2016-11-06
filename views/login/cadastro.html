@@ -48,7 +48,11 @@
                     </md-input-container>
                 </div>
 
-                <input type="file" ng-model="image" maxsize="5000" accept="image/png, image/jpeg" base-sixty-four-input>
+                <input id="upload" type="file" class="inputfile" ng-model="image" maxsize="5000" accept="image/png, image/jpeg" base-sixty-four-input>
+                <label for="upload">
+                    <i class="fa fa-picture-o" style="color: #fff;margin-right: 10px;" aria-hidden="true"></i>
+                    Escolher imagem
+                </label>
                 <span ng-show="form.files.$error.maxsize">Arquivo maior que 5000 KB</span>
             </div>
             <md-dialog-actions layout="row">
