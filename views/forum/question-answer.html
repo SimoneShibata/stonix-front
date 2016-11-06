@@ -108,9 +108,13 @@
                     </div>
                 </div>
                 <div style="margin-left:70px; margin-bottom: 8px;">
-                    <a ng-click="niceAnswer(answer)" class="actionQuestion">
+                    <a ng-if="!answer.likedAnswer" ng-click="likeAnswer(answer)" class="actionQuestion">
                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-                        {{ answer.nice }} gostei
+                        {{ answer.numberLikes }} gostei
+                    </a>
+                    <a ng-if="answer.likedAnswer" ng-click="unlikeAnswer(answer)" class="actionQuestion">
+                        <i class="fa fa-thumbs-up like-blue" aria-hidden="true"></i>
+                        <span class="like-blue">{{ answer.numberLikes }} gostei</span>
                     </a>
                     <a ng-click="commentSelected(answer)" class="actionQuestion">
                         <i class="fa fa-comments fa-gray" aria-hidden="true"></i>

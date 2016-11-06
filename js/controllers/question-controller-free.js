@@ -33,12 +33,23 @@ app.controller('QuestionControllerFree', function ($scope, $rootScope, $http, $r
         $scope.listComments(answer);
     };
 
+    var getNumberLikeAnswer = function (answer) {
+        $http.get($rootScope.serviceBase + "answers/likes/answer/" + answer.id)
+            .then(function (response) {
+                answer.numberLikes = response.data.length;
+            });
+    };
+
     $scope.getOne = function (id) {
         $http.get($rootScope.serviceBase + "questions/" + id).then(function (response) {
             $scope.question = response.data;
             $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
                 $scope.answers = response.data;
                 $scope.numberAnswers = response.data.length;
+
+                for (var i = 0; i < response.data.length; i++) {
+                    getNumberLikeAnswer($scope.answers[i]);
+                }
             });
             getNumberLikes($scope.question);
             $location.path("/free/questions/" + id);
@@ -53,4 +64,5 @@ app.controller('QuestionControllerFree', function ($scope, $rootScope, $http, $r
     if ($routeParams.id != null) {
         $scope.getOne($routeParams.id);
     }
+
 });

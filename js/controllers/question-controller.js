@@ -70,6 +70,10 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $http.get($rootScope.serviceBase + "answers/question/" + $scope.question.id).then(function (response) {
             $scope.answers = response.data;
             $scope.numberAnswers = response.data.length;
+
+            for (var i=0; i < response.data.length; i++) {
+                getLikedAnswer($scope.answers[i]);
+            }
         });
     };
 
@@ -282,6 +286,11 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $http.get($rootScope.serviceBase + "answers/question/" + $routeParams.id).then(function (response) {
         $scope.answers = response.data;
         $scope.numberAnswers = response.data.length;
+
+        for (var i=0; i < response.data.length; i++) {
+            getLikedAnswer($scope.answers[i]);
+            countLikesAnswer($scope.answers[i]);
+        }
     });
 
 // Aceitar Melhor Resposta
@@ -381,6 +390,64 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
 
     $scope.setDisabled = function () {
         $scope.disabled = !$scope.disabled;
+    };
+
+    $scope.unlikeAnswer = function (answer) {
+        $http.delete($rootScope.serviceBase + "answers/likes/" + answer.likedAnswer.id).then(
+            function (response) {
+                $http.get($rootScope.serviceBase + "answers").then(function (response) {
+                    $scope.getAllAnswers();
+            }, function (error) {
+                // failure
+            });
+        });
+    };
+    $scope.likeAnswer = function (answer) {
+        $http.post($rootScope.serviceBase + "answers/likes",
+            {user: $rootScope.userAuthenticated, answer: answer})
+            .then(function (response) {
+                $http.get($rootScope.serviceBase + "answers").then(function (response) {
+                    $scope.answers = response.data;
+                    verifyLikedAnswer();
+                }, function (error) {
+                    // failure
+                });
+            });
+    };
+    var verifyLikedAnswer = function () {
+        for (var i = 0; i < $scope.answers.length; i++) {
+            getLikeAnswerByUser(i);
+        }
+    };
+
+    var getNumberLikeAnswer = function (answer) {
+        $http.get($rootScope.serviceBase + "answers/likes/answer/" + answer.id)
+            .then(function (response) {
+                answer.numberLikes = response.data.length;
+            });
+    };
+    var getLikeAnswerByUser = function (position) {
+        $http.post($rootScope.serviceBase + "answers/likes/find/like-user-answer",
+            {user: $rootScope.userAuthenticated, answer: $scope.answers[position]})
+            .then(function (response) {
+                $scope.getAllAnswers();
+            });
+    };
+
+    var getLikedAnswer = function (answer) {
+        $http.post($rootScope.serviceBase + "answers/likes/find/like-user-answer",
+            {user: $rootScope.userAuthenticated, answer: answer})
+            .then(function (response) {
+                answer.likedAnswer = response.data;
+                getNumberLikeAnswer(answer);
+            });
+    };
+    var countLikesAnswer = function(answer) {
+        $http.get($rootScope.serviceBase + "answers/likes/answer/" + answer.id)
+            .then(function (response) {
+                answer.numberLikes = response.data.length;
+                getLikedAnswer(answer);
+            });
     };
 
 });
