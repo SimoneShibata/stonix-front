@@ -125,10 +125,12 @@
                                     </md-card>
                                     <md-card>
                                         <md-card-content>
-                                            <md-list-item class="noright"
-                                                          ng-click="goToPerson(person.name, $event)">
-                                                <img title="Primeiro lugar por pontuação"
-                                                     ng-src="../../img/apple.png" class="avatar"/>
+                                            <md-list-item class="noright">
+                                                <!--<img ng-src="../../img/apple.png" class="avatar"/>-->
+                                                <p class="avatar teacherclass
+                                                    ng-binding ng-scope" style="margin: 8px 16px 8px 0px ;">{{ room.teacher.numberApples }}
+                                                </p>
+
                                                 <img ng-if="room.teacher.imageProfile" title="{{room.teacher.name}}"
                                                      data-ng-src="data:image/png;base64,{{ room.teacher.imageProfile }}"
                                                      class="avatar"/>
@@ -141,7 +143,7 @@
 
                                                 <img title="Presentear com maçã"
                                                      ng-src="../../img/apple.png" class="icon-apple"
-                                                     ng-click="addApple(room.teacher.id)"/>
+                                                     ng-click="addApple(room.teacher)"/>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                             </md-list-item>
                                         </md-card-content>

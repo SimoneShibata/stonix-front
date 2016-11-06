@@ -49,7 +49,10 @@
                                             <img title="Segundo lugar por level" ng-src="../../img/silver-medal.png" class="avatar" ng-if="$index == 1"/>
                                             <img title="Terceiro lugar por level" ng-src="../../img/bronze-medal.png" class="avatar" ng-if="$index == 2"/>
                                             <p ng-if="$index > 2" class="avatar" style="margin: 8px 16px 8px 0px ;">{{ $index + 1 }}</p>
-                                            <img alt="{{ u.name }}" data-ng-src="data:image/png;base64,{{ u.imageProfile }}" class="avatar"/>
+                                            <img ng-if="u.imageProfile" alt="{{ u.name }}" data-ng-src="data:image/png;base64,{{ u.imageProfile }}" class="avatar"/>
+                                            <img ng-if="!u.imageProfile" title="{{u.name}}"
+                                                 ng-src="../img/default.png"
+                                                 class="avatar"/>
                                             <p>{{ u.name }}</p>
                                             <p>Level {{ u.level }}</p>
                                             <p>{{ u.punctuation }} pontos</p>

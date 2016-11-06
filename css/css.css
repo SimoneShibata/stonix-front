@@ -302,3 +302,11 @@ https://github.com/google/material-design-icons
     width: 16px;
     margin-right: 10px;
 }
+
+.teacherclass {
+    background-image: url("../img/apple.png");
+    background-size: 100% 100%;
+    line-height: 47px;
+    color: #fff;
+    font-weight: bold;
+}
