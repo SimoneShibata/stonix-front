@@ -1,4 +1,12 @@
 app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
+    var getLikedQuestion = function (myQuestion) {
+        $http.post($rootScope.serviceBase + "questions/likes/find/like-user-question",
+            {user: $rootScope.userAuthenticated, question: myQuestion})
+            .then(function (response) {
+                myQuestion.likedQuestion = response.data;
+            });
+    };
+
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
         $rootScope.userAuthenticated = response.data;
         $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
@@ -12,14 +20,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         if (!$rootScope.userAuthenticated.tutor) {
             $scope.showTutorDialog();
         }
-
-        var getLikedQuestion = function (myQuestion) {
-            $http.post($rootScope.serviceBase + "questions/likes/find/like-user-question",
-                {user: $rootScope.userAuthenticated, question: myQuestion})
-                .then(function (response) {
-                    myQuestion.likedQuestion = response.data;
-                });
-        };
 
         var countLikesMyQuestion = function(myQuestion) {
             $http.get($rootScope.serviceBase + "questions/likes/question/" + myQuestion.id)
@@ -36,7 +36,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 for(var i = 0; i < $scope.myQuestions.length; i++) {
                     countLikesMyQuestion($scope.myQuestions[i]);
                 }
-                console.log($scope.myQuestions);
             }, function (error) {
                 // failure
             });
@@ -94,6 +93,16 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             });
     };
 
+    $scope.unlikeQuestion = function (question) {
+        $http.delete($rootScope.serviceBase + "questions/likes/" + question.likedQuestion.id).then(function (response) {
+            $http.get($rootScope.serviceBase + "questions").then(function (response) {
+                getOne(question.id);
+            }, function (error) {
+                // failure
+            });
+        });
+    };
+
     $scope.unlike = function (question) {
         $http.delete($rootScope.serviceBase + "questions/likes/" + question.likedQuestion.id).then(function (response) {
             $http.get($rootScope.serviceBase + "questions").then(function (response) {
@@ -121,6 +130,17 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         // failure
     });
 
+    $scope.newLikeQuestion = function (question) {
+        $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
+            .then(function (response) {
+                $http.get($rootScope.serviceBase + "questions").then(function (response) {
+                    getOne(question.id);
+                }, function (error) {
+                    // failure
+                });
+            });
+    };
+
     $scope.newLike = function (question) {
         $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
             .then(function (response) {
@@ -138,7 +158,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.createQuestion = function () {
         $scope.question.description = $scope.data.text;
         $scope.question.user = $rootScope.userAuthenticated;
-        console.log($scope.question);
         $http.post($rootScope.serviceBase + "questions/", $scope.question, app.header)
             .then(
                 function (response) {
@@ -155,6 +174,21 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             );
     };
 
+    var getOne = function (id) {
+        $http.get($rootScope.serviceBase + "questions/" + id).then(function (response) {
+            $scope.question = response.data;
+            $http.get($rootScope.serviceBase + "questions/likes/question/" + id)
+                .then(function (response) {
+                    $scope.question.numberLikes = response.data.length;
+                    getLikedQuestion($scope.question);
+                });
+        }, function (error) {
+            if (error.status == 404) {
+                $location.path('/404');
+            }
+        });
+    }
+
 // GetOne - Chama Question solicitada
     if ($routeParams.id != null) {
         $http.get($rootScope.serviceBase + "questions/" + $routeParams.id).then(function (response) {
@@ -162,6 +196,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             $http.get($rootScope.serviceBase + "questions/likes/question/" + $scope.question.id)
                 .then(function (response) {
                     $scope.question.numberLikes = response.data.length;
+                    getLikedQuestion($scope.question);
                 });
         }, function (error) {
             if (error.status == 404) {

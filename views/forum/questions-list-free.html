@@ -41,16 +41,11 @@
                                 </md-card-content>
                                 <md-divider></md-divider>
                                 <md-card-footer>
-                                    <a class="actionQuestion">
+                                    <a class="actionQuestion noLink">
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-                                        0 gostei
+                                        {{question.numberLikes}} gostei
                                     </a>
-                                    <a ng-click="dislikeQuestion(question)" class="actionQuestion">
-                                        <i class="fa fa-thumbs-down fa-gray" aria-hidden="true"></i>
-                                        {{ question.dislike }} não gostei
-                                    </a>
-                                    <a ng-click="navigateTo('/questions/answers/' + question.id)"
-                                       class="actionQuestion">
+                                    <a class="actionQuestion noLink">
                                         <i class="fa fa-comments fa-gray" aria-hidden="true"></i>
                                         {{question.numberAnswers}} respostas
                                     </a>

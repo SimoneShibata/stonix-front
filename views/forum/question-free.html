@@ -27,9 +27,9 @@
             </md-card-content>
             <md-divider></md-divider>
             <md-card-footer>
-                <a ng-click="niceQuestion(question)" class="actionQuestion">
+                <a class="actionQuestion noLink">
                     <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-                    {{ question.nice }} gostei
+                    {{ question.numberLikes }} gostei
                 </a>
                 <a class="actionQuestion noLink">
                     <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
@@ -45,16 +45,7 @@
             <md-card-content>
                 <div ng-bind-html="question.description | to_trusted"></div>
             </md-card-content>
-            <md-divider ng-show="!question.answered" class="nowrap"></md-divider>
 
-            <md-card-content ng-show="!hideButton && !question.answered">
-                <div layout="row" class="float-right">
-                    <md-button class="md-raised md-accent" ng-click="toAnswer()">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        responder
-                    </md-button>
-                </div>
-            </md-card-content>
             <md-card-content ng-show="hideButton && !question.answered">
                 <md-input-container>
                     <label>Resposta</label>
@@ -128,18 +119,6 @@
                             <a class="comment-user">{{ comment.user.name }}</a> |
                             <span class="comment-date">{{ comment.created | date: 'dd/MM/yyyy HH:mm' }}</span>
                         </p>
-                    </div>
-                    <div layout="row">
-                        <md-input-container flex="80">
-                            <label>Comentário</label>
-                            <input ng-model="comment.description">
-                        </md-input-container>
-                        <div class="float-right">
-                            <md-button class="md-raised" ng-click="postCommentAnswer(answer)">
-                                <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                                comentar
-                            </md-button>
-                        </div>
                     </div>
                 </div>
                 <md-card-content>

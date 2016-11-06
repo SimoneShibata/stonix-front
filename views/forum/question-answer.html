@@ -27,11 +27,11 @@
             </md-card-content>
             <md-divider></md-divider>
             <md-card-footer>
-                <a ng-if="!question.likedQuestion" ng-click="newLike(question)" class="actionQuestion">
+                <a ng-if="!question.likedQuestion" ng-click="newLikeQuestion(question)" class="actionQuestion">
                     <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                     {{question.numberLikes}} gostei
                 </a>
-                <a ng-if="question.likedQuestion" ng-click="unlike(question)" class="actionQuestion">
+                <a ng-if="question.likedQuestion" ng-click="unlikeQuestion(question)" class="actionQuestion">
                     <i class="fa fa-thumbs-up like-blue" aria-hidden="true"></i>
                     <span class="like-blue">{{question.numberLikes}} gostei</span>
                 </a>
