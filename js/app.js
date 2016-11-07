@@ -78,11 +78,11 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpP
             templateUrl: "views/perfil/perfil.html",
         })
         .when('/perfil-edit', {
-            controller: "PerfilController",
+            controller: "PerfilEditController",
             templateUrl: "views/perfil/perfil-edit.html",
         })
         .when('/perfil-edit-password', {
-            controller: "PerfilController",
+            controller: "PerfilEditController",
             templateUrl: "views/perfil/perfil-edit-password.html",
         })
 
