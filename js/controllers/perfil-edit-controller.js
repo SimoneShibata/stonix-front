@@ -32,11 +32,7 @@ app.controller('PerfilEditController', function ($scope, $rootScope, $location, 
     };
 
 // Data no datePicker
-    var dia = $filter('date')($rootScope.userAuthenticated.birth, 'dd');
-    var mes = $filter('date')($rootScope.userAuthenticated.birth, 'MM');
-    var ano = $filter('date')($rootScope.userAuthenticated.birth, 'yyyy');
-
-    var dateBirth = new Date(ano, mes, dia);
+    var dateBirth = new Date($rootScope.userAuthenticated.birth);
 
     $scope.u = {
         name: $rootScope.userAuthenticated.name,
