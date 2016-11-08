@@ -12,14 +12,15 @@
 
         <md-dialog-content>
             <div style="padding: 15px;">
-                <md-input-container class="md-block" style="width: 800px;">
+                <md-input-container style="width: 800px;">
                     <label>Nome</label>
-                    <input md-maxlength="30" required md-no-asterisk name="nome" ng-model="user.name">
+                    <input flex="100" maxlength="30" required md-no-asterisk name="nome" ng-model="user.name">
                     <div ng-messages="projectForm.description.$error">
                         <div ng-message="required">This is required.</div>
                         <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
                     </div>
                 </md-input-container>
+                <md-datepicker ng-model="user.birth" md-placeholder="Data nascimento"></md-datepicker>
                 <md-input-container class="md-block">
                     <label>E-mail</label>
                     <input md-maxlength="30" required md-no-asterisk ng-model="user.email">
@@ -28,9 +29,6 @@
                         <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
                     </div>
                 </md-input-container>
-                <div flex-gt-xs>
-                    <md-datepicker ng-model="user.birth" md-placeholder="Data nascimento"></md-datepicker>
-                </div>
 
                 <div layout="row">
                     <md-input-container class="md-block" flex>
@@ -50,7 +48,7 @@
             </div>
             <label class="fileContainer">
                 <div layout="row">
-                    <div layout="column" ng-show="image">
+                    <div style="margin-left: 10px;" layout="column" ng-show="image">
                         <img data-ng-src="data:image/png;base64,{{ image.base64 }}" class="userCadastro"
                              data-err-src="/img/default.png"/>
                     </div>
@@ -64,10 +62,11 @@
                             Hmm!! Se não gostar da imagem, pode trocar :)
                         </md-button>
                     </div>
+                    <input type="file" ng-model="image" maxsize="5000" accept="image/png, image/jpeg"
+                           base-sixty-four-input>
+                    <span ng-show="form.files.$error.maxsize">Arquivo maior que 5000 KB</span>
                 </div>
-                <input type="file" ng-model="image" maxsize="5000" accept="image/png, image/jpeg"
-                       base-sixty-four-input>
-                <span ng-show="form.files.$error.maxsize">Arquivo maior que 5000 KB</span>
+
             </label>
             <md-dialog-actions layout="row">
                 <span flex></span>

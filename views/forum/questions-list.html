@@ -4,12 +4,14 @@
             <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
 
-        <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
+        <h2 class="md-toolbar-tools">{{pageTitle}}</h2>
 
-        <md-input-container md-theme="input" flex>
-            <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search" aria-label="Buscar pergunta">
+        <md-input-container md-theme="input">
+            <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search"
+                   aria-label="Buscar pergunta">
         </md-input-container>
-        <i class="fa fa-search" aria-hidden="true" title="Buscar perguntas"></i>
+        <i class="fa fa-search" style="margin-top: 30px; margin-right: 40px;" aria-hidden="true"
+           title="Buscar perguntas"></i>
     </md-toolbar>
 
     <div ng-cloak class="tabsdemoDynamicHeight">
@@ -22,7 +24,9 @@
                                 <md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
                                     <div layout="row">
                                         <div layout="column">
-                                            <img ng-if="question.user.imageProfile" data-ng-src="data:image/png;base64,{{ question.user.imageProfile }}" class="userQuestion"
+                                            <img ng-if="question.user.imageProfile"
+                                                 data-ng-src="data:image/png;base64,{{ question.user.imageProfile }}"
+                                                 class="userQuestion"
                                                  title="{{ question.user.name }}"/>
                                             <img ng-if="!question.user.imageProfile" title="{{question.user.name}}"
                                                  ng-src="../img/default.png"
@@ -41,11 +45,13 @@
                                 </md-card-content>
                                 <md-divider></md-divider>
                                 <md-card-footer>
-                                    <a ng-if="!question.likedQuestion" ng-click="newLike(question)" class="actionQuestion">
+                                    <a ng-if="!question.likedQuestion" ng-click="newLike(question)"
+                                       class="actionQuestion">
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                                         {{question.numberLikes}} gostei
                                     </a>
-                                    <a ng-if="question.likedQuestion" ng-click="unlike(question)" class="actionQuestion">
+                                    <a ng-if="question.likedQuestion" ng-click="unlike(question)"
+                                       class="actionQuestion">
                                         <i class="fa fa-thumbs-up like-blue" aria-hidden="true"></i>
                                         <span class="like-blue">{{question.numberLikes}} gostei</span>
                                     </a>
@@ -77,7 +83,9 @@
                                 <md-card-content>
                                     <div layout="row">
                                         <div layout="column">
-                                            <img ng-if="myQuestion.user.imageProfile" data-ng-src="data:image/png;base64,{{ myQuestion.user.imageProfile }}" class="userQuestion"
+                                            <img ng-if="myQuestion.user.imageProfile"
+                                                 data-ng-src="data:image/png;base64,{{ myQuestion.user.imageProfile }}"
+                                                 class="userQuestion"
                                                  title="{{ myQuestion.user.name }}"/>
                                             <img ng-if="!myQuestion.user.imageProfile" title="{{myQuestion.user.name}}"
                                                  ng-src="../img/default.png"
@@ -86,7 +94,8 @@
                                         </div>
                                         <div layout="column" flex class="descQuestion">
                                             <strong>{{ myQuestion.title }}</strong>
-                                            <div ng-bind-html="myQuestion.description | to_trusted" class="nowrap"></div>
+                                            <div ng-bind-html="myQuestion.description | to_trusted"
+                                                 class="nowrap"></div>
                                         </div>
                                         <div layout="column">
                                             <i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true"
@@ -100,7 +109,7 @@
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                                         {{myQuestion.numberLikes}} gostei
                                     </a>
-                                    <a ng-if="myQuestion.likedQuestion"  class="actionQuestion">
+                                    <a ng-if="myQuestion.likedQuestion" class="actionQuestion">
                                         <i class="fa fa-thumbs-up like-blue" aria-hidden="true"></i>
                                         <span class="like-blue">{{myQuestion.numberLikes}} gostei</span>
                                     </a>
@@ -130,9 +139,9 @@
                                 <md-card-content>
 
                                     <form name="questionForm">
-                                        <md-input-container>
+                                        <md-input-container layout="row">
                                             <label>Título da pergunta</label>
-                                            <input name="title" ng-model="question.title" required md-maxlength="250"
+                                            <input name="title" ng-model="question.title" required maxlength="250"
                                                    minlength="5">
                                             <div ng-messages="questionForm.title.$error"
                                                  ng-show="questionForm.title.$dirty">
@@ -144,10 +153,10 @@
                                                     caracteres.
                                                 </div>
                                             </div>
-
                                         </md-input-container>
-                                        <md-input-container style="margin-top: 30px">
-                                            <div class="div-label">Descrição</div>
+                                        <div layout="row" class="div-label">Descrição</div>
+
+                                        <div layout="row">
                                             <wysiwyg textarea-id="question"
                                                      textarea-class="area-color"
                                                      textarea-height="180px"
@@ -157,10 +166,9 @@
                                                      enable-bootstrap-title="true"
                                                      textarea-menu="menu"
                                                      disabled="disabled"
-
                                                      ng-model="question.description">
                                             </wysiwyg>
-                                        </md-input-container>
+                                        </div>
                                     </form>
                                 </md-card-content>
                                 <md-card-footer>

@@ -6,10 +6,12 @@
 
         <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
 
-        <md-input-container md-theme="input" flex>
-            <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search" aria-label="Buscar sala">
+        <md-input-container md-theme="input">
+            <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search"
+                   aria-label="Buscar sala">
         </md-input-container>
-        <i class="fa fa-search" aria-hidden="true" title="Buscar salas"></i>
+        <i class="fa fa-search" aria-hidden="true" style="margin-top: 30px; margin-right: 40px;"
+           title="Buscar salas"></i>
     </md-toolbar>
 
     <div ng-cloak class="tabsdemoDynamicHeight">
@@ -87,18 +89,16 @@
                                 <md-card-content>
 
                                     <form name="roomForm">
-                                        <md-input-container>
+                                        <md-input-container layout="row">
                                             <label>Nome da sala</label>
-                                            <input name="title" ng-model="room.name" required md-maxlength="250"
+                                            <input name="title" ng-model="room.name" required maxlength="250"
                                                    minlength="5">
                                         </md-input-container>
-                                        <md-input-container style="margin-top: 30px">
-                                            <md-input-container>
-                                                <label>Descrição da sala</label>
-                                                <input name="title" ng-model="room.description" required
-                                                       md-maxlength="250"
-                                                       minlength="5">
-                                            </md-input-container>
+                                        <md-input-container layout="row" style="margin-top: 30px">
+                                            <label>Descrição da sala</label>
+                                            <input name="title" ng-model="room.description" required
+                                                   maxlength="250"
+                                                   minlength="5">
                                         </md-input-container>
                                     </form>
                                 </md-card-content>
