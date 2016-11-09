@@ -25,7 +25,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             $http.get($rootScope.serviceBase + "questions/likes/question/" + myQuestion.id)
                 .then(function (response) {
                     myQuestion.numberLikes = response.data.length;
-                    getLikedQuestion(myQuestion);
                 });
         };
         // GetAllMyQuestions - Somente minhas pergunta
@@ -81,7 +80,6 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $http.post($rootScope.serviceBase + "questions/likes/find/like-user-question",
             {user: $rootScope.userAuthenticated, question: $scope.questions[position]})
             .then(function (response) {
-                $scope.questions[position].likedQuestion = response.data;
                 $http.get($rootScope.serviceBase + "questions/likes/question/" + $scope.questions[position].id)
                     .then(function (response) {
                         $scope.questions[position].numberLikes = response.data.length;
@@ -125,14 +123,22 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         }
     };
 
+    $scope.getAll = function () {
+        $scope.questions = [];
+        $http.get($rootScope.serviceBase + "questions").then(function (response) {
+            $scope.questions = response.data;
+            verfyLikedQuestion();
+            for(var i = 0; i < $scope.questions.length; i++) {
+                getLikedQuestion($scope.questions[i]);
+            }
+        }, function (error) {
+            // failure
+        });
+    };
+
+    $scope.getAll();
+
 // GetAll - Lista questions
-    $scope.questions = [];
-    $http.get($rootScope.serviceBase + "questions").then(function (response) {
-        $scope.questions = response.data;
-        verfyLikedQuestion();
-    }, function (error) {
-        // failure
-    });
 
     $scope.newLikeQuestion = function (question) {
         $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
