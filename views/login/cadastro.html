@@ -54,12 +54,21 @@
                     </div>
                     <div layout="column">
                         <md-button ng-show="!image" class="md-raised md-primary" aria-label="Image profile">
-                            <md-icon md-svg-src="../img/svg/default.svg"></md-icon>
-                            Hey!! Use uma imagem no seu perfil :)
+                            <md-icon style="width:40px;height:40px;"
+                                     md-svg-src="../img/svg/default.svg"></md-icon>
+                            <md-button ng-show="!image" class="md-raised md-primary"
+                                       aria-label="Image profile">
+                                Hey!! Use uma imagem no seu perfil :)
+                            </md-button>
                         </md-button>
-                        <md-button ng-show="image" class="md-raised md-primary" aria-label="Image profile">
-                            <md-icon md-svg-src="../img/svg/default.svg"></md-icon>
-                            Hmm!! Se não gostar da imagem, pode trocar :)
+
+                        <md-button ng-show="image" class="md-raised md-primary md-focused" aria-label="Image profile">
+                            <md-icon style="width:40px;height:40px;"
+                                     md-svg-src="../img/svg/default.svg"></md-icon>
+                            <md-button ng-show="image" class="md-raised md-primary"
+                                       aria-label="Image profile">
+                                Hmm!! Se não gostar da imagem, pode trocar :)
+                            </md-button>
                         </md-button>
                     </div>
                     <input type="file" ng-model="image" maxsize="5000" accept="image/png, image/jpeg"
