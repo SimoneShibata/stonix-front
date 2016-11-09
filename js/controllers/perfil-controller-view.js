@@ -12,6 +12,9 @@ app.controller('ViewPerfilController', function ($scope, $rootScope, $location, 
     });
 
     $http.get($rootScope.serviceBase + "users/" + $routeParams.id).then(function (response) {
+        if (response.data == "") {
+            $location.path("/404");
+        }
         $scope.user = response.data;
         $http.get($rootScope.serviceBase + "questions/user/" + $scope.user.id).then(function (response) {
             $scope.user.numberQuestions = response.data.length;
