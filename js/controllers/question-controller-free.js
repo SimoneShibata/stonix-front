@@ -9,6 +9,7 @@ app.controller('QuestionControllerFree', function ($scope, $rootScope, $http, $r
 // GetAll - Lista questions
     $scope.questions = [];
     $http.get($rootScope.serviceBase + "questions").then(function (response) {
+        $scope.limit = 8;
         $scope.questions = response.data;
         for(var i = 0; i < $scope.questions.length; i++) {
             getNumberLikes($scope.questions[i]);
@@ -59,6 +60,10 @@ app.controller('QuestionControllerFree', function ($scope, $rootScope, $http, $r
             }
         });
     }
+
+    $scope.viewMore = function () {
+        $scope.limit += 8;
+    };
 
     // GetOne - Chama Question solicitada
     if ($routeParams.id != null) {

@@ -18,7 +18,7 @@
                 <md-tab label="Todos">
                     <md-content>
                         <div class="content">
-                            <md-card ng-repeat="question in questions | filter:search" style="cursor:pointer;">
+                            <md-card ng-repeat="question in questions | filter:search | limitTo:limit" style="cursor:pointer;">
                                 <md-card-content ng-click="getOne(question.id)">
                                     <div layout="row">
                                         <div layout="column">
@@ -64,5 +64,8 @@
                 </md-tab>
             </md-tabs>
         </md-content>
+        <div ng-show="limit < questions.length" class="text-center">
+            <a href="" ng-click="viewMore()">Exibir mais</a>
+        </div>
     </div>
 </div>

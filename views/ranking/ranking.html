@@ -14,7 +14,7 @@
                         <div layout="row">
                             <md-card flex>
                                 <md-card-content>
-                                    <md-list-item ng-repeat="u in users" class="noright"
+                                    <md-list-item ng-repeat="u in users | limitTo:limitPunct" class="noright"
                                                   ng-click="navigateTo('/perfil/' + u.id)">
                                         <div layout="column" flex="5">
                                             <img title="Primeiro lugar por pontuação" ng-src="../../img/gold-medal.png"
@@ -51,7 +51,9 @@
                                     </md-list-item>
                                 </md-card-content>
                             </md-card>
-
+                        </div>
+                        <div ng-show="limitPunct < users.length" class="text-center">
+                            <a href="" ng-click="viewMorePunct()">Exibir mais</a>
                         </div>
                     </md-content>
                 </md-tab>
@@ -60,7 +62,7 @@
                         <div layout="row">
                             <md-card flex>
                                 <md-card-content>
-                                    <md-list-item ng-repeat="u in usersLevel" class="noright"
+                                    <md-list-item ng-repeat="u in usersLevel | limitTo:limitLevel" class="noright"
                                                   ng-click="navigateTo('/perfil/' + u.id)">
                                         <div layout="column" flex="5">
                                             <img title="Primeiro lugar por pontuação" ng-src="../../img/gold-medal.png"
@@ -97,6 +99,9 @@
                                     </md-list-item>
                                 </md-card-content>
                             </md-card>
+                        </div>
+                        <div ng-show="limitLevel < usersLevel.length" class="text-center">
+                            <a href="" ng-click="viewMoreLevel()">Exibir mais</a>
                         </div>
                     </md-content>
                 </md-tab>
