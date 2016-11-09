@@ -9,6 +9,12 @@ app.controller('PerfilController', function ($scope, $rootScope, $location, $htt
                 }
             }
         });
+        $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAuthenticated.id).then(function (response) {
+            $rootScope.userAuthenticated.numberQuestions = response.data.length;
+        });
+        $http.get($rootScope.serviceBase + "answers/user/" + $rootScope.userAuthenticated.id).then(function (response) {
+            $rootScope.userAuthenticated.numberAnswers = response.data.length;
+        });
     });
 
     $scope.pageTitle = "Perfil";

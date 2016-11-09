@@ -1,96 +1,85 @@
 <div class="page">
-	<md-toolbar layout="row">
-		<md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
-			<md-icon md-svg-icon="menu"></md-icon>
-		</md-button>
-		<h3 class="md-toolbar-tools">{{pageTitle}}</h3>
-	</md-toolbar>
-	<div class="content">
-		<div layout="row">
-			<div layout="column">
-				<div>
-                    <img ng-if="userAuthenticated.imageProfile" data-ng-src="data:image/png;base64,{{ userAuthenticated.imageProfile }}" class="photoUser-perfil"/>
-					<img ng-if="!userAuthenticated.imageProfile"
-						 ng-src="../img/default.png"
-						 class="photoUser-perfil"/>
-				</div>
-			</div>
-			<div layout="column" flex>
-				<md-card>
-					<md-card-content>
+    <md-toolbar layout="row">
+        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+        <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
+    </md-toolbar>
+    <div class="content">
+        <div layout="row">
+            <div layout="column">
+                <div>
+                    <img ng-if="userAuthenticated.imageProfile"
+                         data-ng-src="data:image/png;base64,{{ userAuthenticated.imageProfile }}"
+                         class="photoUser-perfil"/>
+                    <img ng-if="!userAuthenticated.imageProfile"
+                         ng-src="../img/default.png"
+                         class="photoUser-perfil"/>
+                </div>
+            </div>
+            <div layout="column" flex>
+                <md-card>
+                    <md-card-content>
 						<span class="md-headline">
 							Informações
-							<i class="fa fa-pencil-square-o fa-blue" style="float:right;font-size:30px;cursor:pointer;" ng-click="navigateTo('/perfil-edit')"></i>
+							<i class="fa fa-pencil-square-o fa-blue" style="float:right;font-size:30px;cursor:pointer;"
+                               ng-click="navigateTo('/perfil-edit')"></i>
 						</span>
-					</md-card-content>
-					<md-divider></md-divider>
-					<md-card-content>
-						<div layout="row">
-							<div layout="column">
-								<p>Nome: </p>
-								<p>E-mail: </p>
-								<p>Data de nascimento: </p>
-							</div>
-							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.name }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.email }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.birth | date: 'dd/MM/yyyy' }}</span></p>
-							</div>
-							<div layout="column">
-								<a style="cursor:pointer;" ng-click="navigateTo('/perfil-edit-password')"><i class="fa fa-key fa-gray" aria-hidden="true"></i>
-									Alterar senha
-								</a>
-							</div>
-						</div>
-					</md-card-content>
-				</md-card>
-			</div>
-		</div>
-		<!--<div layout="row">-->
-			<!--<div layout="column" flex>-->
-				<!--<md-card>-->
-					<!--<md-card-content>-->
-						<!--<span class="md-headline">Indicadores </span>-->
-					<!--</md-card-content>-->
-					<!--<md-divider></md-divider>-->
-					<!--<md-card-content>-->
-						<!--<div layout="row">-->
-							<!--<div layout="column" flex>-->
-								<!--<p>Perguntas: </p>-->
-								<!--<p>Respostas: </p>-->
-								<!--<p>Melhores perguntas: </p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdPerguntas }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdRespostas }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdMelhoresPerguntas }}</span></p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p>Participação de salas: </p>-->
-								<!--<p>Aluno de Ouro: </p>-->
-								<!--<p>Aluno de Prata: </p>-->
-								<!--<p>Aluno de Bronze: </p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdSalas }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.ouro }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.prata }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.bronze }}</span></p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p>Pontuação geral: </p>-->
-								<!--<p>Ranking geral: </p>-->
-								<!--<p>Level: </p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.points }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.rank }}°</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.level }}</span></p>-->
-							<!--</div>-->
-						<!--</div>-->
-					<!--</md-card-content>-->
-				<!--</md-card>-->
-			<!--</div>-->
-		</div>
-	</div>
+                    </md-card-content>
+                    <md-divider></md-divider>
+                    <md-card-content>
+                        <div layout="row">
+                            <div layout="column">
+                                <p>Nome: </p>
+                                <p>E-mail: </p>
+                                <p>Data de nascimento: </p>
+                            </div>
+                            <div layout="column" flex>
+                                <p><span style="font-weight:bold;">{{ userAuthenticated.name }}</span></p>
+                                <p><span style="font-weight:bold;">{{ userAuthenticated.email }}</span></p>
+                                <p><span
+                                        style="font-weight:bold;">{{ userAuthenticated.birth | date: 'dd/MM/yyyy' }}</span>
+                                </p>
+                            </div>
+                            <div layout="column">
+                                <a style="cursor:pointer;" ng-click="navigateTo('/perfil-edit-password')"><i
+                                        class="fa fa-key fa-gray" aria-hidden="true"></i>
+                                    Alterar senha
+                                </a>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+        <div layout="column" flex>
+            <md-card>
+                <md-card-content>
+                    <span class="md-headline">Indicadores </span>
+                </md-card-content>
+                <md-divider></md-divider>
+                <md-card-content>
+                    <div layout="row">
+                        <div layout="column">
+                            <p>Perguntas: </p>
+                            <p>Respostas: </p>
+                        </div>
+                        <div style="margin-left: 10px" layout="column" flex="30">
+                            <p><span style="font-weight:bold;">{{ userAuthenticated.numberQuestions }}</span></p>
+                            <p><span style="font-weight:bold;">{{ userAuthenticated.numberAnswers }}</span></p>
+                        </div>
+
+                        <div layout="column">
+                            <p>Pontuação geral: </p>
+                            <p>Level: </p>
+                        </div>
+                        <div style="margin-left: 10px" layout="column" flex="30">
+                            <p><span style="font-weight:bold;">{{ userAuthenticated.punctuation }}</span></p>
+                            <p><span style="font-weight:bold;">{{ userAuthenticated.level }}</span></p>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
 </div>
