@@ -31,6 +31,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $scope.myQuestions = [];
         $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAuthenticated.id)
             .then(function (response) {
+                $scope.myLimit = 8;
                 $scope.myQuestions = response.data;
                 for(var i = 0; i < $scope.myQuestions.length; i++) {
                     countLikesMyQuestion($scope.myQuestions[i]);
@@ -116,14 +117,22 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         });
     };
 
-    var position;
     var verfyLikedQuestion = function () {
         for (var i = 0; i < $scope.questions.length; i++) {
             getLikeByUser(i);
         }
     };
 
+    $scope.viewMore = function () {
+        $scope.limitAll += 8;
+    };
+
+    $scope.viewMoreMy = function () {
+        $scope.myLimit += 8;
+    };
+
     $scope.getAll = function () {
+        $scope.limitAll = 8;
         $scope.questions = [];
         $http.get($rootScope.serviceBase + "questions").then(function (response) {
             $scope.questions = response.data;
