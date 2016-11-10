@@ -115,6 +115,14 @@ https://github.com/google/material-design-icons
     margin: 30px;
 }
 
+.div_float{
+    position:fixed;
+    top:10px;
+    left:10px;
+    width:150px;
+    height:200px;
+}
+
 .userQuestion {
     border: 1px solid #c4c4c4;
     width: 58px;

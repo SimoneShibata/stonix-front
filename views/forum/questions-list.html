@@ -20,6 +20,9 @@
                 <md-tab label="Todos">
                     <md-content>
                         <div class="content">
+                            <div ng-show="diference > 0" class="text-center">
+                                <a href="" ng-click="getAll()">{{diference}} novas perguntas</a>
+                            </div>
                             <md-card ng-repeat="question in questions | filter:search | limitTo:limitAll" style="cursor:pointer;">
                                 <md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
                                     <div layout="row">
@@ -71,7 +74,7 @@
                                 </md-card-footer>
                             </md-card>
                         </div>
-                        <div ng-show="limitAll < questions.length" class="text-center">
+                        <div style="margin-bottom: 20px" ng-show="limitAll < questions.length" class="text-center">
                             <a href="" ng-click="viewMore()">Exibir mais</a>
                         </div>
                     </md-content>
@@ -131,7 +134,7 @@
                                 </md-card-footer>
                             </md-card>
                         </div>
-                        <div ng-show="myLimit < myQuestions.length" class="text-center">
+                        <div style="margin-bottom: 20px" ng-show="myLimit < myQuestions.length" class="text-center">
                             <a href="" ng-click="viewMoreMy()">Exibir mais</a>
                         </div>
                     </md-content>
