@@ -8,8 +8,6 @@ app.filter('to_trusted', ['$sce', function ($sce) {
         return $sce.trustAsHtml(text);
     };
 }]);
-
-document.body.style.zoom=0.9;
 app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpProvider) {
 
     $httpProvider.defaults.withCredentials = true;

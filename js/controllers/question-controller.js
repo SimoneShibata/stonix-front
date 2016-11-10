@@ -1,4 +1,7 @@
 app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
+
+    document.body.style.zoom=0.9;
+
     var getLikedQuestion = function (myQuestion) {
         $http.post($rootScope.serviceBase + "questions/likes/find/like-user-question",
             {user: $rootScope.userAuthenticated, question: myQuestion})
