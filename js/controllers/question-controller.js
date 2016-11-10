@@ -406,14 +406,15 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     };
     $scope.disabled = false;
     $scope.menu = [
-        ['bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript'],
+        ['bold', 'italic', 'underline', 'strikethrough', 'link', 'image', 'quote'],
+        ['left-justify', 'center-justify', 'right-justify'],
+        ['ordered-list', 'unordered-list', 'outdent', 'indent'],
+        ['format-block'],
+        ['font'],
         ['font-size'],
         ['font-color', 'hilite-color'],
         ['remove-format'],
-        ['ordered-list', 'unordered-list'],
-        ['code', 'quote'],
-        ['link', 'image'],
-        ['css-class']
+        ['code']
     ];
 
     $scope.cssClasses = ['test1', 'test2'];
