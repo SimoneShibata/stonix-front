@@ -3,6 +3,15 @@
     padding: 0;
 }
 
+[scroll] {
+    position: fixed;
+    top: 0;
+}
+
+.tool-fixed {
+    margin-top: 65px;
+}
+
 .menuBtn {
     background-color: transparent;
     border: none;
@@ -113,14 +122,6 @@ https://github.com/google/material-design-icons
 
 .content {
     margin: 30px;
-}
-
-.div_float{
-    position:fixed;
-    top:10px;
-    left:10px;
-    width:150px;
-    height:200px;
 }
 
 .userQuestion {
@@ -286,9 +287,9 @@ https://github.com/google/material-design-icons
 }
 
 .centraliza-img {
-    position:fixed;
-    top:20%;
-    left:45%;
+    position: fixed;
+    top: 20%;
+    left: 45%;
 }
 
 @media only screen and (max-width: 768px) {
@@ -303,7 +304,7 @@ https://github.com/google/material-design-icons
     }
 }
 
-.nowrap{
+.nowrap {
     width: 100%;
     overflow: hidden;
     display: block;
@@ -328,8 +329,6 @@ https://github.com/google/material-design-icons
     color: #fff;
     font-weight: bold;
 }
-
-
 
 .fileContainer {
     overflow: hidden;

@@ -1,20 +1,23 @@
 <div class="page">
-    <md-toolbar layout="row">
+
+    <md-toolbar scroll layout="row">
+
         <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
             <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
 
         <h2 class="md-toolbar-tools">{{pageTitle}}</h2>
-
-        <md-input-container md-theme="input">
-            <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search"
-                   aria-label="Buscar pergunta">
-        </md-input-container>
-        <i class="fa fa-search" style="margin-top: 30px; margin-right: 40px;" aria-hidden="true"
-           title="Buscar perguntas"></i>
+        <div style="margin-left: 18%" class="md-toolbar-tools">
+            <md-input-container md-theme="input">
+                <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search"
+                       aria-label="Buscar pergunta">
+            </md-input-container>
+            <i class="fa fa-search" style="margin-top: 30px;" aria-hidden="true"
+               title="Buscar perguntas"></i>
+        </div>
     </md-toolbar>
 
-    <div ng-cloak class="tabsdemoDynamicHeight">
+    <div ng-cloak class="tabsdemoDynamicHeight tool-fixed">
         <md-content>
             <md-tabs md-dynamic-height md-border-bottom>
                 <md-tab label="Todos">
@@ -23,7 +26,8 @@
                             <div ng-show="diference > 0" class="text-center">
                                 <a href="" ng-click="getAll()">{{diference}} novas perguntas</a>
                             </div>
-                            <md-card ng-repeat="question in questions | filter:search | limitTo:limitAll" style="cursor:pointer;">
+                            <md-card ng-repeat="question in questions | filter:search | limitTo:limitAll"
+                                     style="cursor:pointer;">
                                 <md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
                                     <div layout="row">
                                         <div layout="column">
@@ -85,7 +89,8 @@
                         <div class="content">
 
                             <md-card ng-click="navigateTo('/questions/' + myQuestion.id)"
-                                     ng-repeat="myQuestion in myQuestions | filter:search | limitTo: myLimit" style="cursor:pointer;">
+                                     ng-repeat="myQuestion in myQuestions | filter:search | limitTo: myLimit"
+                                     style="cursor:pointer;">
                                 <md-card-content>
                                     <div layout="row">
                                         <div layout="column">
