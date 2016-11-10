@@ -1,5 +1,5 @@
 app.controller('PerfilEditController', function ($scope, $rootScope, $location, $http, $filter) {
-
+    document.body.style.zoom=0.9;
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
         $rootScope.userAuthenticated = response.data;
         $scope.dateBirth = new Date($rootScope.userAuthenticated.birth);

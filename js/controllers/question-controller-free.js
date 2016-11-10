@@ -1,5 +1,5 @@
 app.controller('QuestionControllerFree', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
-
+    document.body.style.zoom=0.9;
     var getNumberLikes = function (question) {
         $http.get($rootScope.serviceBase + "questions/likes/question/" + question.id).then(function (response) {
             question.numberLikes = response.data.length;

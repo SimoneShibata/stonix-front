@@ -1,5 +1,5 @@
 app.controller('RoomController', function ($scope, $http, $rootScope, $location, $routeParams, $timeout, $q) {
-
+    document.body.style.zoom=0.9;
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
         $rootScope.userAuthenticated = response.data;
         $http.get($rootScope.serviceBase + "classroom/teacher/" + $rootScope.userAuthenticated.id).then(function (response) {

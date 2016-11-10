@@ -1,5 +1,5 @@
 app.controller('RankingController', function ($scope, $http, $rootScope) {
-
+    document.body.style.zoom=0.9;
     $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
         for (var i = 0; i < response.data.length; i++) {
             if (response.data[i].id == $rootScope.userAuthenticated.id) {

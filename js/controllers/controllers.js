@@ -4,6 +4,7 @@ app.run(function ($rootScope) {
 });
 
 app.controller('AppController', function ($scope, $mdSidenav, $location, $rootScope, $http, $mdToast, $injector) {
+    document.body.style.zoom=0.9;
     var MyStorageService = $injector.get("MyStorageService");
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();

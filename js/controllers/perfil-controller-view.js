@@ -1,5 +1,5 @@
 app.controller('ViewPerfilController', function ($scope, $rootScope, $location, $http, $routeParams) {
-
+    document.body.style.zoom=0.9;
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
         $rootScope.userAuthenticated = response.data;
         $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
