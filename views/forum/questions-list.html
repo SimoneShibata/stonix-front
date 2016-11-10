@@ -53,12 +53,12 @@
                                 <md-divider></md-divider>
                                 <md-card-footer>
                                     <a ng-if="!question.likedQuestion" ng-click="newLike(question)"
-                                       class="actionQuestion">
+                                       class="actionQuestion like-no-underline">
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                                         {{question.numberLikes}} gostei
                                     </a>
                                     <a ng-if="question.likedQuestion" ng-click="unlike(question)"
-                                       class="actionQuestion">
+                                       class="actionQuestion like-no-underline">
                                         <i class="fa fa-thumbs-up like-blue" aria-hidden="true"></i>
                                         <span class="like-blue">{{question.numberLikes}} gostei</span>
                                     </a>
@@ -116,11 +116,11 @@
                                 </md-card-content>
                                 <md-divider></md-divider>
                                 <md-card-footer>
-                                    <a ng-if="!myQuestion.likedQuestion" class="actionQuestion">
+                                    <a ng-if="!myQuestion.likedQuestion" class="actionQuestion noLink">
                                         <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
                                         {{myQuestion.numberLikes}} gostei
                                     </a>
-                                    <a ng-if="myQuestion.likedQuestion" class="actionQuestion">
+                                    <a ng-if="myQuestion.likedQuestion" class="actionQuestion noLink">
                                         <i class="fa fa-thumbs-up like-blue" aria-hidden="true"></i>
                                         <span class="like-blue">{{myQuestion.numberLikes}} gostei</span>
                                     </a>

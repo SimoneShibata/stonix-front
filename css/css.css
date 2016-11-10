@@ -8,6 +8,10 @@
     top: 0;
 }
 
+.like-no-underline:hover {
+    text-decoration: none;
+}
+
 .tool-fixed {
     margin-top: 65px;
 }
