@@ -1,18 +1,19 @@
 <div class="page">
     <md-toolbar layout="row">
+        <h2 class="md-toolbar-tools">{{pageTitle}}</h2>
         <div class="md-toolbar-tools">
             <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
                 <md-icon md-svg-icon="menu"></md-icon>
             </md-button>
+        </div>
 
-            <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
-
+        <div class="md-toolbar-tools">
+            <i class="fa fa-search" aria-hidden="true"
+               title="Buscar perguntas"></i>
             <md-input-container md-theme="input">
-                <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search"
-                       aria-label="Buscar sala">
+                <input style="border-color: #fff; font-size: 14px; color: #fff; width: 300px;" ng-model="search"
+                       aria-label="Buscar salas">
             </md-input-container>
-            <i class="fa fa-search" aria-hidden="true" style="margin-top: 30px; margin-right: 40px;"
-               title="Buscar salas"></i>
         </div>
     </md-toolbar>
 
