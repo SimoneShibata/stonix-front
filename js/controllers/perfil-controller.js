@@ -11,9 +11,7 @@ app.controller('PerfilController', function ($scope, $rootScope, $location, $htt
                 }
             }
         });
-        $http.get($rootScope.serviceBase + "flairs/user/" + $rootScope.userAuthenticated.id).then(function (response) {
-            $scope.flairs = response.data;
-        });
+        $scope.getAllFlairs();
         $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAuthenticated.id).then(function (response) {
             $rootScope.userAuthenticated.numberQuestions = response.data.length;
         });
@@ -32,12 +30,24 @@ app.controller('PerfilController', function ($scope, $rootScope, $location, $htt
         $scope.formFlairInputs.$setPristine();
     };
 
+    $scope.getAllFlairs = function () {
+        $http.get($rootScope.serviceBase + "flairs/user/" + $rootScope.userAuthenticated.id).then(function (response) {
+            $scope.flairs = response.data;
+        });
+    };
+
     $scope.showFlairs = function () {
         $scope.viewFlairs = true;
     };
 
     $scope.hideFlairs = function () {
         $scope.viewFlairs = false;
+    };
+
+    $scope.deleteFlair = function (flair) {
+        $http.delete($rootScope.serviceBase + "/flairs/" + flair.id).then(function (response) {
+            $scope.getAllFlairs();
+        });
     };
 
     $scope.viewFlairs = false;

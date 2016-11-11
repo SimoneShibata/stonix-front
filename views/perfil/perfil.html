@@ -95,8 +95,19 @@
                 </md-card-title>
                 <md-card-content ng-show="viewFlairs" class="col-md-12">
                     <div ng-repeat="f in flairs">
-                        <div style="margin-bottom: 15px;" class="col-md-3">
-                            <img title="{{f.title}}" ng-src="{{f.url}}"/>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong>{{f.title}}</strong> <a title="Excluir" style="float: right" href=""
+                                                   ng-click="deleteFlair(f)"><i style="font-size: 16px; color: #ab1d18;"
+                                                                                class="fa fa-trash-o"></i></a>
+                                </div>
+                                <div class="panel-body">
+                                    <div style="margin-bottom: 15px;">
+                                        <img title="{{f.title}}" ng-src="{{f.url}}"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
