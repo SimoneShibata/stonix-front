@@ -11,11 +11,24 @@ app.controller('ViewPerfilController', function ($scope, $rootScope, $location, 
         });
     });
 
+    $scope.showFlairs = function () {
+        $scope.viewFlairs = true;
+    };
+
+    $scope.hideFlairs = function () {
+        $scope.viewFlairs = false;
+    };
+
+    $scope.viewFlairs = false;
+
     $http.get($rootScope.serviceBase + "users/" + $routeParams.id).then(function (response) {
         if (response.data == "") {
             $location.path("/404");
         }
         $scope.user = response.data;
+        $http.get($rootScope.serviceBase + "flairs/user/" + $scope.user.id).then(function (response) {
+            $scope.flairs = response.data;
+        });
         $http.get($rootScope.serviceBase + "questions/user/" + $scope.user.id).then(function (response) {
             $scope.user.numberQuestions = response.data.length;
         });
