@@ -97,7 +97,7 @@
                                     <md-card>
                                         <md-card-content>
                                             <md-list-item ng-repeat="u in users" class="noright"
-                                                          ng-click="goToPerson(person.name, $event)">
+                                                          ng-click="navigateTo('/perfil/' + u.id)">
                                                 <div layout="column" flex="5">
                                                     <img title="Primeiro lugar por pontuação" ng-src="../../img/gold-medal.png"
                                                          class="avatar" ng-if="$index == 0"/>
