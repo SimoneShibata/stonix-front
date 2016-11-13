@@ -374,3 +374,12 @@ https://github.com/google/material-design-icons
     text-align: right;
     top: 0;
 }
+
+.photoUser-perfil-hover:hover {
+    cursor: pointer;
+    border-color: dodgerblue;
+}
+
+.button-category {
+    padding: 5px !important; font-size: 20px !important;;
+}

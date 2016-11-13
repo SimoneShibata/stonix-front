@@ -59,6 +59,22 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpP
             controller: "RoomController",
             templateUrl: "views/rooms/room.html",
         })
+        .when('/rooms/:id/category', {
+            controller: "TaskController",
+            templateUrl: "views/rooms/category.html",
+        })
+        .when('/rooms/:id/category/:idCategory', {
+            controller: "TaskController",
+            templateUrl: "views/rooms/category.html",
+        })
+        .when('/rooms/category/:idCategory/tasks/new', {
+            controller: "TaskController",
+            templateUrl: "views/rooms/task-new.html",
+        })
+        .when('/rooms/tasks/:id', {
+            controller: "TaskController",
+            templateUrl: "views/rooms/task.html",
+        })
 
         .when('/jogo', {
             controller: "JogoController",

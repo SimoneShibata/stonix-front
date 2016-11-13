@@ -1,5 +1,6 @@
-app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog, MyStorageService) {
+app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog, MyStorageService, $filter) {
     document.body.style.zoom=0.9;
+    
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
@@ -65,7 +66,13 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
     };
 
 // Cadastrar - register
+
     $scope.register = function (user) {
+        var dia = $filter('date')(user.birth, 'dd');
+        var mes = $filter('date')(user.birth, 'MM') - 1;
+        var ano = $filter('date')(user.birth, 'yyyy');
+
+        user.birth = new Date(ano, mes, dia);
 
         if (user.password != user.passwordConfirm) {
             $rootScope.showToast("Confirmação de senha inválida!");
@@ -75,9 +82,10 @@ app.controller('LoginController', function ($scope, $mdSidenav, $location, $http
         if($scope.image != null) {
             $scope.user.imageProfile = $scope.image.base64;
         }
-
+        console.log(user.birth);
         $http.post($rootScope.serviceBase + "users", user).then(function () {
             $rootScope.showToast("Cadastrado com sucesso");
+            console.log('dps ' + user.birth);
             $mdDialog.cancel();
         });
     };
