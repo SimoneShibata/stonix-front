@@ -208,7 +208,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             }
         });
     }
-// Delete
+// Delete Question
     $scope.deleteQuestion = function () {
         var configDelete = {
             headers: {
@@ -449,5 +449,9 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 getLikedAnswer(answer);
             });
     };
-
+    
+// Clear Question
+    $scope.clearNewQuestion = function () {
+        $scope.question = {};
+    }
 });
