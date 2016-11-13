@@ -21,7 +21,7 @@
                         {{ question.user.punctuation }} pts
                     </div>
                     <div layout="column" class="descQuestion">
-                        {{ question.title }}
+                        <strong style="font-size: 16px">{{ question.title }}</strong>
                     </div>
                 </div>
             </md-card-content>
@@ -60,7 +60,7 @@
                 </div>
             </md-card-content>
             <md-card-content ng-show="hideButton && !question.answered">
-                <md-input-container>
+                <md-input-container layout="row">
                     <label>Resposta</label>
                     <input ng-model="answer.description">
                 </md-input-container>

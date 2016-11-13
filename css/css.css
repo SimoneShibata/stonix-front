@@ -2,6 +2,40 @@
     margin: 0;
     padding: 0;
 }
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Fundo da barra de rolagem */
+::-webkit-scrollbar-track-piece {
+    background-color: #EEE;
+    border-left: 1px solid #CCC
+}
+
+/* Cor do indicador de rolagem */
+::-webkit-scrollbar-thumb:vertical,
+::-webkit-scrollbar-thumb:horizontal {
+    background-color: #BAC0C4
+}
+
+/* Cor do indicador de rolagem - ao passar o mouse */
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:horizontal:hover {
+    background-color: #717171
+}
+
+[scroll] {
+    position: fixed;
+    top: 0;
+}
+
+.like-no-underline:hover {
+    text-decoration: none;
+}
+
+.tool-fixed {
+    margin-top: 65px;
+}
 
 .menuBtn {
     background-color: transparent;
@@ -113,6 +147,7 @@ https://github.com/google/material-design-icons
 
 .content {
     margin: 30px;
+    margin-bottom: 0;
 }
 
 .userQuestion {
@@ -278,9 +313,9 @@ https://github.com/google/material-design-icons
 }
 
 .centraliza-img {
-    position:fixed;
-    top:20%;
-    left:45%;
+    position: fixed;
+    top: 20%;
+    left: 45%;
 }
 
 @media only screen and (max-width: 768px) {
@@ -295,7 +330,7 @@ https://github.com/google/material-design-icons
     }
 }
 
-.nowrap{
+.nowrap {
     width: 100%;
     overflow: hidden;
     display: block;
@@ -320,8 +355,6 @@ https://github.com/google/material-design-icons
     color: #fff;
     font-weight: bold;
 }
-
-
 
 .fileContainer {
     overflow: hidden;

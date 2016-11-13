@@ -8,8 +8,6 @@ app.filter('to_trusted', ['$sce', function ($sce) {
         return $sce.trustAsHtml(text);
     };
 }]);
-
-
 app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpProvider) {
 
     $httpProvider.defaults.withCredentials = true;
@@ -53,7 +51,6 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpP
             controller: "QuestionController",
             templateUrl: "views/forum/question-edit.html",
         })
-
         .when('/rooms', {
             controller: "RoomController",
             templateUrl: "views/rooms/rooms.html",
@@ -88,10 +85,13 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpP
             controller: "RankingController",
             templateUrl: "views/ranking/ranking.html",
         })
-
         .when('/perfil', {
             controller: "PerfilController",
             templateUrl: "views/perfil/perfil.html",
+        })
+        .when('/perfil/:id', {
+            controller: "ViewPerfilController",
+            templateUrl: "views/perfil/view_profile.html",
         })
         .when('/perfil-edit', {
             controller: "PerfilEditController",

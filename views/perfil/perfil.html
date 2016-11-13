@@ -1,96 +1,195 @@
 <div class="page">
-	<md-toolbar layout="row">
-		<md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
-			<md-icon md-svg-icon="menu"></md-icon>
-		</md-button>
-		<h3 class="md-toolbar-tools">{{pageTitle}}</h3>
-	</md-toolbar>
-	<div class="content">
-		<div layout="row">
-			<div layout="column">
-				<div>
-                    <img ng-if="userAuthenticated.imageProfile" data-ng-src="data:image/png;base64,{{ userAuthenticated.imageProfile }}" class="photoUser-perfil"/>
-					<img ng-if="!userAuthenticated.imageProfile"
-						 ng-src="../img/default.png"
-						 class="photoUser-perfil"/>
-				</div>
-			</div>
-			<div layout="column" flex>
-				<md-card>
-					<md-card-content>
+    <md-toolbar layout="row">
+        <md-button class="md-toolbar-tools" hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+        <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
+    </md-toolbar>
+    <div class="content">
+        <div layout="row">
+            <div layout="column">
+                <div>
+                    <img ng-if="userAuthenticated.imageProfile"
+                         data-ng-src="data:image/png;base64,{{ userAuthenticated.imageProfile }}"
+                         class="photoUser-perfil"/>
+                    <img ng-if="!userAuthenticated.imageProfile"
+                         ng-src="../img/default.png"
+                         class="photoUser-perfil"/>
+                </div>
+            </div>
+            <div layout="column" flex>
+                <md-card>
+                    <md-card-content>
 						<span class="md-headline">
 							Informações
-							<i class="fa fa-pencil-square-o fa-blue" style="float:right;font-size:30px;cursor:pointer;" ng-click="navigateTo('/perfil-edit')"></i>
+							<i class="fa fa-pencil-square-o fa-blue" style="float:right;font-size:30px;cursor:pointer;"
+                               ng-click="navigateTo('/perfil-edit')"></i>
 						</span>
-					</md-card-content>
-					<md-divider></md-divider>
-					<md-card-content>
-						<div layout="row">
-							<div layout="column">
-								<p>Nome: </p>
-								<p>E-mail: </p>
-								<p>Data de nascimento: </p>
-							</div>
-							<div layout="column" flex>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.name }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.email }}</span></p>
-								<p><span style="font-weight:bold;">{{ userAuthenticated.birth | date: 'dd/MM/yyyy' }}</span></p>
-							</div>
-							<div layout="column">
-								<a style="cursor:pointer;" ng-click="navigateTo('/perfil-edit-password')"><i class="fa fa-key fa-gray" aria-hidden="true"></i>
-									Alterar senha
-								</a>
-							</div>
-						</div>
-					</md-card-content>
-				</md-card>
-			</div>
-		</div>
-		<!--<div layout="row">-->
-			<!--<div layout="column" flex>-->
-				<!--<md-card>-->
-					<!--<md-card-content>-->
-						<!--<span class="md-headline">Indicadores </span>-->
-					<!--</md-card-content>-->
-					<!--<md-divider></md-divider>-->
-					<!--<md-card-content>-->
-						<!--<div layout="row">-->
-							<!--<div layout="column" flex>-->
-								<!--<p>Perguntas: </p>-->
-								<!--<p>Respostas: </p>-->
-								<!--<p>Melhores perguntas: </p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdPerguntas }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdRespostas }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdMelhoresPerguntas }}</span></p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p>Participação de salas: </p>-->
-								<!--<p>Aluno de Ouro: </p>-->
-								<!--<p>Aluno de Prata: </p>-->
-								<!--<p>Aluno de Bronze: </p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.qtdSalas }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.ouro }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.prata }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.bronze }}</span></p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p>Pontuação geral: </p>-->
-								<!--<p>Ranking geral: </p>-->
-								<!--<p>Level: </p>-->
-							<!--</div>-->
-							<!--<div layout="column" flex>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.points }}</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.rank }}°</span></p>-->
-								<!--<p><span style="font-weight:bold;">{{ userAuthenticated.level }}</span></p>-->
-							<!--</div>-->
-						<!--</div>-->
-					<!--</md-card-content>-->
-				<!--</md-card>-->
-			<!--</div>-->
-		</div>
-	</div>
+                    </md-card-content>
+                    <md-divider></md-divider>
+                    <md-card-content>
+                        <div layout="row">
+                            <div layout="column">
+                                <p>Nome: </p>
+                                <p>E-mail: </p>
+                                <p>Data de nascimento: </p>
+                            </div>
+                            <div layout="column" flex>
+                                <p><span style="font-weight:bold;">{{ userAuthenticated.name }}</span></p>
+                                <p><span style="font-weight:bold;">{{ userAuthenticated.email }}</span></p>
+                                <p><span
+                                        style="font-weight:bold;">{{ userAuthenticated.birth | date: 'dd/MM/yyyy' }}</span>
+                                </p>
+                            </div>
+                            <div layout="column">
+                                <a style="cursor:pointer;" ng-click="navigateTo('/perfil-edit-password')"><i
+                                        class="fa fa-key fa-gray" aria-hidden="true"></i>
+                                    Alterar senha
+                                </a>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+        <div layout="column" flex>
+            <md-card>
+                <md-card-content>
+                    <span class="md-headline">Indicadores </span>
+                </md-card-content>
+                <md-divider></md-divider>
+                <md-card-content>
+                    <div layout="row">
+                        <div layout="column">
+                            <p>Perguntas: </p>
+                            <p>Respostas: </p>
+                        </div>
+                        <div style="margin-left: 10px" layout="column" flex="30">
+                            <p><span style="font-weight:bold;">{{ userAuthenticated.numberQuestions }}</span></p>
+                            <p><span style="font-weight:bold;">{{ userAuthenticated.numberAnswers }}</span></p>
+                        </div>
+
+                        <div layout="column">
+                            <p>Pontuação geral: </p>
+                            <p>Level: </p>
+                        </div>
+                        <div style="margin-left: 10px" layout="column" flex="30">
+                            <p><span style="font-weight:bold;">{{ userAuthenticated.punctuation }}</span></p>
+                            <p><span style="font-weight:bold;">{{ userAuthenticated.level }}</span></p>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div ng-show="flairs.length > 0" layout="row">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <div class="col-md-12">
+                            <div class="col-md-10 row">
+                                <span class="md-headline">Flairs ({{flairs.length}})</span>
+                            </div>
+                            <a ng-show="!viewFlairs" href="" ng-click="showFlairs()">Exibir flairs</a>
+                        </div>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content ng-show="viewFlairs" class="col-md-12">
+                    <div ng-repeat="f in flairs">
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong>{{f.title}}</strong> <a title="Excluir" style="float: right" href=""
+                                                   ng-click="deleteFlair(f)"><i style="font-size: 16px; color: #ab1d18;"
+                                                                                class="fa fa-trash-o"></i></a>
+                                </div>
+                                <div class="panel-body">
+                                    <div style="margin-bottom: 15px;">
+                                        <img title="{{f.title}}" ng-src="{{f.url}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <a ng-show="viewFlairs" href="" ng-click="hideFlairs()">Ocultar flairs</a>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+        <div ng-show="!flairForm" layout="row">
+            <md-button class="md-raised md-accent" ng-click="addFlairOn()">
+                Adicionar flair
+            </md-button>
+        </div>
+        <div ng-show="flairForm" layout="row">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Nova flair</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+
+                    <form id="" name="formFlairInputs">
+                        <md-input-container layout="row">
+                            <label>Título da flair</label>
+                            <input name="title" ng-model="flair.title" maxlength="30"
+                                   minlength="5">
+                            <div ng-messages="formFlairInputs.title.$error"
+                                 ng-show="formFlairInputs.title.$dirty">
+                                <div ng-message="maxlength">Ops! Este campo não pode passar de 30
+                                    caracteres. :(
+                                </div>
+                                <div ng-message="minlength">Ops! Este campo deve conter mais que 5
+                                    caracteres.
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container layout="row">
+                            <label>Descrição da flair</label>
+                            <input name="description" ng-model="flair.description" maxlength="250"
+                                   minlength="5">
+                            <div ng-messages="formFlairInputs.description.$error"
+                                 ng-show="formFlairInputs.description.$dirty">
+                                <div ng-message="required">Ei! Este campo é obrigatório!</div>
+                                <div ng-message="maxlength">Ops! Este campo não pode passar de 250
+                                    caracteres. :(
+                                </div>
+                                <div ng-message="minlength">Ops! Este campo deve conter mais que 5
+                                    caracteres.
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container layout="row">
+                            <label>Url da flair</label>
+                            <input type="url" name="url" ng-model="flair.url" maxlength="255"
+                                   minlength="8">
+                            <div ng-messages="formFlairInputs.url.$error"
+                                 ng-show="formFlairInputs.url.$dirty">
+                                <div ng-message="required">Ei! Este campo é obrigatório!</div>
+                                <div ng-message="maxlength">Ops! Este campo não pode passar de 255
+                                    caracteres. :(
+                                </div>
+                                <div ng-message="minlength">Ops! Este campo deve conter mais que 8
+                                    caracteres.
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <div ng-show="flair.url" layout="row">
+                            <img ng-src="{{flair.url}}"/>
+                        </div>
+                    </form>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-raised" ng-click="addFlairOff()">
+                        Cancelar
+                    </md-button>
+                    <md-button class="md-raised md-primary" ng-click="createFlair()">
+                        Adicionar flair
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
 </div>

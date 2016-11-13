@@ -1,59 +1,60 @@
 <div class="page">
-	<md-toolbar layout="row">
-		<md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
-			<md-icon md-svg-icon="menu"></md-icon>
-		</md-button>
-		<h3 class="md-toolbar-tools">
-			<i class="fa fa-arrow-left margin-fa" aria-hidden="true" ng-click="navigateTo('/questions')"></i>
-			{{pageTitle}}
-		</h3>
-</md-toolbar>
+    <md-toolbar layout="row">
+        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+        <h3 class="md-toolbar-tools">
+            <i class="fa fa-arrow-left margin-fa" aria-hidden="true" ng-click="navigateTo('/questions')"></i>
+            {{pageTitle}}
+        </h3>
+    </md-toolbar>
 
-<div class="content">
+    <div class="content">
 
-	<md-card>
-		<md-card-content>
-			<form name="questionForm">
-				<md-input-container>
+        <md-card>
+            <md-card-content>
+                <form name="questionForm">
+                    <md-input-container layout="row">
+                        <label>Título da pergunta</label>
+                        <input name="title" ng-model="question.title" required maxlength="250" minlength="5">
+                        <div ng-messages="questionForm.title.$error" ng-show="questionForm.title.$dirty">
+                            <div ng-message="required">Ei! Este campo é obrigatório!</div>
+                            <div ng-message="md-maxlength">Ops! Este campo não pode passar de 250 caracteres. :(</div>
+                            <div ng-message="minlength">Ops! Este campo deve conter mais que 5 caracteres.</div>
+                        </div>
+                        <br/>
 
-					<label>Título da pergunta</label>
-					<input name="title" ng-model="question.title" required md-maxlength="250" minlength="5">
-					<div ng-messages="questionForm.title.$error" ng-show="questionForm.title.$dirty">
-						<div ng-message="required">Ei! Este campo é obrigatório!</div>
-						<div ng-message="md-maxlength">Ops! Este campo não pode passar de 250 caracteres. :(</div>
-						<div ng-message="minlength">Ops! Este campo deve conter mais que 5 caracteres.</div>
-					</div>
+                    </md-input-container>
 
-				</md-input-container>
+                    <div layout="row" class="div-label">Descrição</div>
+                    
+                    <div layout="row">
+                        <wysiwyg textarea-id="question"
+                                 textarea-class="area-color"
+                                 textarea-height="180px"
+                                 textarea-name="textareaQuestion"
+                                 textarea-required
+                                 enable-bootstrap-title="true"
+                                 textarea-menu="menu"
+                                 disabled="disabled"
 
-				<md-input-container>
-					<div class="div-label">Descrição</div>
-						<wysiwyg textarea-id="question"
-								 textarea-class="area-color"
-							textarea-height="180px"
-							textarea-name="textareaQuestion"
-							textarea-required
-							enable-bootstrap-title="true"
-							textarea-menu="menu"
-							disabled="disabled"
+                                 ng-model="question.description">
+                        </wysiwyg>
+                    </div>
+                </form>
+            </md-card-content>
+            <md-card-footer>
+                <div layout="row" class="float-right" ng-if="!question.answered">
 
-							ng-model="question.description">
-				        </wysiwyg>
-				</md-input-container>
-			</form>
-		</md-card-content>
-		<md-card-footer>
-			<div layout="row" class="float-right" ng-if="!question.answered">
-
-				<md-button class="md-raised md-primary" ng-click="navigateTo('/questions/' + question.id)">
-					<i class="fa fa-times" aria-hidden="true"></i>
-					cancelar
-				</md-button>
-				<md-button class="md-raised md-accent" ng-click="editQuestion();">
-					<i class="fa fa-edit" aria-hidden="true"></i>
-					salvar
-				</md-button>
-			</div>
-		</md-card-footer>
-	</md-card>
-</div>
+                    <md-button class="md-raised md-primary" ng-click="navigateTo('/questions/' + question.id)">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        cancelar
+                    </md-button>
+                    <md-button class="md-raised md-accent" ng-click="editQuestion();">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        salvar
+                    </md-button>
+                </div>
+            </md-card-footer>
+        </md-card>
+    </div>

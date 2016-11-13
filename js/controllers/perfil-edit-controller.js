@@ -1,7 +1,13 @@
 app.controller('PerfilEditController', function ($scope, $rootScope, $location, $http, $filter) {
-
+    document.body.style.zoom=0.9;
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
         $rootScope.userAuthenticated = response.data;
+        $scope.dateBirth = new Date($rootScope.userAuthenticated.birth);
+        $scope.u = {
+            name: $rootScope.userAuthenticated.name,
+            email: $rootScope.userAuthenticated.email,
+            birth: $scope.dateBirth
+        };
         $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
             for (var i = 0; i < response.data.length; i++) {
                 if (response.data[i].id == $rootScope.userAuthenticated.id) {
@@ -31,18 +37,7 @@ app.controller('PerfilEditController', function ($scope, $rootScope, $location, 
         });
     };
 
-// Data no datePicker
-    var dia = $filter('date')($rootScope.userAuthenticated.birth, 'dd');
-    var mes = $filter('date')($rootScope.userAuthenticated.birth, 'MM');
-    var ano = $filter('date')($rootScope.userAuthenticated.birth, 'yyyy');
 
-    var dateBirth = new Date(ano, mes, dia);
-
-    $scope.u = {
-        name: $rootScope.userAuthenticated.name,
-        email: $rootScope.userAuthenticated.email,
-        birth: dateBirth
-    };
 
 // Update - Atualizar Perfil
     $scope.savePerfil = function (user) {

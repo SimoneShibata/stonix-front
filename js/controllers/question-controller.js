@@ -1,4 +1,7 @@
 app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
+
+    document.body.style.zoom=0.9;
+
     var getLikedQuestion = function (myQuestion) {
         $http.post($rootScope.serviceBase + "questions/likes/find/like-user-question",
             {user: $rootScope.userAuthenticated, question: myQuestion})
@@ -21,7 +24,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             $scope.showTutorDialog();
         }
 
-        var countLikesMyQuestion = function(myQuestion) {
+        var countLikesMyQuestion = function (myQuestion) {
             $http.get($rootScope.serviceBase + "questions/likes/question/" + myQuestion.id)
                 .then(function (response) {
                     myQuestion.numberLikes = response.data.length;
@@ -32,8 +35,9 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $scope.myQuestions = [];
         $http.get($rootScope.serviceBase + "questions/user/" + $rootScope.userAuthenticated.id)
             .then(function (response) {
+                $scope.myLimit = 8;
                 $scope.myQuestions = response.data;
-                for(var i = 0; i < $scope.myQuestions.length; i++) {
+                for (var i = 0; i < $scope.myQuestions.length; i++) {
                     countLikesMyQuestion($scope.myQuestions[i]);
                 }
             }, function (error) {
@@ -71,7 +75,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             $scope.answers = response.data;
             $scope.numberAnswers = response.data.length;
 
-            for (var i=0; i < response.data.length; i++) {
+            for (var i = 0; i < response.data.length; i++) {
                 getLikedAnswer($scope.answers[i]);
             }
         });
@@ -90,7 +94,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     };
 
 
-    $scope.countLikes = function(question) {
+    $scope.countLikes = function (question) {
         $http.get($rootScope.serviceBase + "questions/likes/question/" + $scope.question.id)
             .then(function (response) {
                 $scope.question.numberLikes = response.data.length;
@@ -125,14 +129,28 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         }
     };
 
-// GetAll - Lista questions
-    $scope.questions = [];
-    $http.get($rootScope.serviceBase + "questions").then(function (response) {
-        $scope.questions = response.data;
-        verfyLikedQuestion();
-    }, function (error) {
-        // failure
-    });
+    $scope.viewMore = function () {
+        $scope.limitAll += 8;
+    };
+
+    $scope.viewMoreMy = function () {
+        $scope.myLimit += 8;
+    };
+
+    $scope.getAll = function () {
+        $scope.questions = [];
+        $http.get($rootScope.serviceBase + "questions").then(function (response) {
+            $scope.diference = 0;
+            $scope.limitAll = 8;
+            $scope.questions = response.data;
+            verfyLikedQuestion();
+        }, function (error) {
+            // failure
+        });
+    };
+
+    $scope.getAll();
+
 
     $scope.newLikeQuestion = function (question) {
         $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
@@ -144,6 +162,21 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 });
             });
     };
+
+        window.setInterval(function () {
+            $http.get($rootScope.serviceBase + "questions").then(function (response) {
+                $scope.questionsUp = response.data;
+
+                if($scope.questionsUp.length > $scope.questions.length) {
+                    $scope.diference = $scope.questionsUp.length - $scope.questions.length;
+                }
+                if($scope.questionsUp.length < $scope.questions.length) {
+                    $scope.getAll();
+                }
+            }, function (error) {
+                // failure
+            });
+        }, 3000);
 
     $scope.newLike = function (question) {
         $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
@@ -287,7 +320,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $scope.answers = response.data;
         $scope.numberAnswers = response.data.length;
 
-        for (var i=0; i < response.data.length; i++) {
+        for (var i = 0; i < response.data.length; i++) {
             getLikedAnswer($scope.answers[i]);
             countLikesAnswer($scope.answers[i]);
         }
@@ -376,14 +409,15 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     };
     $scope.disabled = false;
     $scope.menu = [
-        ['bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript'],
+        ['bold', 'italic', 'underline', 'strikethrough', 'link', 'image', 'quote'],
+        ['left-justify', 'center-justify', 'right-justify'],
+        ['ordered-list', 'unordered-list', 'outdent', 'indent'],
+        ['format-block'],
+        ['font'],
         ['font-size'],
         ['font-color', 'hilite-color'],
         ['remove-format'],
-        ['ordered-list', 'unordered-list'],
-        ['code', 'quote'],
-        ['link', 'image'],
-        ['css-class']
+        ['code']
     ];
 
     $scope.cssClasses = ['test1', 'test2'];
@@ -397,10 +431,10 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             function (response) {
                 $http.get($rootScope.serviceBase + "answers").then(function (response) {
                     $scope.getAllAnswers();
-            }, function (error) {
-                // failure
+                }, function (error) {
+                    // failure
+                });
             });
-        });
     };
     $scope.likeAnswer = function (answer) {
         $http.post($rootScope.serviceBase + "answers/likes",
@@ -442,7 +476,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 getNumberLikeAnswer(answer);
             });
     };
-    var countLikesAnswer = function(answer) {
+    var countLikesAnswer = function (answer) {
         $http.get($rootScope.serviceBase + "answers/likes/answer/" + answer.id)
             .then(function (response) {
                 answer.numberLikes = response.data.length;

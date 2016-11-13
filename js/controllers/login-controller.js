@@ -1,5 +1,6 @@
 app.controller('LoginController', function ($scope, $mdSidenav, $location, $http, $rootScope, $mdDialog, MyStorageService, $filter) {
-
+    document.body.style.zoom=0.9;
+    
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };

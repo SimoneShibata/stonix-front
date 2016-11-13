@@ -1,15 +1,20 @@
 <div class="page">
-    <md-toolbar layout="row">
-        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
-            <md-icon md-svg-icon="menu"></md-icon>
-        </md-button>
+    <md-toolbar scroll layout="row">
+        <h2 class="md-toolbar-tools">Fórum</h2>
 
-        <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
-
-        <md-input-container md-theme="input" flex>
-            <input style="border-color: #fff; font-size: 14px; color: #fff; width: 200px;" ng-model="search" aria-label="Buscar pergunta">
-        </md-input-container>
-        <i class="fa fa-search" aria-hidden="true" title="Buscar perguntas"></i>
+        <div class="md-toolbar-tools">
+            <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+                <md-icon md-svg-icon="menu"></md-icon>
+            </md-button>
+        </div>
+        <div class="md-toolbar-tools">
+            <i class="fa fa-search" aria-hidden="true"
+               title="Buscar perguntas"></i>
+            <md-input-container md-theme="input">
+                <input style="border-color: #fff; font-size: 14px; color: #fff; width: 300px;" ng-model="search"
+                       aria-label="Buscar pergunta">
+            </md-input-container>
+        </div>
     </md-toolbar>
 
     <div ng-cloak class="tabsdemoDynamicHeight">
@@ -18,11 +23,14 @@
                 <md-tab label="Todos">
                     <md-content>
                         <div class="content">
-                            <md-card ng-repeat="question in questions | filter:search" style="cursor:pointer;">
+                            <md-card ng-repeat="question in questions | filter:search | limitTo:limit"
+                                     style="cursor:pointer;">
                                 <md-card-content ng-click="getOne(question.id)">
                                     <div layout="row">
                                         <div layout="column">
-                                            <img ng-if="question.user.imageProfile" data-ng-src="data:image/png;base64,{{ question.user.imageProfile }}" class="userQuestion"
+                                            <img ng-if="question.user.imageProfile"
+                                                 data-ng-src="data:image/png;base64,{{ question.user.imageProfile }}"
+                                                 class="userQuestion"
                                                  title="{{ question.user.name }}"/>
                                             <img ng-if="!question.user.imageProfile" title="{{question.user.name}}"
                                                  ng-src="../img/default.png"
@@ -64,5 +72,8 @@
                 </md-tab>
             </md-tabs>
         </md-content>
+        <div ng-show="limit < questions.length" class="text-center">
+            <a href="" ng-click="viewMore()">Exibir mais</a>
+        </div>
     </div>
 </div>
