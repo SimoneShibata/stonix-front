@@ -27,15 +27,23 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     }
     
 // Create Task
-    $scope.createTask = function (task) {
+    $scope.createTask = function (task, options) {
         var category;
         $http.get($rootScope.serviceBase + "task-category/" + $routeParams.idCategory).then(function (response) {
             task.taskCategory = response.data;
+            console.log(options);
+            for (var i=1; i<=options.length; i++) {
+                if (!options[i].description) {
+                    $http.post($rootScope.serviceBase + "tasks/options", options[i]).then(function (res) {
+                        console.log("Alternativa '" + options[i] + "' salva.");
+                    });
+                }
+            }
+            $http.post($rootScope.serviceBase + "tasks", task).then(function (success) {
+                $location.path('/rooms/' + task.taskCategory.classRoom.id);
+            });
         });
         console.log(task);
-        $http.post($rootScope.serviceBase + "tasks", task).then(function (response) {
-            $location.path('/rooms/' + $routeParams.id);
-        });
     }
 
 // Cancel Category

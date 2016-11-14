@@ -32,13 +32,15 @@
                                 <md-card-content ng-if="selected == category.id">
                                     <div ng-show="tasks.length == 0">Não há nenhuma atividade cadastrada.</div>
                                     <div ng-repeat="task in tasks">
-                                        <div layout="column" ng-click="navigateTo('/rooms/tasks/' + task.id)">
-                                            <strong>{{ task.title }}</strong>
+                                        <div layout="column">
+                                            <p style="cursor:pointer; margin:0;" ng-click="navigateTo('/rooms/tasks/' + task.id)">
+                                                <strong style="color:dodgerblue;">{{ task.title }} : </strong>
+                                                {{ task.description }}
+                                            </p>
                                             <p>
                                                 <i class="fa fa-clock-o fa-gray button-category" aria-hidden="true"></i>
-                                                Aberta até {{ task.closingDate | date: 'dd/MM/yyyy HH:mm' }}
+                                                Aberta até {{ task.closingDate | date: 'dd/MM/yyyy' }}
                                             </p>
-                                            <p>{{ task.description }}</p>
                                         </div>
                                     </div>
                                 </md-card-content>

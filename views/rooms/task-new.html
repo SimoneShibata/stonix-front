@@ -11,18 +11,92 @@
 
         <md-card>
             <md-card-content>
-                <md-input-container>
-                    <label>Título da atividade</label>
-                    <input md-maxlength="30" required name="name" ng-model="task.title">
-                </md-input-container>
+                <div layout="column" flex>
+                    <md-input-container>
+                        <label>Título da atividade</label>
+                        <input md-maxlength="30" required name="name" ng-model="task.title">
+                    </md-input-container>
 
-                <md-input-container>
-                    <label>Descrição</label>
-                    <textarea ng-model="task.description" required columns="15" md-maxlength="150"></textarea>
-                </md-input-container>
+                    <md-input-container>
+                        <label>Descrição</label>
+                        <textarea ng-model="task.description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
 
-                <div flex-gt-xs>
-                    <md-datepicker ng-model="task.closingDate" md-placeholder="Data de encerramento"></md-datepicker>
+                    <div flex-gt-xs>
+                        <md-datepicker ng-model="task.closingDate" md-placeholder="Data encerramento"></md-datepicker>
+                    </div>
+                </div>
+            </md-card-content>
+            <md-divider></md-divider>
+            <md-card-content style="background-color:#ededed;">
+                <p style="font-weight:bold;margin-bottom:0;" class="fa-gray">Alternativas</p>
+            </md-card-content>
+            <md-divider></md-divider>
+            <md-card-content>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[1].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[1].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[2].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[2].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[3].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[3].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[4].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[4].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[5].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[5].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
                 </div>
             </md-card-content>
             <md-card-footer>
@@ -32,7 +106,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         cancelar
                     </md-button>
-                    <md-button class="md-raised md-accent" ng-click="createTask(task);">
+                    <md-button class="md-raised md-accent" ng-click="createTask(task, options);">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         criar
                     </md-button>
