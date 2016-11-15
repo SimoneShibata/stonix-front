@@ -51,6 +51,7 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpP
             controller: "QuestionController",
             templateUrl: "views/forum/question-edit.html",
         })
+        
         .when('/rooms', {
             controller: "RoomController",
             templateUrl: "views/rooms/rooms.html",
@@ -75,10 +76,9 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpP
             controller: "TaskController",
             templateUrl: "views/rooms/task.html",
         })
-
-        .when('/jogo', {
-            controller: "JogoController",
-            templateUrl: "views/jogo/jogo.html",
+        .when('/rooms/tasks/edit/:id', {
+            controller: "TaskController",
+            templateUrl: "views/rooms/task-edit.html",
         })
 
         .when('/ranking', {

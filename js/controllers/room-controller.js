@@ -117,7 +117,5 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
                 });
             }
         });
-
-
     }
 });

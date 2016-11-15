@@ -1,8 +1,5 @@
 app.controller('TaskController', function ($scope, $http, $rootScope, $routeParams, $location) {
-    
-    $http.get($rootScope.serviceBase + "tasks/" + $routeParams).then(function (response) {
-       $scope.pageTitle = response.data.title; 
-    });
+
 
 // Create Category
     $scope.createCategory = function (category) {
@@ -56,5 +53,36 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
         $http.get($rootScope.serviceBase + "task-category/" + $routeParams.idCategory).then(function (response) {
             $scope.category = response.data;
         });
+    }
+
+// GetOne task
+    var getOneTask = function (idTask) {
+        if (idTask) {
+            $http.get($rootScope.serviceBase + "tasks/" + idTask).then(function (response) {
+                $scope.pageTitle = response.data.title;
+                $scope.task = response.data;
+
+                $http.get($rootScope.serviceBase + "tasks/options/list/" + response.data.id).then(function (success) {
+                    $scope.options = success.data;
+                });
+            });
+        }
+    }
+    getOneTask($routeParams.id);
+
+// Conferir resposta
+    $scope.evaluate = function (choice) {
+        $http.get($rootScope.serviceBase + "tasks/options/" + choice).then(function (response) {
+            if (response.data.correct) {
+                $rootScope.showToast("Você acertou, parabéns!");
+            } else {
+                $rootScope.showToast("Precisa estudar mais, amiguinho");
+            }
+        });
+    }
+    
+// Editar
+    $scope.edit = function () {
+        
     }
 });

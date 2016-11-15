@@ -383,3 +383,11 @@ https://github.com/google/material-design-icons
 .button-category {
     padding: 5px !important; font-size: 20px !important;;
 }
+
+.task {
+    padding: 10px;
+    border-bottom: 1px solid #f0e7e9;
+}
+.task:hover {
+    color: dodgerblue;
+}
