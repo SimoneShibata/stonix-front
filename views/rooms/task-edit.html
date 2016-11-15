@@ -18,21 +18,75 @@
             </md-card-content>
             <md-divider></md-divider>
             <md-card-content>
-                <md-radio-group ng-model="choice">
-                    <md-radio-button value="option.id" class="md-primary" ng-repeat="option in options">{{ option.description }}</md-radio-button>
-                </md-radio-group>
-            </md-card-content>
-            <md-card-footer ng-if="userAuthenticated.id != task.taskCategory.classRoom.teacher.id">
-                <div layout="row" class="float-right">
-                    <md-button class="md-raised md-accent" ng-click="evaluate(choice);">
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                        enviar
-                    </md-button>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[1].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[1].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
                 </div>
-            </md-card-footer>
-            <md-card-footer ng-if="userAuthenticated.id == task.taskCategory.classRoom.teacher.id">
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[2].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[2].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[3].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[3].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[4].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[4].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
+                        <textarea ng-model="options[5].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[5].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+            </md-card-content>
+            <md-card-footer>
                 <div layout="row" class="float-right">
-                    <md-button class="md-raised md-accent" ng-click="edit();">
+                    <md-button class="md-raised md-accent" ng-click="edit(task);">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         editar
                     </md-button>

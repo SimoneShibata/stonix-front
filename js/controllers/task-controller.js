@@ -1,5 +1,6 @@
 app.controller('TaskController', function ($scope, $http, $rootScope, $routeParams, $location) {
 
+    $scope.options = [];
 
 // Create Category
     $scope.createCategory = function (category) {
@@ -24,23 +25,36 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     }
     
 // Create Task
-    $scope.createTask = function (task, options) {
+    $scope.createTask = function (task) {
         var category;
         $http.get($rootScope.serviceBase + "task-category/" + $routeParams.idCategory).then(function (response) {
             task.taskCategory = response.data;
-            console.log(options);
-            for (var i=1; i<=options.length; i++) {
-                if (!options[i].description) {
-                    $http.post($rootScope.serviceBase + "tasks/options", options[i]).then(function (res) {
-                        console.log("Alternativa '" + options[i] + "' salva.");
-                    });
-                }
-            }
-            $http.post($rootScope.serviceBase + "tasks", task).then(function (success) {
-                $location.path('/rooms/' + task.taskCategory.classRoom.id);
-            });
+            $scope.saveTask(task);
         });
-        console.log(task);
+    }
+
+    $scope.saveTask = function (task) {
+        $http.post($rootScope.serviceBase + "tasks", task).then(function (success) {
+            $scope.saveOptions(success.data);
+        });
+    }
+
+    $scope.saveOptions = function (task) {
+
+
+        for (var i=1 ; i < $scope.options.length; i++) {
+            if ($scope.options[i].correct == null) {
+                $scope.options[i].correct = false;
+            }
+            $scope.options[i].task = task;
+
+            if ($scope.options[i].description != null) {
+                $http.post($rootScope.serviceBase + "tasks/options", $scope.options[i]).then(function (res) {
+                    console.log("Alternativa '" + $scope.options[i] + "' salva.");
+                    $location.path('/rooms/' + task.taskCategory.classRoom.id);
+                });
+            }
+        }
     }
 
 // Cancel Category
@@ -71,18 +85,28 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     getOneTask($routeParams.id);
 
 // Conferir resposta
-    $scope.evaluate = function (choice) {
+    $scope.evaluate = function (choice, task) {
         $http.get($rootScope.serviceBase + "tasks/options/" + choice).then(function (response) {
             if (response.data.correct) {
                 $rootScope.showToast("Você acertou, parabéns!");
             } else {
                 $rootScope.showToast("Precisa estudar mais, amiguinho");
             }
+            $location.path("/rooms/" + task.taskCategory.classRoom.id);
         });
     }
     
 // Editar
-    $scope.edit = function () {
+    $scope.edit = function (task) {
         
+    }
+
+// Delete
+    $scope.deleteTask = function (task) {
+        var classroom = task.taskCategory.classRoom.id;
+        $http.delete($rootScope.serviceBase + "tasks/" + task.id).then(function (response) {
+            $rootScope.showToast("Atividade excluída com sucesso.");
+            $location.path("/rooms/" + classroom);
+        });
     }
 });
