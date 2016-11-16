@@ -467,23 +467,16 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.unlikeAnswer = function (answer) {
         $http.delete($rootScope.serviceBase + "answers/likes/" + answer.likedAnswer.id).then(
             function (response) {
-                $http.get($rootScope.serviceBase + "answers").then(function (response) {
-                    $scope.getAllAnswers();
-                }, function (error) {
-                    // failure
-                });
+                answer.likedAnswer = response.data;
+                answer.numberLikes --;
             });
     };
     $scope.likeAnswer = function (answer) {
         $http.post($rootScope.serviceBase + "answers/likes",
             {user: $rootScope.userAuthenticated, answer: answer})
             .then(function (response) {
-                $http.get($rootScope.serviceBase + "answers").then(function (response) {
-                    $scope.answers = response.data;
-                    verifyLikedAnswer();
-                }, function (error) {
-                    // failure
-                });
+                answer.likedAnswer = response.data;
+                answer.numberLikes ++;
             });
     };
     var verifyLikedAnswer = function () {
