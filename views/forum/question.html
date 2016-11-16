@@ -44,6 +44,22 @@
                     <i class="fa fa-eye fa-gray" aria-hidden="true"></i>
                     {{ question.views }} exibições
                 </a>
+                <a ng-show="!question.flaged && userAuthenticated.punctuation > 50" ng-click="flagQuestion(question)"
+                   class="actionQuestion like-no-underline float-right">
+                    <i class="fa fa-flag" aria-hidden="true"></i>
+                    <span>({{question.numberFlags}}) Sinalizar</span>
+                </a>
+
+                <a ng-show="question.flaged && userAuthenticated.punctuation >= 50" ng-click="unFlagQuestion(question)"
+                   class="actionQuestion like-no-underline float-right">
+                    <i class="fa fa-flag flaged" aria-hidden="true"></i>
+                    <span class="flaged">({{question.numberFlags}}) Tirar marcação</span>
+                </a>
+                <a ng-show="userAuthenticated.punctuation < 50"
+                   class="actionQuestion like-no-underline noLink float-right">
+                    <i class="fa fa-flag" aria-hidden="true"></i>
+                    <span>({{question.numberFlags}}) Marcações</span>
+                </a>
             </md-card-footer>
 
             <md-divider></md-divider>
