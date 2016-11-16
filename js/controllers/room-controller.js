@@ -21,6 +21,7 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
 
 
     $scope.createRoom = function (room) {
+
         room.teacher = $rootScope.userAuthenticated;
         $http.post($rootScope.serviceBase + "classroom", room).then(function (response) {
             $rootScope.showToast("Sala de aula criada com sucesso.");

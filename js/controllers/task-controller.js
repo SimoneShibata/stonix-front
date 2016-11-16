@@ -4,9 +4,7 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
 
 // Create Category
     $scope.createCategory = function (category) {
-        console.log(category);
         if (!category.name || !category.description) {
-            console.log("oi");
             $rootScope.showToast("Todos os campos são obrigatórios");
             return null;
         }
@@ -23,7 +21,7 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
             });
         }
     }
-    
+
 // Create Task
     $scope.createTask = function (task) {
         var category;
@@ -40,9 +38,7 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     }
 
     $scope.saveOptions = function (task) {
-
-
-        for (var i=1 ; i < $scope.options.length; i++) {
+        for (var i = 1; i < $scope.options.length; i++) {
             if ($scope.options[i].correct == null) {
                 $scope.options[i].correct = false;
             }
@@ -50,11 +46,18 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
 
             if ($scope.options[i].description != null) {
                 $http.post($rootScope.serviceBase + "tasks/options", $scope.options[i]).then(function (res) {
-                    console.log("Alternativa '" + $scope.options[i] + "' salva.");
                     $location.path('/rooms/' + task.taskCategory.classRoom.id);
                 });
             }
         }
+    }
+
+    $scope.saveTaskAnswered = function (task, taskOption) {
+        console.log(taskOption);
+        var taskAnsweed = {task: task, user: $rootScope.userAuthenticated, taskOption: taskOption};
+        $http.post($rootScope.serviceBase + "tasks/answered", taskAnsweed).then(function (response) {
+            $location.path("/rooms/" + task.taskCategory.classRoom.id);
+        });
     }
 
 // Cancel Category
@@ -79,6 +82,13 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
                 $http.get($rootScope.serviceBase + "tasks/options/list/" + response.data.id).then(function (success) {
                     $scope.options = success.data;
                 });
+
+                var taskAnswered = {task: response.data, user: $rootScope.userAuthenticated};
+                $http.post($rootScope.serviceBase + "tasks/answered/find", taskAnswered).then(function (response) {
+                    console.log(response);
+                }, function (error) {
+                    console.log(error);
+                });
             });
         }
     }
@@ -92,13 +102,13 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
             } else {
                 $rootScope.showToast("Precisa estudar mais, amiguinho");
             }
-            $location.path("/rooms/" + task.taskCategory.classRoom.id);
+            $scope.saveTaskAnswered(task, response.data);
         });
     }
-    
+
 // Editar
     $scope.edit = function (task) {
-        
+
     }
 
 // Delete
