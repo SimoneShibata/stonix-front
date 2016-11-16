@@ -320,7 +320,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $http.put($rootScope.serviceBase + "questions/", $scope.question, this.config)
             .then(
                 function (response) {
-                    $location.path(/questions/ + response.data.id);
+                    $location.path("/questions/" + response.data.id);
                     $scope.question = {};
                 },
                 function (response) {

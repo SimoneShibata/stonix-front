@@ -60,6 +60,10 @@ app.config(function ($mdThemingProvider, $mdIconProvider, $routeProvider, $httpP
             controller: "RoomController",
             templateUrl: "views/rooms/room.html",
         })
+        .when('/rooms/edit/:id', {
+            controller: "RoomController",
+            templateUrl: "views/rooms/room-edit.html",
+        })
         .when('/rooms/:id/category', {
             controller: "TaskController",
             templateUrl: "views/rooms/category.html",

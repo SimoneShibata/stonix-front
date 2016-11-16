@@ -1,0 +1,40 @@
+<div class="page">
+    <md-toolbar layout="row">
+        <md-button hide-gt-sm class="menu" ng-click="toggleSidenav('left')" aria-label="Show User List">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+
+        <h3 class="md-toolbar-tools">Editar Sala</h3>
+    </md-toolbar>
+
+    <div class="content">
+
+        <md-card>
+            <md-card-content>
+
+                <form name="roomForm">
+                    <md-input-container layout="row">
+                        <label>Nome da sala</label>
+                        <input name="title" ng-model="room.name" required>
+                    </md-input-container>
+                    <md-input-container layout="row" style="margin-top: 30px">
+                        <label>Descrição da sala</label>
+                        <input name="title" ng-model="room.description" required>
+                    </md-input-container>
+                </form>
+            </md-card-content>
+            <md-card-footer>
+                <div layout="row" class="float-right">
+                    <md-button class="md-raised md-primary" ng-click="cancelEdit(room.id);">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        cancelar
+                    </md-button>
+                    <md-button class="md-raised md-accent" ng-click="editRoom(room);">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        salvar
+                    </md-button>
+                </div>
+            </md-card-footer>
+        </md-card>
+    </div>
+</div>
