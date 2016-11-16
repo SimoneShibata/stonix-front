@@ -171,4 +171,17 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
             }
         });
     }
+
+// Cancelar edição
+    $scope.cancelEdit = function (room) {
+        $location.path('/rooms/' + room);
+    }
+    
+// Editar sala 
+    $scope.editRoom = function (room) {
+        $http.put($rootScope.serviceBase + "classroom/", room).then(function (response) {
+            $rootScope.showToast(response.data.name  + " alterada com sucesso.");
+            $location.path("/rooms");
+        });
+    }
 });
