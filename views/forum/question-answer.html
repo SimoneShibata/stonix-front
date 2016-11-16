@@ -43,6 +43,23 @@
                     <i class="fa fa-eye fa-gray" aria-hidden="true"></i>
                     {{ question.views }} exibições
                 </a>
+
+                <a ng-show="!question.flaged && userAuthenticated.punctuation > 50" ng-click="flagQuestion(question)"
+                   class="actionQuestion like-no-underline float-right">
+                    <i class="fa fa-flag" aria-hidden="true"></i>
+                    <span>({{question.numberFlags}}) Sinalizar</span>
+                </a>
+
+                <a ng-show="question.flaged && userAuthenticated.punctuation >= 50" ng-click="unFlagQuestion(question)"
+                   class="actionQuestion like-no-underline float-right">
+                    <i class="fa fa-flag flaged" aria-hidden="true"></i>
+                    <span class="flaged">({{question.numberFlags}}) Tirar marcação</span>
+                </a>
+                <a ng-show="userAuthenticated.punctuation < 50"
+                   class="actionQuestion like-no-underline noLink float-right">
+                    <i class="fa fa-flag" aria-hidden="true"></i>
+                    <span>({{question.numberFlags}}) Marcações</span>
+                </a>
             </md-card-footer>
 
             <md-divider></md-divider>
@@ -127,6 +144,22 @@
                     <a ng-click="deleteAnswer(answer)" class="actionQuestion" ng-if="userAuthenticated.id == answer.user.id && !question.answered">
                         <i class="fa fa-trash-o fa-gray" aria-hidden="true"></i>
                         excluir
+                    </a>
+                    <a ng-show="!answer.flaged && userAuthenticated.punctuation > 50" ng-click="flagAnswer(answer)"
+                       class="actionQuestion like-no-underline float-right">
+                        <i class="fa fa-flag" aria-hidden="true"></i>
+                        <span>({{answer.numberFlags}}) Sinalizar</span>
+                    </a>
+
+                    <a ng-show="answer.flaged && userAuthenticated.punctuation >= 50" ng-click="unFlagAnswer(answer)"
+                       class="actionQuestion like-no-underline float-right">
+                        <i class="fa fa-flag flaged" aria-hidden="true"></i>
+                        <span class="flaged">({{answer.numberFlags}}) Tirar marcação</span>
+                    </a>
+                    <a ng-show="userAuthenticated.punctuation < 50"
+                       class="actionQuestion like-no-underline noLink float-right">
+                        <i class="fa fa-flag" aria-hidden="true"></i>
+                        <span>({{answer.numberFlags}}) Marcações</span>
                     </a>
                 </div>
                 <div ng-if="selected == answer.id">
