@@ -125,6 +125,22 @@
                         <i class="fa fa-trash-o fa-gray" aria-hidden="true"></i>
                         excluir
                     </a>
+                    <a ng-show="!answer.flaged && userAuthenticated.punctuation > 50" ng-click="flagAnswer(answer)"
+                       class="actionQuestion like-no-underline float-right">
+                        <i class="fa fa-flag" aria-hidden="true"></i>
+                        <span>({{answer.numberFlags}}) Sinalizar</span>
+                    </a>
+
+                    <a ng-show="answer.flaged && userAuthenticated.punctuation >= 50" ng-click="unFlagAnswer(answer)"
+                       class="actionQuestion like-no-underline float-right">
+                        <i class="fa fa-flag flaged" aria-hidden="true"></i>
+                        <span class="flaged">({{answer.numberFlags}}) Tirar marcação</span>
+                    </a>
+                    <a ng-show="userAuthenticated.punctuation < 50"
+                       class="actionQuestion like-no-underline noLink float-right">
+                        <i class="fa fa-flag" aria-hidden="true"></i>
+                        <span>({{answer.numberFlags}}) Marcações</span>
+                    </a>
                 </div>
                 <div ng-if="selected == answer.id">
                     <div ng-repeat="comment in comments">

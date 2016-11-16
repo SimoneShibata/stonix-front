@@ -199,6 +199,27 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.getAll();
 
 
+    $scope.unFlagAnswer = function (answer) {
+        $http.post($rootScope.serviceBase + "answers/flags", answer.flaged)
+            .then(function (success) {
+                console.log(success.data);
+                $http.delete($rootScope.serviceBase + "answers/flags/" + success.data.id)
+                    .then(function (response) {
+                        answer.flaged = response.data;
+                        answer.numberFlags--;
+                    });
+            });
+    };
+
+    $scope.flagAnswer = function (answer) {
+        $http.post($rootScope.serviceBase + "answers/flags", {user: $rootScope.userAuthenticated, answer: answer})
+            .then(function (response) {
+                console.log(response.data);
+                answer.numberFlags++;
+                answer.flaged = response.data;
+            });
+    };
+
     $scope.newLikeQuestion = function (question) {
         $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
             .then(function (response) {
@@ -499,6 +520,21 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             });
     };
 
+    var countFlagByAnswer = function (answer) {
+        $http.get($rootScope.serviceBase + "answers/flags/answer/" + answer.id)
+            .then(function (response) {
+                answer.numberFlags = response.data.length;
+            })
+    }
+
+    var getFlagByUserOnAnswer = function (answer) {
+        $http.post($rootScope.serviceBase + "answers/flags/find/flag-user-answer", {user:$rootScope.userAuthenticated, answer:answer})
+            .then(function (response) {
+                answer.flaged = response.data;
+                countFlagByAnswer(answer);
+            })
+    };
+
     var getLikedAnswer = function (answer) {
         $http.post($rootScope.serviceBase + "answers/likes/find/like-user-answer",
             {user: $rootScope.userAuthenticated, answer: answer})
@@ -506,12 +542,13 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 answer.likedAnswer = response.data;
                 getNumberLikeAnswer(answer);
             });
+
     };
     var countLikesAnswer = function (answer) {
         $http.get($rootScope.serviceBase + "answers/likes/answer/" + answer.id)
             .then(function (response) {
                 answer.numberLikes = response.data.length;
-                getLikedAnswer(answer);
+                getFlagByUserOnAnswer(answer);
             });
     };
 
