@@ -157,7 +157,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 question.likedQuestion = response.data;
                 $http.delete($rootScope.serviceBase + "questions/likes/" + question.likedQuestion.id).then(function (response) {
                     question.numberLikes--;
-                    question.likedQuestion = false;
+                    question.likedQuestion = response.data;
                 });
             });
         };
@@ -165,7 +165,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.unlike = function (question) {
         $http.delete($rootScope.serviceBase + "questions/likes/" + question.likedQuestion.id).then(function (response) {
             question.numberLikes--;
-            question.likedQuestion = false;
+            question.likedQuestion = response.data;
         });
     };
 
@@ -226,7 +226,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
             .then(function (response) {
                 question.numberLikes++;
-                question.likedQuestion = true;
+                question.likedQuestion = response.data;
             });
     };
 
