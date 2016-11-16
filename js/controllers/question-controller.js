@@ -1,6 +1,6 @@
 app.controller('QuestionController', function ($scope, $rootScope, $http, $routeParams, $location, $mdDialog, $mdToast) {
 
-    document.body.style.zoom=0.9;
+    document.body.style.zoom = 0.9;
 
     var getLikedQuestion = function (myQuestion) {
         $http.post($rootScope.serviceBase + "questions/likes/find/like-user-question",
@@ -108,9 +108,12 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     };
 
     var getFlagQuestionByUser = function (question) {
-        $http.post($rootScope.serviceBase + "questions/flags/find/flag-user-question", {user:$rootScope.userAuthenticated, question:question})
+        $http.post($rootScope.serviceBase + "questions/flags/find/flag-user-question", {
+            user: $rootScope.userAuthenticated,
+            question: question
+        })
             .then(function (response) {
-                if(response.data){
+                if (response.data) {
                     question.flaged = true;
                 } else {
                     question.flaged = false;
@@ -119,11 +122,14 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     };
 
     $scope.unFlagQuestion = function (question) {
-        $http.post($rootScope.serviceBase + "questions/flags/find/flag-user-question", {user:$rootScope.userAuthenticated, question:question})
+        $http.post($rootScope.serviceBase + "questions/flags/find/flag-user-question", {
+            user: $rootScope.userAuthenticated,
+            question: question
+        })
             .then(function (response) {
                 $http.delete($rootScope.serviceBase + "questions/flags/" + response.data.id)
                     .then(function (response) {
-                        question.numberFlags --;
+                        question.numberFlags--;
                         question.flaged = false;
                     })
             });
@@ -145,23 +151,21 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     };
 
     $scope.unlikeQuestion = function (question) {
-        $http.delete($rootScope.serviceBase + "questions/likes/" + question.likedQuestion.id).then(function (response) {
-            $http.get($rootScope.serviceBase + "questions").then(function (response) {
-                getOne(question.id);
-            }, function (error) {
-                // failure
+        $http.post($rootScope.serviceBase + "questions/likes/find/like-user-question",
+            {user: $rootScope.userAuthenticated, question: question})
+            .then(function (response) {
+                question.likedQuestion = response.data;
+                $http.delete($rootScope.serviceBase + "questions/likes/" + question.likedQuestion.id).then(function (response) {
+                    question.numberLikes--;
+                    question.likedQuestion = false;
+                });
             });
-        });
-    };
+        };
 
     $scope.unlike = function (question) {
         $http.delete($rootScope.serviceBase + "questions/likes/" + question.likedQuestion.id).then(function (response) {
-            $http.get($rootScope.serviceBase + "questions").then(function (response) {
-                $scope.questions = response.data;
-                verfyLikedQuestion();
-            }, function (error) {
-                // failure
-            });
+            question.numberLikes--;
+            question.likedQuestion = false;
         });
     };
 
@@ -198,38 +202,31 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     $scope.newLikeQuestion = function (question) {
         $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
             .then(function (response) {
-                $http.get($rootScope.serviceBase + "questions").then(function (response) {
-                    getOne(question.id);
-                }, function (error) {
-                    // failure
-                });
+                question.numberLikes++;
+                question.likedQuestion = true;
             });
     };
 
-        window.setInterval(function () {
-            $http.get($rootScope.serviceBase + "questions").then(function (response) {
-                $scope.questionsUp = response.data;
+    window.setInterval(function () {
+        $http.get($rootScope.serviceBase + "questions").then(function (response) {
+            $scope.questionsUp = response.data;
 
-                if($scope.questionsUp.length > $scope.questions.length) {
-                    $scope.diference = $scope.questionsUp.length - $scope.questions.length;
-                }
-                if($scope.questionsUp.length < $scope.questions.length) {
-                    $scope.getAll();
-                }
-            }, function (error) {
-                // failure
-            });
-        }, 3000);
+            if ($scope.questionsUp.length > $scope.questions.length) {
+                $scope.diference = $scope.questionsUp.length - $scope.questions.length;
+            }
+            if ($scope.questionsUp.length < $scope.questions.length) {
+                $scope.getAll();
+            }
+        }, function (error) {
+            // failure
+        });
+    }, 3000);
 
     $scope.newLike = function (question) {
         $http.post($rootScope.serviceBase + "questions/likes", {user: $rootScope.userAuthenticated, question: question})
             .then(function (response) {
-                $http.get($rootScope.serviceBase + "questions").then(function (response) {
-                    $scope.questions = response.data;
-                    verfyLikedQuestion();
-                }, function (error) {
-                    // failure
-                });
+                question.numberLikes++;
+                question.likedQuestion = true;
             });
     };
 
@@ -255,23 +252,11 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
     };
 
     var getOne = function (id) {
-        $http.get($rootScope.serviceBase + "questions/" + id).then(function (response) {
-            $scope.question = response.data;
-            $http.get($rootScope.serviceBase + "questions/likes/question/" + id)
-                .then(function (response) {
-                    $scope.question.numberLikes = response.data.length;
-                    getLikedQuestion($scope.question);
-                });
-            $http.get($rootScope.serviceBase + "questions/flags/question/" + $scope.questions[position].id)
-                .then(function (response) {
-                    $scope.question.numberFlags = response.data.length;
-                    getFlagQuestionByUser($scope.question);
-                });
-        }, function (error) {
-            if (error.status == 404) {
-                $location.path('/404');
-            }
-        });
+        $http.get($rootScope.serviceBase + "questions/flags/question/" + $scope.questions[position].id)
+            .then(function (response) {
+                $scope.question.numberFlags = response.data.length;
+                getFlagQuestionByUser($scope.question);
+            });
     }
 
 // GetOne - Chama Question solicitada
@@ -536,7 +521,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 getLikedAnswer(answer);
             });
     };
-    
+
 // Clear Question
     $scope.clearNewQuestion = function () {
         $scope.question = {};
