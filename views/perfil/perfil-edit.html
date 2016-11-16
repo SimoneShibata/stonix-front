@@ -10,6 +10,43 @@
             <div layout="column" flex>
                 <md-card>
                     <md-card-content>
+
+                        <div layout="row">
+                            <label class="fileContainer">
+                                <div layout="row">
+                                    <div style="margin-left: 10px;" layout="column" ng-show="image">
+                                        <img data-ng-src="data:image/png;base64,{{ image.base64 }}" class="userCadastro"
+                                             data-err-src="/img/default.png"/>
+                                    </div>
+                                    <div layout="column">
+                                        <md-button ng-show="!image" class="md-raised md-primary"
+                                                   aria-label="Image profile">
+                                            <md-icon style="width:40px;height:40px;"
+                                                     md-svg-src="../img/svg/default.svg"></md-icon>
+                                            <md-button ng-show="!image" class="md-raised md-primary"
+                                                       aria-label="Image profile">
+                                                Hey!! Troque sua imagem de perfil :)
+                                            </md-button>
+                                        </md-button>
+
+                                        <md-button ng-show="image" class="md-raised md-primary md-focused"
+                                                   aria-label="Image profile">
+                                            <md-icon style="width:40px;height:40px;"
+                                                     md-svg-src="../img/svg/default.svg"></md-icon>
+                                            <md-button ng-show="image" class="md-raised md-primary"
+                                                       aria-label="Image profile">
+                                                Hmm!! Se não gostar da imagem, pode trocar :)
+                                            </md-button>
+                                        </md-button>
+                                    </div>
+                                    <input type="file" ng-model="image" maxsize="5000" accept="image/png, image/jpeg"
+                                           base-sixty-four-input>
+                                    <span ng-show="form.files.$error.maxsize">Arquivo maior que 5000 KB</span>
+                                </div>
+
+                            </label>
+                        </div>
+
                         <div layout="row">
                             <md-input-container style="width: 100%;">
                                 <label>Nome</label>
@@ -26,9 +63,9 @@
 
                         <div layout="row">
                             <md-input-container style="width: 100%;">
-                                <input style="display:none;" ng-model="u.birth" type="text" ui-mask="99/99/9999" ng-pattern="/^[0-9]{1,7}[-\.\/]?+$/">
                                 <div flex-gt-xs>
-                                    <md-datepicker ng-model="u.birth" md-placeholder="Data nascimento"></md-datepicker>
+                                    <md-datepicker ng-model="u.birth" md-placeholder="Data nascimento"
+                                                   format="dd-MM-yyyy"></md-datepicker>
                                 </div>
                             </md-input-container>
                         </div>
@@ -44,9 +81,11 @@
                         <div layout="row">
                             <span flex></span>
                             <md-button class="md-raised md-primary" ng-click="navigateTo('/perfil')">
+                                <i class="fa fa-times" aria-hidden="true"></i>
                                 Cancelar
                             </md-button>
                             <md-button class="md-raised md-accent" ng-click="savePerfil(u)">
+                                <i class="fa fa-check" aria-hidden="true"></i>
                                 Salvar
                             </md-button>
                         </div>

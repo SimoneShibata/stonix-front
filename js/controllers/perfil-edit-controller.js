@@ -8,6 +8,7 @@ app.controller('PerfilEditController', function ($scope, $rootScope, $location, 
             email: $rootScope.userAuthenticated.email,
             birth: $scope.dateBirth
         };
+        
         $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
             for (var i = 0; i < response.data.length; i++) {
                 if (response.data[i].id == $rootScope.userAuthenticated.id) {
@@ -46,14 +47,17 @@ app.controller('PerfilEditController', function ($scope, $rootScope, $location, 
         if (user.name != "") {
             u.name = user.name;
         } else {
-            $rootScope.showToast("O campo nome não pode ficar vazio!");
+            $rootScope.showToast("Preencha seu nome!");
             return null;
         }
         if (user.email != "") {
             u.email = user.email;
         } else {
-            $rootScope.showToast("O campo e-mail não pode ficar vazio!");
+            $rootScope.showToast("Preencha seu e-mail!");
             return null;
+        }
+        if ($scope.image.base64) {
+            u.imageProfile = $scope.image.base64;
         }
 
         u.birth = user.birth;
