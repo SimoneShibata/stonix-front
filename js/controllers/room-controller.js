@@ -96,6 +96,29 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
             $scope.room.teacher.numberApples = response.data.length;
         })
     };
+
+// Delete User in Classroom
+    $scope.deleteUser = function(u) {
+        var user = {};
+        $http.post($rootScope.serviceBase + "users/email", u).then(function(response) {
+            $scope.userClass = response.data;
+
+            $http.delete($rootScope.serviceBase + "classroom/delete/student/" + $scope.userClass.id + "/" + $routeParams.id ).then(function(response) {
+                $scope.users = response.data.students;
+                $rootScope.showToast($scope.userClass.name + " foi excluído da sala.");
+            }, function(error) {
+                $rootScope.showToast("Não foi possível excluir o usuário :(");
+            });
+        }, function(error) {
+            $rootScope.showToast("Não foi possível encontrar o usuário :(");
+        });
+    };
+    var getNumberApples = function (teacher) {
+        $http.get($rootScope.serviceBase + "apples/teacher/" + teacher.id).then(function (response) {
+            $scope.room.teacher.numberApples = response.data.length;
+        })
+    };
+
 // Maçã
     $scope.addApple = function(teacher) {
         var apple = {};

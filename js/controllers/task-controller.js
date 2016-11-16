@@ -38,7 +38,7 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     }
 
     $scope.saveOptions = function (task) {
-        for (var i = 1; i < $scope.options.length; i++) {
+        for (var i = 0; i < $scope.options.length; i++) {
             if ($scope.options[i].correct == null) {
                 $scope.options[i].correct = false;
             }
@@ -119,5 +119,10 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
             $rootScope.showToast("Atividade excluída com sucesso.");
             $location.path("/rooms/" + classroom);
         });
+    }
+    
+// Cancelar edição
+    $scope.cancelEdit = function (room) {
+        $location.path('/rooms/' + room);
     }
 });

@@ -36,6 +36,19 @@
                 <div layout="row">
                     <md-input-container flex>
                         <label>Descrição</label>
+                        <textarea ng-model="options[0].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[0].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
                         <textarea ng-model="options[1].description" required columns="15" md-maxlength="150"></textarea>
                     </md-input-container>
                     <div style="margin-top: 30px;">
@@ -79,19 +92,6 @@
                     </md-input-container>
                     <div style="margin-top: 30px;">
                         <md-checkbox ng-model="options[4].correct"
-                                     aria-label="checkbox correto"
-                        >
-                            Alternativa correta
-                        </md-checkbox>
-                    </div>
-                </div>
-                <div layout="row">
-                    <md-input-container flex>
-                        <label>Descrição</label>
-                        <textarea ng-model="options[5].description" required columns="15" md-maxlength="150"></textarea>
-                    </md-input-container>
-                    <div style="margin-top: 30px;">
-                        <md-checkbox ng-model="options[5].correct"
                                      aria-label="checkbox correto"
                         >
                             Alternativa correta

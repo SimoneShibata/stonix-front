@@ -21,6 +21,19 @@
                 <div layout="row">
                     <md-input-container flex>
                         <label>Descrição</label>
+                        <textarea ng-model="options[0].description" required columns="15" md-maxlength="150"></textarea>
+                    </md-input-container>
+                    <div style="margin-top: 30px;">
+                        <md-checkbox ng-model="options[0].correct"
+                                     aria-label="checkbox correto"
+                        >
+                            Alternativa correta
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Descrição</label>
                         <textarea ng-model="options[1].description" required columns="15" md-maxlength="150"></textarea>
                     </md-input-container>
                     <div style="margin-top: 30px;">
@@ -70,25 +83,16 @@
                         </md-checkbox>
                     </div>
                 </div>
-                <div layout="row">
-                    <md-input-container flex>
-                        <label>Descrição</label>
-                        <textarea ng-model="options[5].description" required columns="15" md-maxlength="150"></textarea>
-                    </md-input-container>
-                    <div style="margin-top: 30px;">
-                        <md-checkbox ng-model="options[5].correct"
-                                     aria-label="checkbox correto"
-                        >
-                            Alternativa correta
-                        </md-checkbox>
-                    </div>
-                </div>
             </md-card-content>
             <md-card-footer>
                 <div layout="row" class="float-right">
+                    <md-button class="md-raised md-primary" ng-click="cancelEdit(task.taskCategory.classRoom.id);">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        cancelar
+                    </md-button>
                     <md-button class="md-raised md-accent" ng-click="edit(task);">
                         <i class="fa fa-edit" aria-hidden="true"></i>
-                        editar
+                        salvar
                     </md-button>
                 </div>
             </md-card-footer>
