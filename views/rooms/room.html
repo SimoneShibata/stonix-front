@@ -10,62 +10,51 @@
     <div ng-cloak class="tabsdemoDynamicHeight">
         <md-content>
             <md-tabs md-dynamic-height md-border-bottom>
-                <md-tab label="Materiais">
-                    <md-content>
-                        <div class="content">
-
-
-                            <md-card ng-click="navigateTo('/questions/' + myQuestion.id)"
-                                     ng-repeat="material in materials | filter:search">
-                                <md-card-content>
-                                    <div layout="row">
-                                        <div layout="column">
-                                            <img ng-src="{{ material.image }}" class="userQuestion"/>
-                                            {{ material.name }} pts
-                                        </div>
-                                        <div layout="column">
-                                            <i class="fa fa-check-square-o fa-blue float-right" aria-hidden="true"
-                                               ng-if="myQuestion.answered" title="Resolvido"></i>
-                                        </div>
-                                    </div>
-                                </md-card-content>
-                                <md-divider></md-divider>
-                                <md-card-footer>
-                                    <a ng-click="niceQuestion(myQuestion)" class="actionQuestion">
-                                        <i class="fa fa-thumbs-up fa-gray" aria-hidden="true"></i>
-                                        {{ myQuestion.nice }} gostei
-                                    </a>
-                                    <a class="actionQuestion">
-                                        <i class="fa fa-comments fa-gray " aria-hidden="true"></i>
-                                        {{ myQuestion.numberAnswers }} respostas
-                                    </a>
-                                    <a class="actionQuestion noLink">
-                                        <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
-                                        {{ myQuestion.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}
-                                    </a>
-                                </md-card-footer>
-                            </md-card>
-
-                        </div>
-                    </md-content>
-                </md-tab>
-
                 <md-tab label="Atividades">
                     <md-content>
                         <div class="content">
 
-                            <md-card ng-repeat="task in tasks | filter:search">
-                                <md-card-content ng-click="navigateTo('/questions/answers/' + question.id)">
-                                    <div layout="column">
-                                        <strong>{{ task.title }}</strong>
-                                        {{ task.description }}
+                            <md-button class="md-raised" style="background-color: #ab1d18; color: #fff; padding: 0px 20px;" aria-label="newCategory" ng-click="createCategory();">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Criar categoria
+                            </md-button>
+
+                            <md-card ng-repeat="category in categories" ng-click="categorySelected(category)" style="outline:none; cursor: pointer;">
+                                <md-card-content>
+                                    <div layout="row">
+                                        <h2 style="margin-top: 0px; font-size: 27px;" flex>{{ category.name }}</h2>
+                                        <i ng-if="selected != category.id" class="fa fa-caret-down fa-gray" aria-hidden="true"></i>
+                                        <i ng-if="selected == category.id" class="fa fa-caret-up fa-gray" aria-hidden="true"></i>
+                                    </div>
+                                    <p>{{ category.description }}</p>
+                                </md-card-content>
+                                <md-divider ng-if="selected == category.id"></md-divider>
+                                <md-card-content ng-if="selected == category.id">
+                                    <div ng-show="tasks.length == 0">Não há nenhuma atividade cadastrada.</div>
+                                    <div ng-repeat="task in tasks">
+                                        <div layout="column" ng-click="navigateTo('/rooms/tasks/' + task.id)">
+                                            <strong>{{ task.title }}</strong>
+                                            <p>
+                                                <i class="fa fa-clock-o fa-gray button-category" aria-hidden="true"></i>
+                                                Aberta até {{ task.closingDate | date: 'dd/MM/yyyy HH:mm' }}
+                                            </p>
+                                            <p>{{ task.description }}</p>
+                                        </div>
                                     </div>
                                 </md-card-content>
-                                <md-divider></md-divider>
-                                <md-card-footer>
-                                    <a class="actionQuestion noLink">
-                                        <i class="fa fa-clock-o fa-gray" aria-hidden="true"></i>
-                                        Aberta até {{ task.closingDate | date: 'dd/MM/yyyy HH:mm' }}
+                                <md-divider ng-if="selected == category.id"></md-divider>
+                                <md-card-footer ng-show="userAuthenticated.id == room.teacher.id && selected == category.id">
+                                    <a class="actionQuestion" ng-click="navigateTo('/rooms/category/' + category.id +'/tasks/new')">
+                                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        nova atividade
+                                    </a>
+                                    <a class="actionQuestion" ng-click="createCategory(category.id);">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        editar
+                                    </a>
+                                    <a class="actionQuestion" ng-click="deleteCategory(category);">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        excluir
                                     </a>
                                 </md-card-footer>
                             </md-card>
@@ -137,7 +126,8 @@
                                             <md-list-item class="noright">
                                                 <!--<img ng-src="../../img/apple.png" class="avatar"/>-->
                                                 <p class="avatar teacherclass
-                                                    ng-binding ng-scope" style="margin: 8px 16px 8px 0px ;">{{ room.teacher.numberApples }}
+                                                    ng-binding ng-scope" style="margin: 8px 16px 8px 0px ;">{{
+                                                    room.teacher.numberApples }}
                                                 </p>
 
                                                 <img ng-if="room.teacher.imageProfile" title="{{room.teacher.name}}"

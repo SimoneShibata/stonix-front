@@ -35,7 +35,6 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
             $scope.room = response.data;
             $scope.users = $scope.room.students;
             getNumberApples($scope.room.teacher);
-            console.log($scope.room);
             if ($scope.room == "") {
                 $location.path('/404');
             }
@@ -77,7 +76,48 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
         })
     };
 
+// GetAll Categories Tasks - categorias
+    var getAllCategories = function () {
+        $http.get($rootScope.serviceBase + "task-category/classroom/" + $routeParams.id).then(function (response) {
+            $scope.categories = response.data;
+        })
+    }
+    getAllCategories();
+
+    $scope.categorySelected = function(category) {
+        $scope.selected = category.id;
+        $scope.listTasks(category);
+    };
+
+// GetAll Tasks - atividades
+    $scope.listTasks = function (category) {
+        $http.get($rootScope.serviceBase + "tasks/task-category/" + category.id).then(function (response) {
+            $scope.tasks = response.data;
+        });
+    }
+
+// Create Category
+    $scope.createCategory = function (idCategory) {
+        if (idCategory) {
+            $location.path('/rooms/' + $routeParams.id + '/category/' + idCategory);
+        } else {
+            $location.path('/rooms/' + $routeParams.id + '/category');
+        }
+    }
+
+// Delete Category
+    $scope.deleteCategory = function (category) {
+        $http.get($rootScope.serviceBase + "tasks/task-category/" + category.id).then(function (response) {
+            if (response.data.length > 0) {
+                $rootScope.showToast("Não é possível excluir uma categoria com atividades cadastradas.");
+            } else {
+                $http.delete($rootScope.serviceBase + "task-category/" + category.id).then(function (response) {
+                    getAllCategories();
+                    $rootScope.showToast("Categoria excluída com sucesso");
+                });
+            }
+        });
 
 
-
+    }
 });

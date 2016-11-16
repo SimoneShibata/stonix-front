@@ -26,6 +26,7 @@
 
                         <div layout="row">
                             <md-input-container style="width: 100%;">
+                                <input style="display:none;" ng-model="u.birth" type="text" ui-mask="99/99/9999" ng-pattern="/^[0-9]{1,7}[-\.\/]?+$/">
                                 <div flex-gt-xs>
                                     <md-datepicker ng-model="u.birth" md-placeholder="Data nascimento"></md-datepicker>
                                 </div>
