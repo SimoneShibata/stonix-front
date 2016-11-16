@@ -30,7 +30,36 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
         });
     };
 
-    // GetOne - Chama Sala solicitada
+// GoRoom - entrar sala
+    $scope.goRoom = function (idRoom) {
+        $http.get($rootScope.serviceBase + "classroom/" + idRoom).then(function (response) {
+            var room = response.data;
+            if (room == "") {
+                $location.path('/404');
+            }
+
+            if (response.data.students.length > 0) {
+                for (var i = 0; i <= response.data.students.length; i++) {
+                    if (room.students[i].id == $rootScope.userAuthenticated.id) {
+                        $location.path('/rooms/' + idRoom);
+                        return null;
+                    }
+                }
+            }
+            if (room.teacher.id == $rootScope.userAuthenticated.id) {
+                $location.path('/rooms/' + idRoom);
+                return null
+            }
+            $location.path('/rooms');
+            $rootScope.showToast("Você não está cadastrado nesta sala :(");
+        }, function (error) {
+            if (error.status == 404) {
+                $location.path('/404');
+            }
+        });
+    }
+
+// GetOne - Chama Sala solicitada
     if ($routeParams.id != null) {
         $http.get($rootScope.serviceBase + "classroom/" + $routeParams.id).then(function (response) {
             $scope.room = response.data;

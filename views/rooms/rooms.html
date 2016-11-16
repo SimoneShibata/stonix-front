@@ -24,7 +24,7 @@
                     <md-content>
                         <div class="content">
                             <md-card ng-repeat="room in rooms | filter:search"
-                                     ng-click="navigateTo('/rooms/' + room.id)" style="cursor:pointer;">
+                                     ng-click="goRoom(room.id)" style="cursor:pointer;">
                                 <md-card-content>
                                     <div layout="row">
                                         <div layout="column">
