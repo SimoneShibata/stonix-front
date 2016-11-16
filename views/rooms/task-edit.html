@@ -4,28 +4,13 @@
             <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
 
-        <h3 class="md-toolbar-tools">Nova Atividade</h3>
+        <h3 class="md-toolbar-tools">{{pageTitle}}</h3>
     </md-toolbar>
 
-    <div ng-cloak class="content">
-
+    <div class="content">
         <md-card>
             <md-card-content>
-                <div layout="column" flex>
-                    <md-input-container>
-                        <label>Título da atividade</label>
-                        <input md-maxlength="30" required name="name" ng-model="task.title">
-                    </md-input-container>
-
-                    <md-input-container>
-                        <label>Descrição</label>
-                        <textarea ng-model="task.description" required columns="15" md-maxlength="150"></textarea>
-                    </md-input-container>
-
-                    <div flex-gt-xs>
-                        <md-datepicker ng-model="task.closingDate" md-placeholder="Data encerramento"></md-datepicker>
-                    </div>
-                </div>
+                {{ task.description }}
             </md-card-content>
             <md-divider></md-divider>
             <md-card-content style="background-color:#ededed;">
@@ -101,14 +86,13 @@
             </md-card-content>
             <md-card-footer>
                 <div layout="row" class="float-right">
-
-                    <md-button class="md-raised md-primary" ng-click="window.history.go(-1);">
+                    <md-button class="md-raised md-primary" ng-click="cancelEdit(task.taskCategory.classRoom.id);">
                         <i class="fa fa-times" aria-hidden="true"></i>
                         cancelar
                     </md-button>
-                    <md-button class="md-raised md-accent" ng-click="createTask(task, options);">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                        criar
+                    <md-button class="md-raised md-accent" ng-click="edit(task);">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        salvar
                     </md-button>
                 </div>
             </md-card-footer>

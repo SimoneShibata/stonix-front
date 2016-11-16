@@ -8,6 +8,43 @@
     </md-toolbar>
 
     <div class="content">
-        task
+        <md-card>
+            <md-card-content style="background-color:#ededed;">
+                <p style="font-weight:bold;margin-bottom:0;" class="fa-gray">
+                    {{ task.description }}
+                </p>
+            </md-card-content>
+            <md-divider></md-divider>
+            <md-card-content>
+                <form>
+                    <md-radio-group ng-model="choice">
+                        <md-radio-button name="choice" ng-value="option.id" class="md-primary"
+                                         ng-repeat="option in options">
+                            {{ option.description }}
+                        </md-radio-button>
+                    </md-radio-group>
+                </form>
+            </md-card-content>
+            <md-card-footer ng-show="task.taskCategory.classRoom.teacher.id != userAuthenticated.id">
+                <div layout="row" class="float-right">
+                    <md-button class="md-raised md-accent" ng-click="evaluate(choice, task);">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        enviar
+                    </md-button>
+                </div>
+            </md-card-footer>
+            <md-card-footer ng-show="task.taskCategory.classRoom.teacher.id == userAuthenticated.id">
+                <div layout="row" class="float-right">
+                    <md-button class="md-raised md-primary" ng-click="deleteTask(task)">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        excluir
+                    </md-button>
+                    <md-button class="md-raised md-accent" ng-click="navigateTo('/rooms/tasks/edit/' + task.id);">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        editar
+                    </md-button>
+                </div>
+            </md-card-footer>
+        </md-card>
     </div>
 </div>

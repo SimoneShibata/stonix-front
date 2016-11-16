@@ -18,7 +18,7 @@
                         <img ng-if="!question.user.imageProfile" title="{{question.user.name}}"
                              ng-src="../img/default.png"
                              class="userQuestion"/>
-                        {{ question.user.punctuation }} pts
+                        {{ question.user.punctuation }} rep.
                     </div>
                     <div layout="column" class="descQuestion">
                         <strong style="font-size: 16px">{{ question.title }}</strong>
@@ -83,7 +83,7 @@
                         <img ng-if="!answer.user.imageProfile" title="{{answer.user.name}}"
                              ng-src="../img/default.png"
                              class="userQuestion"/>
-                        {{ answer.user.punctuation }} pts
+                        {{ answer.user.punctuation }} rep.
                     </div>
                     <div layout="column" flex class="descQuestion">
                         {{ answer.description }}

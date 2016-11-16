@@ -14,7 +14,8 @@
                     <md-content>
                         <div class="content">
 
-                            <md-button class="md-raised" style="background-color: #ab1d18; color: #fff; padding: 0px 20px;" aria-label="newCategory" ng-click="createCategory();">
+                            <md-button class="md-raised" style="background-color: #ab1d18; color: #fff; padding: 0px 20px;" aria-label="newCategory" ng-click="createCategory();"
+                                       title="Crie uma categoria para criar as atividades para a turma.">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 Criar categoria
                             </md-button>
@@ -32,13 +33,17 @@
                                 <md-card-content ng-if="selected == category.id">
                                     <div ng-show="tasks.length == 0">Não há nenhuma atividade cadastrada.</div>
                                     <div ng-repeat="task in tasks">
-                                        <div layout="column" ng-click="navigateTo('/rooms/tasks/' + task.id)">
-                                            <strong>{{ task.title }}</strong>
-                                            <p>
-                                                <i class="fa fa-clock-o fa-gray button-category" aria-hidden="true"></i>
-                                                Aberta até {{ task.closingDate | date: 'dd/MM/yyyy HH:mm' }}
+                                        <div class="task" ng-click="navigateTo('/rooms/tasks/' + task.id)">
+                                            <p style="cursor:pointer; margin:0 10px 0 5px;">
+                                                <strong style="color:dodgerblue;">{{ task.title }} : </strong>
+                                                {{ task.description }}
                                             </p>
-                                            <p>{{ task.description }}</p>
+                                            <p style="margin:0 10px 0 5px;">
+                                                <i class="fa fa-clock-o fa-gray button-category" aria-hidden="true"></i>
+                                                Aberta até {{ task.closingDate | date: 'dd/MM/yyyy' }}
+                                                <i class="fa fa-mail-forward fa-gray button-category" aria-hidden="true"></i>
+                                                Responder
+                                            </p>
                                         </div>
                                     </div>
                                 </md-card-content>
@@ -76,7 +81,13 @@
                                     </div>
                                     <div layout="row">
                                         <div flex></div>
-                                        <md-button class="md-raised md-primary" ng-click="addUser(u)">Adicionar
+                                        <md-button class="md-raised md-primary" ng-click="deleteUser(u)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Excluir
+                                        </md-button>
+                                        <md-button class="md-raised md-accent" ng-click="addUser(u)">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                            Adicionar
                                         </md-button>
                                     </div>
                                 </md-card-content>

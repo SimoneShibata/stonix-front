@@ -10,15 +10,18 @@
     <div ng-cloak class="content">
         <md-card>
             <md-card-content>
-                <md-input-container>
-                    <label>Nome da categoria</label>
-                    <input md-maxlength="30" required name="name" ng-model="category.name">
-                </md-input-container>
+                <div layout="column" flex>
+                    <md-input-container>
+                        <label>Nome da categoria</label>
+                        <input md-maxlength="30" required name="name" ng-model="category.name">
+                    </md-input-container>
 
-                <md-input-container>
-                    <label>Descrição</label>
-                    <input required name="name" ng-model="category.description">
-                </md-input-container>
+                    <md-input-container>
+                        <label>Descrição</label>
+                        <input required name="name" ng-model="category.description">
+                    </md-input-container>
+
+                </div>
             </md-card-content>
             <md-card-footer>
                 <div layout="row" class="float-right">
