@@ -38,8 +38,8 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
                 $location.path('/404');
             }
 
-            if (response.data.students.length > 0) {
-                for (var i = 0; i <= response.data.students.length; i++) {
+            if (room.students.length > 0) {
+                for (var i = 0; i < room.students.length; i++) {
                     if (room.students[i].id == $rootScope.userAuthenticated.id) {
                         $location.path('/rooms/' + idRoom);
                         return null;

@@ -85,9 +85,10 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
 
                 var taskAnswered = {task: response.data, user: $rootScope.userAuthenticated};
                 $http.post($rootScope.serviceBase + "tasks/answered/find", taskAnswered).then(function (response) {
-                    console.log(response);
+                    console.log(response.data);
+                    console.log('response: ' + response.data.taskOption);
                 }, function (error) {
-                    console.log(error);
+                    console.log('error: ' + error);
                 });
             });
         }
