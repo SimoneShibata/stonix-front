@@ -10,7 +10,23 @@
     <div class="content">
         <md-card>
             <md-card-content>
-                {{ task.description }}
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Nome da atividade</label>
+                        <textarea ng-model="task.title" required></textarea>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Questão</label>
+                        <textarea ng-model="task.description" required></textarea>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <div flex-gt-xs>
+                        <md-datepicker ng-model="task.closingDate" md-placeholder="Data encerramento"></md-datepicker>
+                    </div>
+                </div>
             </md-card-content>
             <md-divider></md-divider>
             <md-card-content style="background-color:#ededed;">
@@ -90,7 +106,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         cancelar
                     </md-button>
-                    <md-button class="md-raised md-accent" ng-click="edit(task);">
+                    <md-button class="md-raised md-accent" ng-click="edit(task, options);">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         salvar
                     </md-button>

@@ -1,5 +1,6 @@
 app.controller('RoomController', function ($scope, $http, $rootScope, $location, $routeParams, $timeout, $q) {
     document.body.style.zoom=0.9;
+
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
         $rootScope.userAuthenticated = response.data;
         $http.get($rootScope.serviceBase + "classroom/teacher/" + $rootScope.userAuthenticated.id).then(function (response) {
@@ -19,15 +20,19 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
 
     $scope.pageTitle = "Salas de aula";
 
-
     $scope.createRoom = function (room) {
 
-        room.teacher = $rootScope.userAuthenticated;
-        $http.post($rootScope.serviceBase + "classroom", room).then(function (response) {
-            $rootScope.showToast("Sala de aula criada com sucesso.");
-            console.log(response.data);
-            $location.path('/rooms/' + response.data.id);
-        });
+        if ($rootScope.userAuthenticated.punctuation > 50) {
+            room.teacher = $rootScope.userAuthenticated;
+            $http.post($rootScope.serviceBase + "classroom", room).then(function (response) {
+                $rootScope.showToast("Sala de aula criada com sucesso.");
+                console.log(response.data);
+                $location.path('/rooms/' + response.data.id);
+            });
+        } else {
+            $rootScope.showToast("É necessário obter 50 pontos de reputação para criar a sala de aula.");
+        }
+
     };
 
 // GoRoom - entrar sala
@@ -146,6 +151,15 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
     $scope.listTasks = function (category) {
         $http.get($rootScope.serviceBase + "tasks/task-category/" + category.id).then(function (response) {
             $scope.tasks = response.data;
+            for (var i=0; i<$scope.tasks.length; i++) {
+                getAnsweredTask($scope.tasks[i]);
+            }
+        });
+    }
+    
+    var getAnsweredTask = function (task) {
+        $http.post($rootScope.serviceBase + "tasks/answered/find", {user: $rootScope.userAuthenticated, task: task}).then(function (response) {
+            task.answered = response.data;
         });
     }
 
