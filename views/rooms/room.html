@@ -14,18 +14,23 @@
                     <md-content>
                         <div class="content">
 
-                            <md-button class="md-raised" style="background-color: #ab1d18; color: #fff; padding: 0px 20px;" aria-label="newCategory" ng-click="createCategory();"
+                            <md-button class="md-raised"
+                                       style="background-color: #ab1d18; color: #fff; padding: 0px 20px;"
+                                       aria-label="newCategory" ng-click="createCategory();"
                                        title="Crie uma categoria para criar as atividades para a turma.">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 Criar categoria
                             </md-button>
 
-                            <md-card ng-repeat="category in categories" ng-click="categorySelected(category)" style="outline:none; cursor: pointer;">
+                            <md-card ng-repeat="category in categories" ng-click="categorySelected(category)"
+                                     style="outline:none; cursor: pointer;">
                                 <md-card-content>
                                     <div layout="row">
                                         <h2 style="margin-top: 0px; font-size: 27px;" flex>{{ category.name }}</h2>
-                                        <i ng-if="selected != category.id" class="fa fa-caret-down fa-gray" aria-hidden="true"></i>
-                                        <i ng-if="selected == category.id" class="fa fa-caret-up fa-gray" aria-hidden="true"></i>
+                                        <i ng-if="selected != category.id" class="fa fa-caret-down fa-gray"
+                                           aria-hidden="true"></i>
+                                        <i ng-if="selected == category.id" class="fa fa-caret-up fa-gray"
+                                           aria-hidden="true"></i>
                                     </div>
                                     <p>{{ category.description }}</p>
                                 </md-card-content>
@@ -41,15 +46,24 @@
                                             <p style="margin:0 10px 0 5px;">
                                                 <i class="fa fa-clock-o fa-gray button-category" aria-hidden="true"></i>
                                                 Aberta até {{ task.closingDate | date: 'dd/MM/yyyy' }}
-                                                <i class="fa fa-mail-forward fa-gray button-category" aria-hidden="true"></i>
-                                                Responder
+                                                <i ng-show="userAuthenticated.id != room.teacher.id"
+                                                   class="fa fa-mail-forward fa-gray button-category"
+                                                   aria-hidden="true"></i>
+                                                <span ng-show="userAuthenticated.id != room.teacher.id">Responder</span>
+                                                <i ng-show="userAuthenticated.id == room.teacher.id"
+                                                   class="fa fa-pencil fa-gray button-category"
+                                                   aria-hidden="true"></i>
+                                                <span ng-show="userAuthenticated.id == room.teacher.id">Editar</span>
+
                                             </p>
                                         </div>
                                     </div>
                                 </md-card-content>
                                 <md-divider ng-if="selected == category.id"></md-divider>
-                                <md-card-footer ng-show="userAuthenticated.id == room.teacher.id && selected == category.id">
-                                    <a class="actionQuestion" ng-click="navigateTo('/rooms/category/' + category.id +'/tasks/new')">
+                                <md-card-footer
+                                        ng-show="userAuthenticated.id == room.teacher.id && selected == category.id">
+                                    <a class="actionQuestion"
+                                       ng-click="navigateTo('/rooms/category/' + category.id +'/tasks/new')">
                                         <i class="fa fa-file-text" aria-hidden="true"></i>
                                         nova atividade
                                     </a>
@@ -99,14 +113,17 @@
                                             <md-list-item ng-repeat="u in users" class="noright"
                                                           ng-click="navigateTo('/perfil/' + u.id)">
                                                 <div layout="column" flex="5">
-                                                    <img title="Primeiro lugar por pontuação" ng-src="../../img/gold-medal.png"
+                                                    <img title="Primeiro lugar por pontuação"
+                                                         ng-src="../../img/gold-medal.png"
                                                          class="avatar" ng-if="$index == 0"/>
-                                                    <img title="Segundo lugar por pontuação" ng-src="../../img/silver-medal.png"
+                                                    <img title="Segundo lugar por pontuação"
+                                                         ng-src="../../img/silver-medal.png"
                                                          class="avatar" ng-if="$index == 1"/>
                                                     <img title="Terceiro lugar por pontuação"
                                                          ng-src="../../img/bronze-medal.png" class="avatar"
                                                          ng-if="$index == 2"/>
-                                                    <p ng-if="$index > 2" class="avatar" style="margin: 8px 16px 8px 0px ;"><strong>{{
+                                                    <p ng-if="$index > 2" class="avatar"
+                                                       style="margin: 8px 16px 8px 0px ;"><strong>{{
                                                         $index + 1 }}</strong></p>
                                                 </div>
                                                 <div flex="5">
@@ -135,7 +152,6 @@
                                     <md-card>
                                         <md-card-content>
                                             <md-list-item class="noright">
-                                                <!--<img ng-src="../../img/apple.png" class="avatar"/>-->
                                                 <p class="avatar teacherclass
                                                     ng-binding ng-scope" style="margin: 8px 16px 8px 0px ;">{{
                                                     room.teacher.numberApples }}
@@ -149,7 +165,7 @@
                                                      class="avatar"/>
                                                 <p>{{ room.teacher.name }}</p>
                                                 <p>Level {{ room.teacher.level }}</p>
-                                                <p>{{ room.teacher.punctuation }} pontos</p>
+                                                <p>{{ room.teacher.punctuation }} reputação</p>
 
                                                 <img title="Presentear com maçã"
                                                      ng-src="../../img/apple.png" class="icon-apple"

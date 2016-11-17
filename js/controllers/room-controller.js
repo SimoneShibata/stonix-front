@@ -22,12 +22,17 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
 
     $scope.createRoom = function (room) {
 
-        room.teacher = $rootScope.userAuthenticated;
-        $http.post($rootScope.serviceBase + "classroom", room).then(function (response) {
-            $rootScope.showToast("Sala de aula criada com sucesso.");
-            console.log(response.data);
-            $location.path('/rooms/' + response.data.id);
-        });
+        if ($rootScope.userAuthenticated.punctuation > 50) {
+            room.teacher = $rootScope.userAuthenticated;
+            $http.post($rootScope.serviceBase + "classroom", room).then(function (response) {
+                $rootScope.showToast("Sala de aula criada com sucesso.");
+                console.log(response.data);
+                $location.path('/rooms/' + response.data.id);
+            });
+        } else {
+            $rootScope.showToast("É necessário obter 50 pontos de reputação para criar a sala de aula.");
+        }
+
     };
 
 // GoRoom - entrar sala

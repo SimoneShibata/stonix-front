@@ -107,9 +107,19 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
         });
     }
 
-// Editar
-    $scope.edit = function (task) {
-
+// Editar task
+    $scope.edit = function (task, options) {
+        $http.put($rootScope.serviceBase + "tasks", task).then(function (response) {
+            for (var i=0; i < options.length; i++) {
+                $http.put($rootScope.serviceBase + "tasks/options", options[i]).then(function (response) {
+                }, function (error) {
+                    $rootScope.showToast("Desculpe :( houve algum erro ao salvar as alternativas.");
+                    return null;
+                });
+            }
+            $rootScope.showToast("Atividade atualizada com sucesso.");
+            $location.path('/rooms/' + task.taskCategory.classRoom.id);
+        });
     }
 
 // Delete
