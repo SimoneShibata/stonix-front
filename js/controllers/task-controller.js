@@ -1,5 +1,17 @@
 app.controller('TaskController', function ($scope, $http, $rootScope, $routeParams, $location) {
 
+    document.body.style.zoom=0.9;
+    $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
+        $rootScope.userAuthenticated = response.data;
+        $http.get($rootScope.serviceBase + "users/ranking/punctuation").then(function (response) {
+            for (var i = 0; i < response.data.length; i++) {
+                if (response.data[i].id == $rootScope.userAuthenticated.id) {
+                    $rootScope.rank = i + 1;
+                }
+            }
+        });
+    });
+
     $scope.options = [];
 
 // Create Category
@@ -28,6 +40,10 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
         $http.get($rootScope.serviceBase + "task-category/" + $routeParams.idCategory).then(function (response) {
             task.taskCategory = response.data;
             $scope.saveTask(task);
+            $http.put($rootScope.serviceBase + '/users/assign/xp/5', $rootScope.userAuthenticated).then(function (response) {
+                $rootScope.userAuthenticated = response.data;
+                $rootScope.showToast("Criar atividades te acrescenta +5 de xp!");
+            });
         });
     }
 
@@ -53,7 +69,6 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     }
 
     $scope.saveTaskAnswered = function (task, taskOption) {
-        console.log(taskOption);
         var taskAnsweed = {task: task, user: $rootScope.userAuthenticated, taskOption: taskOption};
         $http.post($rootScope.serviceBase + "tasks/answered", taskAnsweed).then(function (response) {
             $location.path("/rooms/" + task.taskCategory.classRoom.id);
@@ -81,14 +96,14 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
 
                 $http.get($rootScope.serviceBase + "tasks/options/list/" + response.data.id).then(function (success) {
                     $scope.options = success.data;
-                });
-
-                var taskAnswered = {task: response.data, user: $rootScope.userAuthenticated};
-                $http.post($rootScope.serviceBase + "tasks/answered/find", taskAnswered).then(function (response) {
-                    console.log(response.data);
-                    console.log('response: ' + response.data.taskOption);
-                }, function (error) {
-                    console.log('error: ' + error);
+                    $http.post($rootScope.serviceBase + "tasks/answered/find", {user: $rootScope.userAuthenticated, task: $scope.task}).then(function (response) {
+                        for (var i=0; i < $scope.options.length; i++) {
+                            if ($scope.options[i].id == response.data.taskOption.id) {
+                                $scope.choice = $scope.options[i].id;
+                                $scope.task.answered = true;
+                            }
+                        }
+                    });
                 });
             });
         }
@@ -99,10 +114,20 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     $scope.evaluate = function (choice, task) {
         $http.get($rootScope.serviceBase + "tasks/options/" + choice).then(function (response) {
             if (response.data.correct) {
-                $rootScope.showToast("Você acertou, parabéns!");
+                $http.put($rootScope.serviceBase + 'users/assign/xp/10', $rootScope.userAuthenticated).then(function (response) {
+                    $http.put($rootScope.serviceBase + 'users/assign/punctuation/5', response.data).then(function (response) {
+                        $rootScope.userAuthenticated = response.data;
+                        $rootScope.showToast("Você acertou, parabéns! +10 de xp e +5 de reputação!");
+                    });
+                });
             } else {
-                $rootScope.showToast("Precisa estudar mais, amiguinho");
+                $rootScope.userAuthenticated.punctuation -= 5;
+                $http.put($rootScope.serviceBase + 'users', $rootScope.userAuthenticated).then(function (response) {
+                    $rootScope.userAuthenticated = response.data;
+                    $rootScope.showToast("Precisa estudar mais, amiguinho! Perdeu 5 pontos de reputação :(");
+                });
             }
+
             $scope.saveTaskAnswered(task, response.data);
         });
     }

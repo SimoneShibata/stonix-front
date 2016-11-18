@@ -159,6 +159,11 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                     question.numberLikes--;
                     question.likedQuestion = response.data;
                 });
+
+                question.user.punctuation -= 5;
+                $http.put($rootScope.serviceBase + 'users', question.user).then(function (response) {
+                    question.user = response.data;
+                });
             });
         };
 
@@ -166,6 +171,11 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
         $http.delete($rootScope.serviceBase + "questions/likes/" + question.likedQuestion.id).then(function (response) {
             question.numberLikes--;
             question.likedQuestion = response.data;
+
+            question.user.punctuation -= 5;
+            $http.put($rootScope.serviceBase + 'users', question.user).then(function (response) {
+                question.user = response.data;
+            });
         });
     };
 
@@ -225,6 +235,10 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             .then(function (response) {
                 question.numberLikes++;
                 question.likedQuestion = true;
+
+                $http.put($rootScope.serviceBase + 'users/assign/punctuation/5', question.user).then(function (response) {
+                    question.user = response.data;
+                });
             });
     };
 
@@ -248,6 +262,10 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             .then(function (response) {
                 question.numberLikes++;
                 question.likedQuestion = response.data;
+
+                $http.put($rootScope.serviceBase + 'users/assign/punctuation/5', question.user).then(function (response) {
+                    question.user = response.data;
+                });
             });
     };
 
@@ -261,7 +279,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                 function (response) {
                     $location.path(/questions/ + response.data.id);
                     $scope.question = {};
-                    $http.put($rootScope.serviceBase + '/users/assign/xp/5', $rootScope.userAuthenticated).then(function (response) {
+                    $http.put($rootScope.serviceBase + 'users/assign/xp/5', $rootScope.userAuthenticated).then(function (response) {
                         $rootScope.userAuthenticated = response.data;
                         $rootScope.showToast("Em dúvida? +5 de xp para você!");
                     });
@@ -347,10 +365,11 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
                     $scope.answer.description = "";
                     $scope.answers = $scope.getAllAnswers();
                     $scope.question.numberAnswers++;
-                    $http.put($rootScope.serviceBase + '/users/assign/xp/10', $rootScope.userAuthenticated).then(function (response) {
+                    $http.put($rootScope.serviceBase + 'users/assign/xp/10', $rootScope.userAuthenticated).then(function (response) {
                         $rootScope.userAuthenticated = response.data;
                         $rootScope.showToast("Boaaaa, ganhou +10 xp!");
                     });
+                    $scope.answer.numberFlags = 0;
                 },
                 function (response) {
                     // failure callback
@@ -383,6 +402,7 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             getLikedAnswer($scope.answers[i]);
             countLikesAnswer($scope.answers[i]);
         }
+
     });
 
 // Aceitar Melhor Resposta
@@ -392,12 +412,12 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             $scope.answers = $scope.getAllAnswers();
             var userAnswer = answer.user;
             if ($rootScope.userAuthenticated.id != userAnswer.id) {
-                $http.put($rootScope.serviceBase + '/users/assign/xp/40', userAnswer).then(function (response) {
+                $http.put($rootScope.serviceBase + 'users/assign/xp/40', userAnswer).then(function (response) {
                 });
-                $http.put($rootScope.serviceBase + '/users/assign/punctuation/50', userAnswer).then(function (response) {
+                $http.put($rootScope.serviceBase + 'users/assign/punctuation/50', userAnswer).then(function (response) {
                 });
             }
-            $http.put($rootScope.serviceBase + '/users/assign/punctuation/25', $rootScope.userAuthenticated).then(function (response) {
+            $http.put($rootScope.serviceBase + 'users/assign/punctuation/25', $rootScope.userAuthenticated).then(function (response) {
                 $rootScope.userAuthenticated = response.data;
                 $rootScope.userAuthenticated = response.data;
             });
@@ -490,6 +510,11 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             function (response) {
                 answer.likedAnswer = response.data;
                 answer.numberLikes --;
+
+                answer.user.punctuation -= 5;
+                $http.put($rootScope.serviceBase + 'users', answer.user).then(function (response) {
+                    answer.user = response.data;
+                });
             });
     };
     $scope.likeAnswer = function (answer) {
@@ -498,6 +523,10 @@ app.controller('QuestionController', function ($scope, $rootScope, $http, $route
             .then(function (response) {
                 answer.likedAnswer = response.data;
                 answer.numberLikes ++;
+
+                $http.put($rootScope.serviceBase + 'users/assign/punctuation/5', answer.user).then(function (response) {
+                    answer.user = response.data;
+                });
             });
     };
     var verifyLikedAnswer = function () {

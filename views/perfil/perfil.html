@@ -182,11 +182,13 @@
                     </form>
                 </md-card-content>
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-raised" ng-click="addFlairOff()">
+                    <md-button class="md-raised md-primary" ng-click="addFlairOff()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
                         Cancelar
                     </md-button>
-                    <md-button class="md-raised md-primary" ng-click="createFlair()">
-                        Adicionar flair
+                    <md-button class="md-raised md-accent" ng-click="createFlair()">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Adicionar
                     </md-button>
                 </md-card-actions>
             </md-card>

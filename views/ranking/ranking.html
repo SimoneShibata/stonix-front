@@ -71,8 +71,9 @@
                                             <img title="Terceiro lugar por reputação"
                                                  ng-src="../../img/bronze-medal.png" class="avatar"
                                                  ng-if="$index == 2"/>
-                                            <p ng-if="$index > 2" class="avatar" style="margin: 8px 16px 8px 0px ;"><strong>{{
-                                                $index + 1 }}</strong></p>
+                                            <p ng-if="$index > 2" class="avatar" style="margin: 8px 16px 8px 0px ;">
+                                                <strong>{{ $index + 1 }}</strong>
+                                            </p>
                                         </div>
                                         <div flex="5">
                                             <img ng-if="u.imageProfile" alt="{{ u.name }}"
@@ -92,7 +93,6 @@
                                             <p>{{ u.punctuation }} reputação</p>
                                         </div>
                                         <div flex="10">
-                                            <i class="fa fa-user-plus margin-fa" aria-hidden="true"></i>
                                             <i class="fa fa-info-circle" aria-hidden="true"></i>
                                         </div>
                                     </md-list-item>
