@@ -162,10 +162,11 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
     }
 
     var getAnsweredTask = function (task) {
-        $http.post($rootScope.serviceBase + "tasks/answered/find", {
+        var taskAnswered = {
             user: $rootScope.userAuthenticated,
             task: task
-        }).then(function (response) {
+        };
+        $http.post($rootScope.serviceBase + "tasks/answered/find", taskAnswered).then(function (response) {
             task.answered = response.data;
         });
     }

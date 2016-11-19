@@ -95,6 +95,7 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
             $http.get($rootScope.serviceBase + "tasks/" + idTask).then(function (response) {
                 $scope.pageTitle = response.data.title;
                 $scope.task = response.data;
+                $scope.task.closingDate = new Date(response.data.closingDate);
 
                 $http.get($rootScope.serviceBase + "tasks/options/list/" + $scope.task.id).then(function (success) {
                     $scope.options = success.data;
@@ -103,6 +104,13 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
                         var taskAnswered = {user: $rootScope.userAuthenticated, task: $scope.task};
 
                         loadTaskAnswered(taskAnswered);
+                    } else {
+                        for (var i=0; i < $scope.options.length; i++) {
+                            if ($scope.options[i].correct) {
+                                $scope.correct = i;
+                                return null;
+                            }
+                        }
                     }
                 });
             });
@@ -111,14 +119,20 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
 
     var loadTaskAnswered = function (taskAnswered) {
         $http.post($rootScope.serviceBase + "tasks/answered/find", taskAnswered).then(function (res) {
-            console.log(taskAnswered);
-            for (var i=0; i < $scope.options.length; i++) {
-                if ($scope.options[i].id == res.data.taskOption.id) {
-                    $scope.choice = $scope.options[i].id;
-                    $scope.task.answered = true;
-                }
+            if (res.data != null || res.data != "") {
+                verifyOption(res.data);
             }
         });
+    }
+
+    var verifyOption = function (taskAnswered) {
+        for (var i=0; i < $scope.options.length; i++) {
+            if ($scope.options[i].id == taskAnswered.taskOption.id) {
+                $scope.choice = $scope.options[i].id;
+                $scope.correct = $scope.options[i].id;
+                $scope.task.answered = true;
+            }
+        }
     }
 
     getOneTask($routeParams.id);
@@ -146,9 +160,14 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     }
 
 // Editar task
-    $scope.edit = function (task, options) {
+    $scope.edit = function (task, options, correct) {
         $http.put($rootScope.serviceBase + "tasks", task).then(function (response) {
             for (var i=0; i < options.length; i++) {
+                if (i == correct) {
+                    options[i].correct = true;
+                } else {
+                    options[i].correct = false;
+                }
                 $http.put($rootScope.serviceBase + "tasks/options", options[i]).then(function (response) {
                 }, function (error) {
                     $rootScope.showToast("Desculpe :( houve algum erro ao salvar as alternativas.");
