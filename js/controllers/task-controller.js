@@ -35,11 +35,11 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
     }
 
 // Create Task
-    $scope.createTask = function (task) {
+    $scope.createTask = function (task, options, correct) {
         var category;
         $http.get($rootScope.serviceBase + "task-category/" + $routeParams.idCategory).then(function (response) {
             task.taskCategory = response.data;
-            $scope.saveTask(task);
+            $scope.saveTask(task, options, correct);
             $http.put($rootScope.serviceBase + '/users/assign/xp/5', $rootScope.userAuthenticated).then(function (response) {
                 $rootScope.userAuthenticated = response.data;
                 $rootScope.showToast("Criar atividades te acrescenta +5 de xp!");
@@ -47,21 +47,23 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
         });
     }
 
-    $scope.saveTask = function (task) {
+    $scope.saveTask = function (task, options, correct) {
         $http.post($rootScope.serviceBase + "tasks", task).then(function (success) {
-            $scope.saveOptions(success.data);
+            $scope.saveOptions(success.data, options, correct);
         });
     }
 
-    $scope.saveOptions = function (task) {
-        for (var i = 0; i < $scope.options.length; i++) {
-            if ($scope.options[i].correct == null) {
-                $scope.options[i].correct = false;
+    $scope.saveOptions = function (task, options, correct) {
+        for (var i = 0; i < options.length; i++) {
+            if (i != correct) {
+                options[i].correct = false;
+            } else {
+                options[i].correct = true;
             }
-            $scope.options[i].task = task;
+            options[i].task = task;
 
-            if ($scope.options[i].description != null) {
-                $http.post($rootScope.serviceBase + "tasks/options", $scope.options[i]).then(function (res) {
+            if (options[i].description != null) {
+                $http.post($rootScope.serviceBase + "tasks/options", options[i]).then(function (res) {
                     $location.path('/rooms/' + task.taskCategory.classRoom.id);
                 });
             }
@@ -94,20 +96,31 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
                 $scope.pageTitle = response.data.title;
                 $scope.task = response.data;
 
-                $http.get($rootScope.serviceBase + "tasks/options/list/" + response.data.id).then(function (success) {
+                $http.get($rootScope.serviceBase + "tasks/options/list/" + $scope.task.id).then(function (success) {
                     $scope.options = success.data;
-                    $http.post($rootScope.serviceBase + "tasks/answered/find", {user: $rootScope.userAuthenticated, task: $scope.task}).then(function (response) {
-                        for (var i=0; i < $scope.options.length; i++) {
-                            if ($scope.options[i].id == response.data.taskOption.id) {
-                                $scope.choice = $scope.options[i].id;
-                                $scope.task.answered = true;
-                            }
-                        }
-                    });
+
+                    if ($rootScope.userAuthenticated.id != $scope.task.taskCategory.classRoom.teacher.id) {
+                        var taskAnswered = {user: $rootScope.userAuthenticated, task: $scope.task};
+
+                        loadTaskAnswered(taskAnswered);
+                    }
                 });
             });
         }
     }
+
+    var loadTaskAnswered = function (taskAnswered) {
+        $http.post($rootScope.serviceBase + "tasks/answered/find", taskAnswered).then(function (res) {
+            console.log(taskAnswered);
+            for (var i=0; i < $scope.options.length; i++) {
+                if ($scope.options[i].id == res.data.taskOption.id) {
+                    $scope.choice = $scope.options[i].id;
+                    $scope.task.answered = true;
+                }
+            }
+        });
+    }
+
     getOneTask($routeParams.id);
 
 // Conferir resposta
