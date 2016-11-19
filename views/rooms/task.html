@@ -18,10 +18,12 @@
             <md-card-content>
                 <form>
                     <md-radio-group ng-model="choice">
-                        <md-radio-button name="choice" ng-value="option.id" class="md-primary"
-                                         ng-repeat="option in options">
-                            {{ option.description }}
-                        </md-radio-button>
+                        <div layout="row" ng-repeat="option in options">
+                            <md-radio-button ng-value="option.id" class="md-primary" style="float:left;" aria-label="option.description"></md-radio-button>
+                            <p>
+                                {{ option.description }}
+                            </p>
+                        </div>
                     </md-radio-group>
                 </form>
             </md-card-content>

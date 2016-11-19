@@ -1,5 +1,5 @@
 app.controller('RoomController', function ($scope, $http, $rootScope, $location, $routeParams, $timeout, $q) {
-    document.body.style.zoom=0.9;
+    document.body.style.zoom = 0.9;
 
     $http.get($rootScope.serviceBase + "users/get-auth").then(function (response) {
         $rootScope.userAuthenticated = response.data;
@@ -79,20 +79,20 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
             }
         });
     }
-    
+
 // Add User in Classroom
-    $scope.addUser = function(u) {
+    $scope.addUser = function (u) {
         var user = {};
-        $http.post($rootScope.serviceBase + "users/email", u).then(function(response) {
+        $http.post($rootScope.serviceBase + "users/email", u).then(function (response) {
             $scope.userClass = response.data;
 
-            $http.post($rootScope.serviceBase + "classroom/student/" + $routeParams.id, $scope.userClass).then(function(response) {
+            $http.post($rootScope.serviceBase + "classroom/student/" + $routeParams.id, $scope.userClass).then(function (response) {
                 $scope.users.push($scope.userClass);
                 $rootScope.showToast($scope.userClass.name + " foi adicionado na sala.");
-            }, function(error) {
+            }, function (error) {
                 $rootScope.showToast("Não foi possível adicionar o usuário :(");
             });
-        }, function(error) {
+        }, function (error) {
             $rootScope.showToast("Não foi possível encontrar o usuário :(");
         });
     };
@@ -103,18 +103,18 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
     };
 
 // Delete User in Classroom
-    $scope.deleteUser = function(u) {
+    $scope.deleteUser = function (u) {
         var user = {};
-        $http.post($rootScope.serviceBase + "users/email", u).then(function(response) {
+        $http.post($rootScope.serviceBase + "users/email", u).then(function (response) {
             $scope.userClass = response.data;
 
-            $http.delete($rootScope.serviceBase + "classroom/delete/student/" + $scope.userClass.id + "/" + $routeParams.id ).then(function(response) {
+            $http.delete($rootScope.serviceBase + "classroom/delete/student/" + $scope.userClass.id + "/" + $routeParams.id).then(function (response) {
                 $scope.users = response.data.students;
                 $rootScope.showToast($scope.userClass.name + " foi excluído da sala.");
-            }, function(error) {
+            }, function (error) {
                 $rootScope.showToast("Não foi possível excluir o usuário :(");
             });
-        }, function(error) {
+        }, function (error) {
             $rootScope.showToast("Não foi possível encontrar o usuário :(");
         });
     };
@@ -125,12 +125,16 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
     };
 
 // Maçã
-    $scope.addApple = function(teacher) {
+    $scope.addApple = function (teacher) {
         var apple = {};
         apple.teacher = teacher;
         apple.student = $rootScope.userAuthenticated;
         $http.post($rootScope.serviceBase + "apples", apple).then(function (response) {
-        getNumberApples(teacher);
+            getNumberApples(teacher);
+
+            $http.put($rootScope.serviceBase + 'users/assign/punctuation/10', teacher).then(function (response) {
+                teacher = response.data;
+            });
         })
     };
 
@@ -142,7 +146,7 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
     }
     getAllCategories();
 
-    $scope.categorySelected = function(category) {
+    $scope.categorySelected = function (category) {
         $scope.selected = category.id;
         $scope.listTasks(category);
     };
@@ -151,14 +155,17 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
     $scope.listTasks = function (category) {
         $http.get($rootScope.serviceBase + "tasks/task-category/" + category.id).then(function (response) {
             $scope.tasks = response.data;
-            for (var i=0; i<$scope.tasks.length; i++) {
+            for (var i = 0; i < $scope.tasks.length; i++) {
                 getAnsweredTask($scope.tasks[i]);
             }
         });
     }
-    
+
     var getAnsweredTask = function (task) {
-        $http.post($rootScope.serviceBase + "tasks/answered/find", {user: $rootScope.userAuthenticated, task: task}).then(function (response) {
+        $http.post($rootScope.serviceBase + "tasks/answered/find", {
+            user: $rootScope.userAuthenticated,
+            task: task
+        }).then(function (response) {
             task.answered = response.data;
         });
     }
@@ -190,12 +197,17 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
     $scope.cancelEdit = function (room) {
         $location.path('/rooms/' + room);
     }
-    
+
 // Editar sala 
     $scope.editRoom = function (room) {
         $http.put($rootScope.serviceBase + "classroom/", room).then(function (response) {
-            $rootScope.showToast(response.data.name  + " alterada com sucesso.");
+            $rootScope.showToast(response.data.name + " alterada com sucesso.");
             $location.path("/rooms");
         });
     }
+
+// Atualizaçao da pagina
+    window.setInterval(function () {
+        getAllCategories();
+    }, 3000);
 });
