@@ -23,9 +23,12 @@
                     </md-input-container>
                 </div>
                 <div layout="row">
-                    <div flex-gt-xs>
-                        <md-datepicker ng-model="task.closingDate" md-placeholder="Data encerramento"></md-datepicker>
-                    </div>
+                    <md-input-container style="width: 100%;">
+                        <div flex-gt-xs>
+                            <md-datepicker ng-model="task.closingDate" md-placeholder="Data encerramento"
+                                           format="dd-MM-yyyy"></md-datepicker>
+                        </div>
+                    </md-input-container>
                 </div>
             </md-card-content>
             <md-divider></md-divider>
@@ -33,80 +36,49 @@
                 <p style="font-weight:bold;margin-bottom:0;" class="fa-gray">Alternativas</p>
             </md-card-content>
             <md-divider></md-divider>
+
             <md-card-content>
-                <div layout="row">
-                    <md-input-container flex>
-                        <label>Descrição</label>
-                        <textarea ng-model="options[0].description" required columns="15" md-maxlength="150"></textarea>
-                    </md-input-container>
-                    <div style="margin-top: 30px;">
-                        <md-checkbox ng-model="options[0].correct"
-                                     aria-label="checkbox correto"
-                        >
-                            Alternativa correta
-                        </md-checkbox>
+                <md-radio-group ng-model="correct">
+                    <div layout="row">
+                        <md-radio-button ng-value="0" class="md-primary" style="float:left;" aria-label="Alternativa 1"></md-radio-button>
+                        <md-input-container style="float:left;" md-no-float flex>
+                            <input ng-model="options[0].description" placeholder="Alternativa 1">
+                        </md-input-container>
                     </div>
-                </div>
-                <div layout="row">
-                    <md-input-container flex>
-                        <label>Descrição</label>
-                        <textarea ng-model="options[1].description" required columns="15" md-maxlength="150"></textarea>
-                    </md-input-container>
-                    <div style="margin-top: 30px;">
-                        <md-checkbox ng-model="options[1].correct"
-                                     aria-label="checkbox correto"
-                        >
-                            Alternativa correta
-                        </md-checkbox>
+                    <div layout="row">
+                        <md-radio-button ng-value="1" class="md-primary" style="float:left;" aria-label="Alternativa 2"></md-radio-button>
+                        <md-input-container style="float:left;" md-no-float flex>
+                            <input ng-model="options[1].description" placeholder="Alternativa 2">
+                        </md-input-container>
                     </div>
-                </div>
-                <div layout="row">
-                    <md-input-container flex>
-                        <label>Descrição</label>
-                        <textarea ng-model="options[2].description" required columns="15" md-maxlength="150"></textarea>
-                    </md-input-container>
-                    <div style="margin-top: 30px;">
-                        <md-checkbox ng-model="options[2].correct"
-                                     aria-label="checkbox correto"
-                        >
-                            Alternativa correta
-                        </md-checkbox>
+                    <div layout="row">
+                        <md-radio-button ng-value="2" class="md-primary" style="float:left;" aria-label="Alternativa 3"></md-radio-button>
+                        <md-input-container style="float:left;" md-no-float flex>
+                            <input ng-model="options[2].description" placeholder="Alternativa 3">
+                        </md-input-container>
                     </div>
-                </div>
-                <div layout="row">
-                    <md-input-container flex>
-                        <label>Descrição</label>
-                        <textarea ng-model="options[3].description" required columns="15" md-maxlength="150"></textarea>
-                    </md-input-container>
-                    <div style="margin-top: 30px;">
-                        <md-checkbox ng-model="options[3].correct"
-                                     aria-label="checkbox correto"
-                        >
-                            Alternativa correta
-                        </md-checkbox>
+                    <div layout="row">
+                        <md-radio-button ng-value="3" class="md-primary" style="float:left;" aria-label="Alternativa 4"></md-radio-button>
+                        <md-input-container style="float:left;" md-no-float flex>
+                            <input ng-model="options[3].description" placeholder="Alternativa 3">
+                        </md-input-container>
                     </div>
-                </div>
-                <div layout="row">
-                    <md-input-container flex>
-                        <label>Descrição</label>
-                        <textarea ng-model="options[4].description" required columns="15" md-maxlength="150"></textarea>
-                    </md-input-container>
-                    <div style="margin-top: 30px;">
-                        <md-checkbox ng-model="options[4].correct"
-                                     aria-label="checkbox correto"
-                        >
-                            Alternativa correta
-                        </md-checkbox>
+                    <div layout="row">
+                        <md-radio-button ng-value="4" class="md-primary" style="float:left;" aria-label="Alternativa 5"></md-radio-button>
+                        <md-input-container style="float:left;" md-no-float flex>
+                            <input ng-model="options[4].description" placeholder="Alternativa 5">
+                        </md-input-container>
                     </div>
-                </div>
+                </md-radio-group>
             </md-card-content>
+
             <md-card-footer>
                 <div layout="row" class="float-right">
                     <md-button class="md-raised md-primary" ng-click="cancelEdit(task.taskCategory.classRoom.id);">
                         <i class="fa fa-times" aria-hidden="true"></i>
                         cancelar
                     </md-button>
-                    <md-button class="md-raised md-accent" ng-click="edit(task, options);">
+                    <md-button class="md-raised md-accent" ng-click="edit(task, options, correct);">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         salvar
                     </md-button>
