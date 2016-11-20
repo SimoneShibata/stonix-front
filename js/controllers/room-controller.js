@@ -109,8 +109,13 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
             $scope.userClass = response.data;
 
             $http.delete($rootScope.serviceBase + "classroom/delete/student/" + $scope.userClass.id + "/" + $routeParams.id).then(function (response) {
-                $scope.users = response.data.students;
-                $rootScope.showToast($scope.userClass.name + " foi excluído da sala.");
+                if ($scope.userClass.id == $rootScope.userAuthenticated.id) {
+                    $rootScope.showToast("Você saiu da sala " + $scope.room.name);
+                    $location.path('/rooms');
+                } else {
+                    $scope.users = response.data.students;
+                    $rootScope.showToast($scope.userClass.name + " foi excluído da sala.");
+                }
             }, function (error) {
                 $rootScope.showToast("Não foi possível excluir o usuário :(");
             });
@@ -133,7 +138,7 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
             getNumberApples(teacher);
 
             $http.put($rootScope.serviceBase + 'users/assign/punctuation/10', teacher).then(function (response) {
-                teacher = response.data;
+                $scope.room.teacher = response.data;
             });
         })
     };
