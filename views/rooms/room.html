@@ -90,6 +90,17 @@
                 <md-tab label="Integrantes">
                     <md-content>
                         <div class="content">
+
+
+                            <md-button class="md-raised"
+                                       style="background-color: #ab1d18; color: #fff; padding: 0px 20px;"
+                                       aria-label="sair da sala" ng-click="deleteUser(userAuthenticated);"
+                                       title="Sair da sala."
+                                       ng-show="userAuthenticated.id != room.teacher.id">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                Sair da sala
+                            </md-button>
+
                             <md-card ng-show="userAuthenticated.id == room.teacher.id">
                                 <md-card-content>
                                     <div layout="row">
@@ -142,10 +153,13 @@
                                                 <div flex="30">
                                                     <p>{{ u.name }}</p>
                                                 </div>
+                                                <div flex="30">
+                                                    <p>{{ u.email }}</p>
+                                                </div>
                                                 <div flex="20">
                                                     <p>Level {{ u.level }}</p>
                                                 </div>
-                                                <div flex="30">
+                                                <div flex="20">
                                                     <p>{{ u.punctuation }} reputação</p>
                                                 </div>
                                                 <div flex="10">
@@ -174,7 +188,7 @@
 
                                                 <img title="Presentear com maçã"
                                                      ng-src="../../img/apple.png" class="icon-apple"
-                                                     ng-click="addApple(room.teacher)"/>
+                                                     ng-click="addApple(room.teacher)" ng-show="userAuthenticated.id != room.teacher.id"/>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                             </md-list-item>
                                         </md-card-content>
