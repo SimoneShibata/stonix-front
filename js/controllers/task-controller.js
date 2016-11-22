@@ -129,8 +129,15 @@ app.controller('TaskController', function ($scope, $http, $rootScope, $routePara
         for (var i=0; i < $scope.options.length; i++) {
             if ($scope.options[i].id == taskAnswered.taskOption.id) {
                 $scope.choice = $scope.options[i].id;
-                $scope.correct = $scope.options[i].id;
                 $scope.task.answered = true;
+                console.log('respondido');
+            }
+            if ($scope.options[i].correct && $scope.options[i].id == taskAnswered.taskOption.id) {
+                console.log('correto');
+                $scope.task.answeredCorrect = true;
+            } else {
+                console.log('errado');
+                $scope.task.answeredCorrect = false;
             }
         }
     }

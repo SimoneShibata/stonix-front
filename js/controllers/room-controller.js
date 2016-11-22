@@ -167,12 +167,32 @@ app.controller('RoomController', function ($scope, $http, $rootScope, $location,
     }
 
     var getAnsweredTask = function (task) {
+        
         var taskAnswered = {
             user: $rootScope.userAuthenticated,
             task: task
         };
+
         $http.post($rootScope.serviceBase + "tasks/answered/find", taskAnswered).then(function (response) {
-            task.answered = response.data;
+            if (response.data == false) {
+                task.answered = false;
+            } else {
+                var taskResponse = response.data;
+                task.answered = true;
+                
+                $http.get($rootScope.serviceBase + "tasks/options/list/" + taskResponse.task.id).then(function(response){
+                    for (var i=0; i < response.data.length; i++) {
+                        if (response.data[i].correct && response.data[i].id == taskResponse.taskOption.id) {
+                            task.answeredCorrect = true;
+                        } 
+                        if (response.data[i].correct && response.data[i].id != taskResponse.taskOption.id) {
+                            task.answeredCorrect = false;
+                        }
+                    }
+                });
+            }
+
+            
         });
     }
 

@@ -51,6 +51,8 @@
                                                 <i ng-show="task.answered" class="fa fa-file-text fa-gray button-category"
                                                    aria-hidden="true"></i>
                                                 <span ng-show="task.answered"> Respondido </span>
+                                                <i ng-show="task.answered && task.answeredCorrect" class="fa fa-check like-blue button-category" aria-hidden="true"></i>
+                                                <i ng-show="task.answered && !task.answeredCorrect" class="fa fa-times flaged  button-category" aria-hidden="true"></i>
                                                 <i ng-show="userAuthenticated.id != room.teacher.id && !task.answered"
                                                    class="fa fa-mail-forward fa-gray button-category"
                                                    aria-hidden="true"></i>

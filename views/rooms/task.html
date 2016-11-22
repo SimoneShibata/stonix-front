@@ -14,6 +14,16 @@
                     {{ task.description }}
                 </p>
             </md-card-content>
+            <md-card-content ng-show="task.answered">
+                <p style="margin-bottom:0;" class="fa-gray" ng-show="task.answered && task.answeredCorrect">
+                    <i class="fa fa-check like-blue" aria-hidden="true"></i>
+                    Parabéns, você acertou!
+                </p>
+                <p style="margin-bottom:0;" class="fa-gray" ng-show="task.answered && !task.answeredCorrect">
+                    <i class="fa fa-times flaged" aria-hidden="true"></i>
+                    Você errou :( Aprofunde mais neste tema
+                </p>
+            </md-card-content>
             <md-divider></md-divider>
             <md-card-content>
                 <form>
